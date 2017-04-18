@@ -141,7 +141,7 @@ body { background-color: #364150; font-size: 14px;}
 /* header-> right */
 .head-tools-box { float: right; }
 .head-tools { float: right; }
-.head-tools li { float: left; }
+.head-tools>li { float: left; }
 .head-tools a.dropdown-toggler { display: block; line-height: 50px; padding: 0 16px; font-size: 17px; color: #79869a; position: relative;}
 .head-tools a.dropdown-toggler:hover { background-color: #3f4f62; }
 .head-tools a.dropdown-toggler span.avatar { display: inline-block; vertical-align: middle; width: 30px; height: 30px; border-radius: 15px; overflow: hidden; }
@@ -154,7 +154,7 @@ body { background-color: #364150; font-size: 14px;}
 /*==================================
               Sidebar
  =================================*/
- .sidebar-box { position: absolute; left: 0 top: 50px; z-index: 2; width: 235px; background-color: #364150; }
+ .sidebar-box { position: absolute; left: 0; top: 50px; z-index: 2; width: 235px; background-color: #364150; }
 /* navigate */
 .navigate { margin-top: 40px; }
 .navigate li.nav-item { border-bottom: 1px solid #3d4957; }

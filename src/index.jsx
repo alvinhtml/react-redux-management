@@ -6,6 +6,12 @@ import {Provider} from 'react-redux'
 import {Router, browserHistory} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 
+//引入样式文件
+// import './less/miniui.less'
+// import './css/style.css'
+
+
+
 //引入store配置
 import finalCreateStore from './stores/configureStore'
 

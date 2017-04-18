@@ -27,32 +27,38 @@ export class Header extends Component {
 	                <ul className="head-tools">
 	                    <li className="dropdown">
 	                        <a className="dropdown-toggler"><i className="icon-bell"></i><span className="badge teal">6</span></a>
-	                        <div className="dropdown-main">
+	                        <div className="dropdown-main dropdown-menu dropdown-dark">
 	                            <ul>
-	                                <li></li>
+	                                <li>menu 1</li>
+	                                <li>menu 2</li>
 	                            </ul>
 	                        </div>
 	                    </li>
 	                    <li className="dropdown">
 	                        <a className="dropdown-toggler"><i className="icon-envelope-open"></i><span className="badge red">27</span></a>
-	                        <div className="dropdown-main">
+	                        <div className="dropdown-main dropdown-menu">
 	                            <ul>
-	                                <li></li>
+									<li>menu 1</li>
+	                                <li>menu 2</li>
 	                            </ul>
 	                        </div>
 	                    </li>
 	                    <li className="dropdown">
 	                        <a className="dropdown-toggler"><i className="icon-calendar"></i><span className="badge green">3</span></a>
-	                        <div className="dropdown-main">
+	                        <div className="dropdown-main dropdown-menu">
 	                            <ul>
-	                                <li></li>
+									<li>menu 1</li>
+	                                <li>menu 2</li>
 	                            </ul>
 	                        </div>
 	                    </li>
 	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><span className="avatar"><img src="/dist/images/admin.png" /></span> Admin</a>
-	                        <div className="dropdown-main">
-
+	                        <a className="dropdown-toggler"><span className="avatar"><img src="/public/images/admin.png" /></span> Admin</a>
+	                        <div className="dropdown-main dropdown-menu">
+								<ul>
+									<li>menu 1</li>
+	                                <li>menu 2</li>
+	                            </ul>
 	                        </div>
 	                    </li>
 	                </ul>
