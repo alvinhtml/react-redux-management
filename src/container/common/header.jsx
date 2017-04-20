@@ -12,11 +12,16 @@ import {
 	connect
 } from 'react-redux';
 
+//引入下拉菜单组件
+import {Dropdown, Dropmenu} from '../../components/dropdown'
 
 
-export class Header extends Component {
+class Header extends Component {
 
 	render () {
+
+		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin} = this.props
+
         return (
             <div className="header">
 	            <div className="logo-box">
@@ -25,40 +30,25 @@ export class Header extends Component {
 	            </div>
 	            <div className="head-tools-box">
 	                <ul className="head-tools">
-	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><i className="icon-bell"></i><span className="badge teal">6</span></a>
-	                        <div className="dropdown-main dropdown-menu dropdown-dark">
-	                            <ul>
-	                                <li>menu 1</li>
-	                                <li>menu 2</li>
-	                            </ul>
-	                        </div>
+	                    <li>
+							<Dropdown icon="icon-bell" badge="6" badgeColor="teal">
+								<Dropmenu options={reminds} clickEvent={remindClickEvent} />
+							</Dropdown>
 	                    </li>
 	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><i className="icon-envelope-open"></i><span className="badge red">27</span></a>
-	                        <div className="dropdown-main dropdown-menu">
-	                            <ul>
-									<li>menu 1</li>
-	                                <li>menu 2</li>
-	                            </ul>
-	                        </div>
+	                        <Dropdown icon="icon-envelope-open" badge="27" badgeColor="red">
+								<Dropmenu options={messages} clickEvent={messagesClickEvent} />
+							</Dropdown>
 	                    </li>
 	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><i className="icon-calendar"></i><span className="badge green">3</span></a>
-	                        <div className="dropdown-main dropdown-menu">
-	                            <ul>
-									<li>menu 1</li>
-	                                <li>menu 2</li>
-	                            </ul>
-	                        </div>
+							<Dropdown icon="icon-calendar" badge="3" badgeColor="green">
+								<Dropmenu options={tasks} clickEvent={tasksClickEvent} />
+							</Dropdown>
 	                    </li>
 	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><span className="avatar"><img src="/public/images/admin.png" /></span> Admin</a>
-	                        <div className="dropdown-main dropdown-menu">
-								<ul>
-									<li>menu 1</li>
-	                                <li>menu 2</li>
-	                            </ul>
+	                        <a className="dropdown-toggler"><span className="avatar"><img src={admin.avatar} /></span> {admin.name}</a>
+	                        <div className="dropdown-main dropdown-menu dropdown-right">
+								<Dropmenu options={adminActions} clickEvent={adminActionsClickEvent} />
 	                        </div>
 	                    </li>
 	                </ul>
@@ -68,3 +58,28 @@ export class Header extends Component {
     }
 
 }
+
+
+
+
+export const VisibleHeader = connect(
+	(state) => {
+		return state.header
+	},
+	(dispatch, ownProps) => {
+		return {
+			remindClickEvent: (value) => {
+				console.log("header remind click event",value)
+			},
+			messagesClickEvent: (value) => {
+				console.log("header message click event",value)
+			},
+			tasksClickEvent: (value) => {
+				console.log("header tasks click event",value)
+			},
+			adminActionsClickEvent: (value) => {
+				console.log("header admin click event",value)
+			}
+		};
+	}
+)(Header)

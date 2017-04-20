@@ -6,7 +6,7 @@ import {createStore} from 'redux'
 
 import {connect} from 'react-redux'
 
-import {Header} from './common/header'
+import {VisibleHeader} from './common/header'
 import {Sidebar} from './common/sidebar'
 import {VisibleLogin} from './admin/login'
 
@@ -17,8 +17,8 @@ class Application extends Component {
         if (this.props.logined) {
             return (
                 <div className="manage">
-                    <Header/>
-                    <Sidebar/>
+                    <VisibleHeader />
+                    <Sidebar />
 					{this.props.children}
                 </div>
             );

@@ -31,18 +31,18 @@ body { background-color: #364150; font-size: 14px;}
 .dropdown:hover .dropdown-main { display: block; padding-top: 8px; z-index:999; }
 .dropdown-main ul { border:1px solid #eee; box-shadow: 5px 5px rgba(102, 102, 102, 0.1); background: #fff;}
 .dropdown-main ul li a,
-.ul-option li { padding:7px 16px;  box-sizing:border-box; color: #6e6e6e; white-space: nowrap; display: block; height: 34px; line-height: 20px;}
 .dropdown-main ul li a:hover,
-.ul-option li:hover { background: #f6f6f6; }
 .dropdown-main ul li a > i,
-.ul-option li > i { margin-right: 12px;}
 .dropdown-main::after { border-bottom: 7px solid #fff;border-left: 7px solid transparent;border-right: 7px solid transparent;content: "";display: inline-block;left: 15px;position: absolute;right: auto;top: 2px;}
 .dropdown-main::before {border-bottom: 8px solid #e0e0e0;border-left: 8px solid transparent;border-right: 8px solid transparent;content: "";display: inline-block;left: 14px;position: absolute;right: auto;top: 1px; }
 
 .dropdown-main ul ul { display: none; position: absolute; right: -152px; width: 152px; background: #fff; top: 0; z-index: 9;}
 .dropdown-main li:hover ul { display:block;}
-.ul-option { width: 172px; }
-.dropdown-menu li { box-sizing:border-box; position: relative; cursor: default;}
+
+.dropdown-menu li { box-sizing:border-box; position: relative; cursor: default; min-width: 172px;}
+.dropdown-menu li > i { margin-right: 12px;}
+.dropdown-menu li:hover { background: #f6f6f6; }
+.dropdown-menu li { padding:7px 16px;  box-sizing:border-box; color: #6e6e6e; white-space: nowrap; display: block; height: 34px; line-height: 20px;}
 .dropdown-menu li.divider { height: 0; padding: 0; margin: 7px; border-top: 1px solid #f1f3f6; }
 .dropdown-menu span.arrow { position: absolute; right: 16px; top: 7px; }
 .dropdown-menu span.badge { position: absolute; right: 16px; top: 7px; border-radius: 10px; font-family: "Open Sans",sans-serif; min-width: 18px; height: 18px; padding: 0; line-height: 18px; font-size: 10px;}
@@ -142,11 +142,11 @@ body { background-color: #364150; font-size: 14px;}
 .head-tools-box { float: right; }
 .head-tools { float: right; }
 .head-tools>li { float: left; }
-.head-tools a.dropdown-toggler { display: block; line-height: 50px; padding: 0 16px; font-size: 17px; color: #79869a; position: relative;}
-.head-tools a.dropdown-toggler:hover { background-color: #3f4f62; }
-.head-tools a.dropdown-toggler span.avatar { display: inline-block; vertical-align: middle; width: 30px; height: 30px; border-radius: 15px; overflow: hidden; }
+.head-tools .dropdown-toggler { display: block; line-height: 50px; padding: 0 16px; font-size: 17px; color: #79869a; position: relative;}
+.head-tools .dropdown-toggler:hover { background-color: #3f4f62; }
+.head-tools .dropdown-toggler span.avatar { display: inline-block; vertical-align: middle; width: 30px; height: 30px; border-radius: 15px; overflow: hidden; }
 .avatar img { width: 30px;}
-.head-tools a.dropdown-toggler .badge { position: absolute; right: 25px; top: 10px; font-size: 12px; }
+.head-tools .dropdown-toggler .badge { position: absolute; right: 25px; top: 10px; font-size: 12px; }
 
 
 
@@ -228,7 +228,7 @@ li.open .nav-link .arrow {
 
 /* olist -> tools */
 .olist-tool { display: block; float: left; height: 36px; position: relative;}
-a.olist-tool,.olist-tool>a.dropdown-toggle { display: block; min-width: 36px; text-align: center; height: 36px; line-height: 36px; cursor: pointer; vertical-align: middle; color: #fff;}
+a.olist-tool,.olist-tool>.dropdown-toggle { display: block; min-width: 36px; text-align: center; height: 36px; line-height: 36px; cursor: pointer; vertical-align: middle; color: #fff;}
 .olist-tool h4 { font-size: 16px; margin-top: 0;}
 .olist-header-l .olist-tool { margin-right: 10px;}
 .olist-header-r .olist-tool { margin-left: 10px;}

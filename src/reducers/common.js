@@ -5,7 +5,7 @@ import {
 
 
 //初始化状态
-let commonState = {
+const commonInitialState = {
     logined: 0,
     isFetching: 0,
     error: 0,
@@ -15,7 +15,7 @@ let commonState = {
     message: ''
 }
 
-export function common(state = commonState, action) {
+export function common(state = commonInitialState, action) {
 
     //根据不同的action type进行state的更新
     switch (action.type) {

@@ -1,0 +1,74 @@
+//引入action类型常量名
+import {
+    POST_LOGIN,
+    POST_LOGOUT
+} from '../constants'
+
+
+//初始化状态
+const headerInitialState = {
+    reminds: [
+        {
+            text: '消息提醒1'
+        },{
+            text: '消息提醒2'
+        },{
+            text: '消息提醒3'
+        },{
+            text: '消息提醒4'
+        }
+    ],
+    messages: [
+        {
+            text: '邮件提醒1'
+        },{
+            text: '邮件提醒2'
+        },{
+            text: '邮件提醒3'
+        },{
+            text: '邮件提醒4'
+        }
+    ],
+    tasks: [
+        {
+            text: '待办事项1'
+        },{
+            text: '待办事项2'
+        },{
+            text: '待办事项3'
+        },{
+            text: '待办事项4'
+        }
+    ],
+    admin: {
+        avatar: '/public/images/admin.png',
+        name: 'alvinhtml@gmail.com'
+    },
+    adminActions: [
+        {
+            text: '个人中心',
+            link: '/api/admin/logout'
+        },{
+            text: '管理员列表',
+            link: '/api/admin/logout'
+        },{
+            text: '修改密码',
+            link: '/api/admin/logout'
+        },{
+            text: '退出登录',
+            link: '/api/admin/logout'
+        }
+    ]
+}
+
+export function header(state = headerInitialState, action) {
+
+    //根据不同的action type进行state的更新
+    switch (action.type) {
+        case POST_LOGOUT:
+            //这里的 state 实际上是 state.header, 我想修改 state.common
+            return {...state, ...action.payload}
+        default:
+            return { ...state }
+    }
+}
