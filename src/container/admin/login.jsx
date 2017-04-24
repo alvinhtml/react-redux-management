@@ -15,12 +15,6 @@ import {
 //引入Action创建函数
 import {loginFetch} from '../../actions/actions'
 
-//引入action类型常量名
-import {
-    REQUESTPOST,
-    RECEIVEPOST
-} from '../../constants'
-
 
 class Login extends Component {
 	render() {

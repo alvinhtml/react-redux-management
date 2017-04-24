@@ -20,3 +20,7 @@ export const RECEIVEGET = 'RECEIVEGET'
 //login
 export const POST_LOGIN = 'POST_LOGIN'
 export const POST_LOGOUT = 'POST_LOGOUT'
+
+//admin list
+export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
+export const SET_ADMIN_CONFIG = 'SET_ADMIN_CONFIG'

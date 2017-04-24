@@ -82,3 +82,33 @@ export class Dropdown extends Component {
 		)
 	}
 }
+
+export class Droptool extends Component {
+	constructor(props) {
+		super(props)
+
+		//设置 initial state
+		this.state = {
+			opened: false
+		}
+
+		//ES6 类中函数必须手动绑定
+		this.handleClick = this.handleClick.bind(this)
+	}
+	handleClick(event) {
+		this.setState({
+			opened: !this.state.opened
+		})
+	}
+	render() {
+		const {icon} = this.props
+		return (
+			<div className={this.state.opened ? 'dropdown open' : 'dropdown'}>
+				<div className="dropdown-toggler" onClick={this.handleClick}><i className={icon}></i> &nbsp; <i className="fa fa-angle-down"></i></div>
+				<div className="dropdown-main dropdown-menu">
+					{this.props.children}
+				</div>
+			</div>
+		)
+	}
+}

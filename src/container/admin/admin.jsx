@@ -12,26 +12,72 @@ import {
 	connect
 } from 'react-redux';
 
+//引入Action创建函数
+import {loginFetch} from '../../actions/actions'
+
+//引入下拉菜单组件
+import {Dropmenu, Droptool} from '../../components/dropdown'
+
+//引入组件
+import {Pagelist, Listsearch, Listconf} from '../../components/common'
 
 
-export class AdminList extends Component {
-	//注意，组件内部也可能有时候会暴露事件给外部调用，和参数传递的原理一样
+class AdminList extends Component {
 	render() {
-		const {
-			list,
-			config
-		} = this.props
-		
-		return ()
-	}
+		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
+		return (
+			<div className="min-box">
+				<div className="page-bar clear">
+	                <div className="page-bar-left">管理员列表</div>
+	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
+	            </div>
+				<div className="list-box">
+					<div id="listHeader" className="olist-header clear">
+                        <div className="olist-header-l">
+                            <Droptool icon="icon-wrench">
+								<Dropmenu options={dropTools} clickEvent={toolsClickEvent} />
+                            </Droptool>
+                            <Listsearch search="search..." searchMode={listConfig.searchMode} setSearchMode={setSearchMode} />
+                        </div>
+                        <div className="olist-header-r">
+                            <Link data-content="刷新" to="/admin/list"  className="olist-tool bg-teal ititle"><i className="icon-refresh"></i></Link>
+                            <Link data-content="新建" to="/admin/form" className="olist-tool bg-teal ititle"><i className="icon-plus"></i></Link>
+                            <Listconf column={listConfig.column} limit={listConfig.limit}  />
+                        </div>
+                    </div>
+					<div id="listTable" className="olist-main">
+                        <table className="olist-table" id="olist_table">
+                            <thead id="listThead">
+                                <tr>
+                                    <th className="row-checkbox"><input type="checkbox" onChange={} ref="ival_checkbox_all" /></th>
 
-	//严格来说，这些暴露给外部的参数都需要做验证,常用的验证类型为array，bool，func，number，object，string
-	static propTypes = {
-		title: React.PropTypes.string.isRequired
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listTbody" className="olist-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+					<Pagelist count={parseInt(count)} limit={parseInt(listConf.limit)} page={parseInt(page)}  />
+				</div>
+            </div>
+		)
 	}
 }
 
-export {
-	AdminList,
-	AdminForm
-}
+export const Admin = connect(
+	(state) => {
+		return state.adminlist
+	},
+	(dispatch, ownProps) => {
+		return {
+			getList: (o) => {
+				//dispatch(loginFetch({email, password},'/common'))
+			},
+			toolsClickEvent: (v) => {
+
+			}
+		};
+	}
+)(AdminList)

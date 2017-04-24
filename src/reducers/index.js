@@ -8,6 +8,7 @@ import { routerReducer } from 'react-router-redux'
 import {common} from './common'
 import {header} from './header'
 import {list} from './list'
+import {adminlist} from './adminlist'
 
 
 
@@ -19,6 +20,7 @@ export default combineReducers({
 	list,
 	common, //登录相关
 	header, //头部相关
+	adminlist, //管理员列表
 
     routing: routerReducer
 })

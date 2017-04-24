@@ -5,10 +5,6 @@ import {
 } from 'react-router';
 
 import {
-	createStore
-} from 'redux';
-
-import {
 	connect
 } from 'react-redux';
 
