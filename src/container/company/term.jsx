@@ -34,7 +34,7 @@ class Termlist extends Component {
 					<div id="olist_header" className="olist-header clear">
                         <div className="olist-header-l">
                             <Listaction>
-
+								
                             </Listaction>
                             <Listsearch />
                         </div>

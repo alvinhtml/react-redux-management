@@ -22,7 +22,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 import {Pagelist, Listsearch, Listconf} from '../../components/common'
 
 
-class AdminList extends Component {
+class AdminList_ui extends Component {
 	render() {
 		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
 		return (
@@ -66,7 +66,22 @@ class AdminList extends Component {
 	}
 }
 
-export const Admin = connect(
+class AdminForm_ui extends Component {
+	render() {
+		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
+		return (
+			<div className="min-box">
+				<div className="page-bar clear">
+	                <div className="page-bar-left">新增管理员</div>
+	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
+	            </div>
+
+            </div>
+		)
+	}
+}
+
+export const AdminList = connect(
 	(state) => {
 		return state.adminlist
 	},
@@ -80,4 +95,18 @@ export const Admin = connect(
 			}
 		};
 	}
-)(AdminList)
+)(AdminList_ui)
+
+
+export const AdminForm = connect(
+	(state) => {
+		return state.adminlist
+	},
+	(dispatch, ownProps) => {
+		return {
+			submit: (o) => {
+				//dispatch(loginFetch({email, password},'/common'))
+			}
+		};
+	}
+)(AdminForm_ui)

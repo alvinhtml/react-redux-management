@@ -199,3 +199,31 @@ export class Listconf extends Component {
         )
 	}
 }
+
+/**
+ * 列表头部
+ * @type {Array}
+ */
+export class Listheader extends Component {
+
+	render() {
+
+		const {column, limit, changeLimitEvent, changeColumnEvent} = this.props
+
+		const limitArray = [10,20,30,50,100,200]
+
+		let limits = limitArray.map((v, i) => {
+			return (
+            )
+		})
+
+		let columns = column.map((v, i) => {
+			return (
+			)
+		})
+
+		return (
+			<thead></thead>
+        )
+	}
+}
