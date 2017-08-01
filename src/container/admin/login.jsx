@@ -16,13 +16,13 @@ import {
 import {loginFetch} from '../../actions/actions'
 
 
-class Login extends Component {
+class LoginUI extends Component {
 	render() {
 
 		const {logo, logoname, logined, version, error, message, onSubmit, onKeyPress} = this.props
 
 		let emailInput, passwordInput
-
+		
 		return (
 			<div className="container">
                 <div className="login">
@@ -46,7 +46,7 @@ class Login extends Component {
 	}
 }
 
-export const VisibleLogin = connect(
+export const Login = connect(
 	(state) => {
 		return state.common
 	},
@@ -62,4 +62,4 @@ export const VisibleLogin = connect(
 			}
 		};
 	}
-)(Login)
+)(LoginUI)

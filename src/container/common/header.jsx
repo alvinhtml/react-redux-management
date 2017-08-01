@@ -12,11 +12,16 @@ import {
 import {Dropdown, Dropmenu} from '../../components/dropdown'
 
 
-class Header extends Component {
+class HeaderUI extends Component {
 
 	render () {
 
-		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin} = this.props
+		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin, common} = this.props
+			console.log("8.1", common);
+
+		if(common.logined !== true){
+			this.context.router.push("/")
+		}
 
         return (
             <div className="header">
@@ -58,9 +63,10 @@ class Header extends Component {
 
 
 
-export const VisibleHeader = connect(
+export const Header = connect(
 	(state) => {
-		return state.header
+		state.header.common = state.common;
+		return state.header;
 	},
 	(dispatch, ownProps) => {
 		return {
@@ -78,4 +84,4 @@ export const VisibleHeader = connect(
 			}
 		};
 	}
-)(Header)
+)(HeaderUI)

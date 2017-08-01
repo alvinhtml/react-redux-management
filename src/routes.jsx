@@ -5,14 +5,14 @@ import {Route, IndexRoute} from 'react-router'
 import {WebApplication} from './container/webapplication'
 import {VisibleLogin} from './container/admin/login'
 import {Home} from './container/home/home'
-import {Term} from './container/company/term'
+import {Adminlist} from './container/company/adminlist'
 
 export default(
     <Route path="/" component={WebApplication}>
         <IndexRoute component={Home} />
         <Route path="home" component={Home} />
         <Route path="login" component={VisibleLogin} />
-        <Route path="term" component={Term} />
+        <Route path="admin" component={Adminlist} />
         <Route path="*" component={Home} />
     </Route>
 );

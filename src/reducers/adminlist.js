@@ -1,6 +1,6 @@
 //引入action类型常量名
 import {
-    POST_LOGIN
+    GET_ADMIN_LIST
 } from '../constants'
 
 
@@ -9,7 +9,7 @@ const adminlistInitialState = {
     isFetching: 0,
     error: 0,
     message: '',
-    dropTools: [
+    listActions: [
         {
             text: '删除',
             icon: 'icon-close'
@@ -26,7 +26,7 @@ const adminlistInitialState = {
     page: 1, //当前页
 
     //列表配置
-    listConfig:{
+    configs:{
         tbname: 'admins',
         limit: 20, //单页显示条数
         searchMode: '精确搜索', //搜索模式

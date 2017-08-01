@@ -17,10 +17,10 @@ import {
     RECEIVEPOST
 } from '../../constants'
 
-import {Pagebar, listActions, ListSearch, ListConfig} from '../../components/common'
+import {Pagebar, ListActioner, ListSearcher, ListConfiger} from '../../components/common'
 
 
-class Termlist extends Component {
+class AdminlistUI extends Component {
 	render() {
 
 		const {logo, logoname, logined, version, error, message, onSubmit, onKeyPress} = this.props
@@ -33,15 +33,16 @@ class Termlist extends Component {
 				<div className="list-box">
 					<div id="olist_header" className="olist-header clear">
                         <div className="olist-header-l">
-                            <Listaction>
-
-                            </Listaction>
-                            <Listsearch />
+                            // <ListActioner>
+							// 	<li data-val="0"><i class="icon-close"></i><span class="itext">删除</span></li>
+		                    //     <li data-val="1"><i class="icon-layers"></i><span class="itext">合并</span></li>
+                            // </ListActioner>
+                            // <ListSearcher />
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="olist-tool bg-teal ititle"><i className="icon-refresh"></i></Link>
                             <Link data-content="新建" to="/admin/form" className="olist-tool bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <OlistConfig />
+                            //<ListConfiger />
                         </div>
                     </div>
 					<div id="OListTable" className="olist-main">
@@ -64,9 +65,9 @@ class Termlist extends Component {
 	}
 }
 
-export const Term = connect(
+export const Adminlist = connect(
 	(state) => {
-		return state.common
+		return state.adminlist
 	},
 	(dispatch, ownProps) => {
 		return {
@@ -80,4 +81,4 @@ export const Term = connect(
 			}
 		};
 	}
-)(Termlist)
+)(AdminlistUI)

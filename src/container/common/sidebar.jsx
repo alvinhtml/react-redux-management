@@ -29,7 +29,7 @@ export class Sidebar extends Component {
 	                    </li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-support"></i><span className="text">入网策略</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-credit-card"></i><span className="text">资产报告</span><span className="arrow"></span></Link></li>
-	                    <li className="nav-item"><Link to="/admin/list" className="nav-link"><i className="icon-user"></i><span className="text">管理员列表</span><span className="arrow"></span></Link></li>
+	                    <li className="nav-item"><Link to="/admin" className="nav-link"><i className="icon-user"></i><span className="text">管理员列表</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-equalizer"></i><span className="text">入网设置</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-settings"></i><span className="text">系统设置</span><span className="arrow"></span></Link></li>
 	                </ul>

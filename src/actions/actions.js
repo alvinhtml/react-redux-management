@@ -9,7 +9,8 @@ import {
     RECEIVEPOST,
     REQUESTGET,
     RECEIVEGET,
-    POST_LOGIN
+    POST_LOGIN,
+    GET_ADMIN_LIST
 } from '../constants'
 
 

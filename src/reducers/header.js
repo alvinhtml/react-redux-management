@@ -41,7 +41,7 @@ const headerInitialState = {
         }
     ],
     admin: {
-        avatar: '/public/images/admin.png',
+        avatar: 'http://laravel.xuehtml.com/public/images/admin.png',
         name: 'alvinhtml@gmail.com'
     },
     adminActions: [

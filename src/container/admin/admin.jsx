@@ -19,12 +19,12 @@ import {loginFetch} from '../../actions/actions'
 import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入组件
-import {Pagelist, Listsearch, Listconf} from '../../components/common'
+import {Pagelist, Listsearcher, Listconfiger, Listheader} from '../../components/common'
 
 
 class AdminList_ui extends Component {
 	render() {
-		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
+		const {dropTools, list, count, configs, page, toolsClickEvent, setSearchMode, orderbyEvent} = this.props
 		return (
 			<div className="min-box">
 				<div className="page-bar clear">
@@ -37,23 +37,17 @@ class AdminList_ui extends Component {
                             <Droptool icon="icon-wrench">
 								<Dropmenu options={dropTools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <Listsearch search="search..." searchMode={listConfig.searchMode} setSearchMode={setSearchMode} />
+                            <Listsearcher search="search..." searchMode={configs.searchMode} setSearchMode={setSearchMode} />
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="olist-tool bg-teal ititle"><i className="icon-refresh"></i></Link>
                             <Link data-content="新建" to="/admin/form" className="olist-tool bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <Listconf column={listConfig.column} limit={listConfig.limit}  />
+                            <Listconfiger column={configs.column} limit={configs.limit}  />
                         </div>
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-                            <thead id="listThead">
-                                <tr>
-                                    <th className="row-checkbox"><input type="checkbox" onChange={} ref="ival_checkbox_all" /></th>
-
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
+                            <Listheader column={configs.column} orderbyEvent={orderbyEvent} />
                             <tbody id="listTbody" className="olist-body">
 
                             </tbody>
@@ -91,7 +85,10 @@ export const AdminList = connect(
 				//dispatch(loginFetch({email, password},'/common'))
 			},
 			toolsClickEvent: (v) => {
-
+				//
+			},
+			orderbyEvent: (v) => {
+				//
 			}
 		};
 	}
