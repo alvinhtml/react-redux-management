@@ -22,7 +22,7 @@ class LoginUI extends Component {
 		const {logo, logoname, logined, version, error, message, onSubmit, onKeyPress} = this.props
 
 		let emailInput, passwordInput
-		
+
 		return (
 			<div className="container">
                 <div className="login">

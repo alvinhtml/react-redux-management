@@ -13,7 +13,7 @@ import {Login} from './admin/login'
 class Application extends Component {
 
     componentWillMount() {
-        
+
     }
 
     render() {
@@ -37,11 +37,11 @@ export const WebApplication = connect((state) => {
     return {logined: state.common.logined}
 }, (dispatch) => {
     return {
-        /*onSubmit: () => {
+        onWillMount: () => {
 				dispatch({
 					type: 'LOGIN',
 					filter: ""
 				});
-		}*/
+		}
     };
 })(Application)
