@@ -16,6 +16,8 @@ export const RECEIVEPOST = 'RECEIVEPOST'
 export const REQUESTGET = 'REQUESTGET'
 export const RECEIVEGET = 'RECEIVEGET'
 
+//common
+export const GET_AUTH_INFO = 'GET_AUTH_INFO'
 
 //login
 export const POST_LOGIN = 'POST_LOGIN'

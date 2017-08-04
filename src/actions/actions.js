@@ -10,10 +10,22 @@ import {
     REQUESTGET,
     RECEIVEGET,
     POST_LOGIN,
+    GET_AUTH_INFO,
     GET_ADMIN_LIST
 } from '../constants'
 
-
+/**
+ * json to url
+ * @param  {[json]} data json
+ * @return {[string]}
+ */
+function formatParams(data) {
+    var arr = [];
+    for (var name in data) {
+        arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+    }
+    return arr.join("&");
+}
 
 /**
  * Action Creators 生成器
@@ -74,7 +86,6 @@ const makePostActionCreator = (type, url, ...argNames) => {
         //判断HTTP请求结果，200-299 表示请求成功
         .then(response => {
             if (response.status >= 200 && response.status < 300) {
-
                 return response
             } else {
                 var error = new Error(response.statusText)
@@ -121,8 +132,11 @@ const makeGetActionCreator = (type, url, ...argNames) => {
             path: path
         });
 
+        //将json参数转为url参数
+        let urlParams = body ? formatParams(body) : '';
+
         //发起fetch请求
-        return fetch(url, {
+        return fetch(url + '?' + urlParams, {
             method: "GET",
             //请求带上cookie
             credentials: 'include',
@@ -136,7 +150,6 @@ const makeGetActionCreator = (type, url, ...argNames) => {
         //判断HTTP请求结果，200-299 表示请求成功
         .then(response => {
             if (response.status >= 200 && response.status < 300) {
-
                 return response
             } else {
                 var error = new Error(response.statusText)
@@ -176,6 +189,6 @@ export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 
 
 
 //获取认证信息
-export const authInfo = make
+export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'path', 'error')
 
 console.log('loginFetch', loginFetch)

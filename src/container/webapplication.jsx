@@ -10,14 +10,16 @@ import {Header} from './common/header'
 import {Sidebar} from './common/sidebar'
 import {Login} from './admin/login'
 
+//引入Action创建函数
+import {authInfo} from '../actions/actions'
+
 class Application extends Component {
 
     componentWillMount() {
-
+        this.props.onWillMount();
     }
 
     render() {
-
         if (this.props.logined) {
             return (
                 <div className="manage">
@@ -38,10 +40,7 @@ export const WebApplication = connect((state) => {
 }, (dispatch) => {
     return {
         onWillMount: () => {
-				dispatch({
-					type: 'LOGIN',
-					filter: ""
-				});
+			dispatch(authInfo('/common'))
 		}
     };
 })(Application)

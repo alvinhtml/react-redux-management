@@ -91,7 +91,7 @@ export class Droptool extends Component {
 		this.state = {
 			opened: false
 		}
-
+		
 		//ES6 类中函数必须手动绑定
 		this.handleClick = this.handleClick.bind(this)
 	}
