@@ -20,6 +20,9 @@ class Application extends Component {
     }
 
     render() {
+
+        console.log("logined::",this.props.logined);
+
         if (this.props.logined) {
             return (
                 <div className="manage">

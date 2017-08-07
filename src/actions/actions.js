@@ -186,6 +186,9 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 
 //发送登录请求
 export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'error')
+//退出登录
+export const logoutFetch = makeGetActionCreator(POST_LOGIN, '/api/admin/logout' , 'path', 'error')
+
 
 
 //获取认证信息

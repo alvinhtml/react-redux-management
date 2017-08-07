@@ -1,6 +1,7 @@
 //引入action类型常量名
 import {
-    POST_LOGIN
+    POST_LOGIN,
+    GET_AUTH_INFO
 } from '../constants'
 
 
@@ -20,6 +21,8 @@ export function common(state = commonInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case POST_LOGIN:
+            return {...state, ...action.payload}
+        case GET_AUTH_INFO:
             return {...state, ...action.payload}
         default:
             return { ...state }

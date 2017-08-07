@@ -12,6 +12,9 @@ import {
 import {Dropdown, Dropmenu} from '../../components/dropdown'
 
 
+//引入Action创建函数
+import {logoutFetch} from '../../actions/actions'
+
 class HeaderUI extends Component {
 
 	render () {
@@ -81,6 +84,13 @@ export const Header = connect(
 			},
 			adminActionsClickEvent: (value) => {
 				console.log("header admin click event",value)
+				switch (value) {
+					case "3":
+						dispatch(logoutFetch('/common'))
+						break;
+					default:
+
+				}
 			}
 		};
 	}
