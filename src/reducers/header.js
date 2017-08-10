@@ -66,7 +66,6 @@ export function header(state = headerInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case POST_LOGOUT:
-            //这里的 state 实际上是 state.header, 我想修改 state.common
             return {...state, ...action.payload}
         default:
             return { ...state }

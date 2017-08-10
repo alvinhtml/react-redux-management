@@ -22,6 +22,8 @@ export function common(state = commonInitialState, action) {
     switch (action.type) {
         case POST_LOGIN:
             return {...state, ...action.payload}
+        case GET_LOGOUT:
+            return {...state, ...action.payload}
         case GET_AUTH_INFO:
             return {...state, ...action.payload}
         default:

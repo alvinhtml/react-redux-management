@@ -21,7 +21,7 @@ export const GET_AUTH_INFO = 'GET_AUTH_INFO'
 
 //login
 export const POST_LOGIN = 'POST_LOGIN'
-export const POST_LOGOUT = 'POST_LOGOUT'
+export const GET_LOGOUT = 'GET_LOGOUT'
 
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'

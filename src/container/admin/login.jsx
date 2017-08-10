@@ -21,6 +21,11 @@ class LoginUI extends Component {
 
 		const {logo, logoname, logined, version, error, message, onSubmit, onKeyPress} = this.props
 
+		//重载以获取新的csrf_token
+		if(error === 1) {
+			//window.location.reload(true)
+		}
+
 		let emailInput, passwordInput
 
 		return (
@@ -30,7 +35,7 @@ class LoginUI extends Component {
                         <img src={logo} alt={logoname} />
                     </div>
                     {
-                        error === 0 ? (
+                        (error === 0 || error === 1) ? (
                             null
                         ) : (
                             <p className="error-message">{message}</p>

@@ -10,6 +10,7 @@ import {
     REQUESTGET,
     RECEIVEGET,
     POST_LOGIN,
+    GET_LOGOUT,
     GET_AUTH_INFO,
     GET_ADMIN_LIST
 } from '../constants'
@@ -187,7 +188,7 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 //发送登录请求
 export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'error')
 //退出登录
-export const logoutFetch = makeGetActionCreator(POST_LOGIN, '/api/admin/logout' , 'path', 'error')
+export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout' , 'path', 'error')
 
 
 
