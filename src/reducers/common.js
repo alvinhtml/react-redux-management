@@ -8,6 +8,7 @@ import {
 //初始化状态
 const commonInitialState = {
     logined: 0,
+    renew_csrf_token: 0,
     isFetching: 0,
     error: 0,
     version: '10.0.106',
@@ -21,8 +22,6 @@ export function common(state = commonInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case POST_LOGIN:
-            return {...state, ...action.payload}
-        case GET_LOGOUT:
             return {...state, ...action.payload}
         case GET_AUTH_INFO:
             return {...state, ...action.payload}

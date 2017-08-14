@@ -1,7 +1,7 @@
 //引入action类型常量名
 import {
     POST_LOGIN,
-    POST_LOGOUT
+    GET_LOGOUT
 } from '../constants'
 
 
@@ -65,7 +65,7 @@ export function header(state = headerInitialState, action) {
 
     //根据不同的action type进行state的更新
     switch (action.type) {
-        case POST_LOGOUT:
+        case GET_LOGOUT:
             return {...state, ...action.payload}
         default:
             return { ...state }

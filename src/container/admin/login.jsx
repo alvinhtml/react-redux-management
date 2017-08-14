@@ -19,11 +19,11 @@ import {loginFetch} from '../../actions/actions'
 class LoginUI extends Component {
 	render() {
 
-		const {logo, logoname, logined, version, error, message, onSubmit, onKeyPress} = this.props
+		const {logo, logoname, logined, renew_csrf_token, version, error, message, onSubmit, onKeyPress} = this.props
 
 		//重载以获取新的csrf_token
-		if(error === 1) {
-			//window.location.reload(true)
+		if(renew_csrf_token === 1) {
+			window.location.reload(true)
 		}
 
 		let emailInput, passwordInput
