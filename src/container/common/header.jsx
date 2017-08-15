@@ -19,10 +19,10 @@ class HeaderUI extends Component {
 
 	render () {
 
-		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin, common} = this.props
-			console.log("8.1", common);
+		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin, logined} = this.props
+			//console.log("8.1", common);
 
-		if(common.logined !== true){
+		if(logined !== true){
 			this.context.router.push("/")
 		}
 
@@ -68,8 +68,7 @@ class HeaderUI extends Component {
 
 export const Header = connect(
 	(state) => {
-		state.header.common = state.common;
-		return state.header;
+		return {...state.header, ...state.common}
 	},
 	(dispatch, ownProps) => {
 		return {
@@ -86,7 +85,7 @@ export const Header = connect(
 				console.log("header admin click event",value)
 				switch (value) {
 					case "3":
-						dispatch(logoutFetch('/common'))
+						dispatch(logoutFetch({a:1}, '/common'))
 						break;
 					default:
 

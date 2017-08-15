@@ -43,7 +43,7 @@ export const WebApplication = connect((state) => {
 }, (dispatch) => {
     return {
         onWillMount: () => {
-			dispatch(authInfo('/common'))
+			dispatch(authInfo())
 		}
     };
 })(Application)

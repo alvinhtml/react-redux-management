@@ -1,6 +1,7 @@
 //引入action类型常量名
 import {
     POST_LOGIN,
+    GET_LOGOUT,
     GET_AUTH_INFO
 } from '../constants'
 
@@ -23,6 +24,8 @@ export function common(state = commonInitialState, action) {
     switch (action.type) {
         case POST_LOGIN:
             return {...state, ...action.payload}
+        case GET_LOGOUT:
+                return {...state, ...action.payload}
         case GET_AUTH_INFO:
             return {...state, ...action.payload}
         default:

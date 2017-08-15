@@ -47,13 +47,13 @@ const makeActionCreator = (type, ...argNames) => {
 
 
 //发起POST请求
-export const requestPosts = makeActionCreator(REQUESTPOST, "payload", "path", "error")
+export const requestPosts = makeActionCreator(REQUESTPOST, "payload", "error")
 //接收POST请求
-export const receivePosts = makeActionCreator(RECEIVEPOST, "payload", "path", "error")
+export const receivePosts = makeActionCreator(RECEIVEPOST, "payload", "error")
 //发起GET请求
-export const requestGets = makeActionCreator(REQUESTGET, "payload", "path", "error")
+export const requestGets = makeActionCreator(REQUESTGET, "payload", "error")
 //接收GET请求
-export const receiveGets = makeActionCreator(RECEIVEGET, "payload", "path", "error")
+export const receiveGets = makeActionCreator(RECEIVEGET, "payload", "error")
 
 
 //异步Action函数创建器 POST请求
@@ -122,6 +122,9 @@ const makePostActionCreator = (type, url, ...argNames) => {
 const makeGetActionCreator = (type, url, ...argNames) => {
 
     return (...args) => (dispatch, getState) => {
+
+        console.log("ARGS:", ...args);
+
         let [body, path, error] = [...args]
 
         //第一次dispatch, 表示将要发起fetch，Action创建函数会更新对应的isFetching为true
@@ -164,7 +167,7 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 
         //获取并处理请求结果
         .then(json => {
-            console.log("then json")
+            console.log("this path:", path)
             return dispatch({
                 type: type,
                 path: path,
@@ -188,7 +191,10 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 //发送登录请求
 export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'error')
 //退出登录
-export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout' , 'path', 'error')
+export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout','body', 'path', 'error')
+
+
+console.log("LF:", logoutFetch)
 
 
 
