@@ -1,5 +1,8 @@
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
+const webpack = require("webpack")
+const path = require('path')
+
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
     entry: {
@@ -7,7 +10,7 @@ module.exports = {
         bundle: './src/index.jsx',
     },
     output: {
-        path: '../laravel/public/js',
+        path: path.resolve(__dirname, '../laravel/public/js'),
         filename: '[name].js'
     },
     resolve: {
@@ -30,7 +33,10 @@ module.exports = {
         }]
     },
     plugins: [
-        new CommonsChunkPlugin('init', 'init.js'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'init',
+            filename: 'init.min.js',
+        }),
         new OpenBrowserPlugin({
             url: 'http://localhost:8080'
         })
