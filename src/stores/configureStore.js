@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 
 //引入DevTools调试组件
-import DevTools from '../container/DevTools'
+//import DevTools from '../container/DevTools'
 
 
 
@@ -20,8 +20,7 @@ const middleware = [thunk, loggerMiddleware]
 
 //利用compose增强store，这个 store 与 applyMiddleware 和 redux-devtools 一起使用
 const finalCreateStore = compose(
-    applyMiddleware(...middleware),
-    DevTools.instrument(),
+    applyMiddleware(...middleware)
 )(createStore)
 
 export default finalCreateStore
