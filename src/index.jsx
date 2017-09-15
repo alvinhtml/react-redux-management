@@ -14,10 +14,10 @@ import finalCreateStore from './stores/configureStore'
 //引入reducers集合
 import reducer from './reducers/index'
 
-//console.log("reducer:", reducer)
+console.log("reducer:", reducer)
 
 //引入路由配置
-import {App} from './routes'
+import App from './routes'
 
 //给增强后的store传入reducer
 const store = finalCreateStore(reducer)

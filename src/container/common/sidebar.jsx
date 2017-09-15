@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
 	Link
-} from 'react-router';
+} from 'react-router-dom';
 
 import {
 	connect
@@ -16,6 +16,7 @@ export class Sidebar extends Component {
         return (
             <div className="sidebar-box">
 	            <nav>
+					<div className="sidebar-toggle animate-in-out"><i className="icon-menu"></i></div>
 	                <ul className="navigate">
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-home"></i><span className="text">首页</span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-organization"></i><span className="text">部门视图</span><span className="arrow"></span></Link></li>

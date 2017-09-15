@@ -2,8 +2,6 @@
 const webpack = require("webpack")
 const path = require('path')
 
-const OpenBrowserPlugin = require('open-browser-webpack-plugin')
-
 module.exports = {
     entry: {
         init: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'react-router-redux', 'redux-thunk', 'isomorphic-fetch'],
@@ -12,9 +10,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../laravel/public/js'),
         filename: '[name].js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx'],
     },
     module: {
         loaders: [{
@@ -32,13 +27,13 @@ module.exports = {
 			loader: 'url-loader?limit=30000'
         }]
     },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: 'init',
             filename: 'init.min.js',
-        }),
-        new OpenBrowserPlugin({
-            url: 'http://localhost:8080'
         })
     ]
 }

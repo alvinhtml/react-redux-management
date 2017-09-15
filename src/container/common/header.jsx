@@ -23,14 +23,13 @@ class HeaderUI extends Component {
 			//console.log("8.1", common);
 
 		if(logined !== true){
-			this.context.router.push("/")
+			//this.context.router.push("/")
 		}
 
         return (
             <div className="header">
 	            <div className="logo-box">
 	                <a><span>hua</span>foun</a>
-	                <div className="sidebar-toggler"><span></span></div>
 	            </div>
 	            <div className="head-tools-box">
 	                <ul className="head-tools">

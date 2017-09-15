@@ -29,7 +29,6 @@
     "redux-devtools-log-monitor": "^1.2.0",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0",
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
