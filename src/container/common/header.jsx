@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
 	Link
-} from 'react-router';
+} from 'react-router-dom';
 
 import {
 	connect
@@ -23,7 +23,7 @@ class HeaderUI extends Component {
 			//console.log("8.1", common);
 
 		if(logined !== true){
-			//this.context.router.push("/")
+
 		}
 
         return (

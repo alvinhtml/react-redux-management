@@ -131,12 +131,12 @@ body { background-color: #364150; font-size: 14px;}
 .logo-box { width: 235px; height: 50px; padding: 0 20px; box-sizing: border-box; float: left; }
 .logo-box a { float: left; margin-top: 15px; font-size: 18px; text-transform: uppercase; font-weight: bolder; color: #fff; line-height: 20px; }
 .logo-box a span { color: #f36a5a; }
-.sidebar-toggler { float: right; margin-top: 18px; cursor: pointer; height: 7px; padding-top: 7px; opacity: 0.6;}
+/*.sidebar-toggler { float: right; margin-top: 18px; cursor: pointer; height: 7px; padding-top: 7px; opacity: 0.6;}
 .sidebar-toggler:hover { opacity: 0.9; }
 .sidebar-toggler span { display: block; width: 19px; height: 1px; background-color: #fff; position: relative;}
 .sidebar-toggler span::after,
 .sidebar-toggler span::before { display: inline-block; content: ""; position: absolute; width: 19px; height: 1px; background-color: #fff; display: inline-block; top: -6px; }
-.sidebar-toggler span::before { top: 6px; }
+.sidebar-toggler span::before { top: 6px; }*/
 
 /* header-> right */
 .head-tools-box { float: right; }
@@ -155,6 +155,8 @@ body { background-color: #364150; font-size: 14px;}
               Sidebar
  =================================*/
  .sidebar-box { position: absolute; left: 0; top: 50px; z-index: 2; width: 235px; background-color: #364150; }
+ .sidebar-toggler { padding: 5px 0; text-align: center; color: #fff; opacity: 0.6; }
+ .sidebar-toggler:hover { opacity: 0.9; }
 /* navigate */
 .navigate { margin-top: 40px; }
 .navigate li.nav-item { border-bottom: 1px solid #3d4957; }
@@ -288,3 +290,18 @@ a.olist-tool,.olist-tool>.dropdown-toggle { display: block; min-width: 36px; tex
 
 .form-footer { /* position: fixed; bottom: 0; left: 0; right: 0; top: auto; background-color: rgba(255,255,255,0.8); padding-top: 10px; box-shadow: 0px -5px rgba(102, 102, 102, 0.1); */  }
 .form-footer .button { margin-right: 1em;}
+
+
+/*==================================
+            Animate
+ =================================*/
+.animate-in-out {
+    -webkit-transform: all 0.3 ease-in-out;
+    -ms-transform: all 0.3 ease-in-out;
+    transform: all 0.3 ease-in-out;
+}
+.animate-in-out:hover {
+    -webkit-transform: all 0.3 ease-in-out;
+    -ms-transform: all 0.3 ease-in-out;
+    transform: all 0.3 ease-in-out;
+}
