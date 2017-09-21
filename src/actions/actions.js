@@ -167,7 +167,6 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 
         //获取并处理请求结果
         .then(json => {
-            console.log("this path:", path)
             return dispatch({
                 type: type,
                 path: path,

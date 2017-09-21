@@ -1,19 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react'
+import {Redirect, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-import {
-	Link
-} from 'react-router';
-
-import {
-	createStore
-} from 'redux';
-
-import {
-	connect
-} from 'react-redux';
-
-//引入Action创建函数
-import {loginFetch} from '../../actions/actions'
 
 //引入下拉菜单组件
 import {Dropmenu, Droptool} from '../../components/dropdown'
@@ -22,11 +10,11 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 import {Pagelist, Listsearcher, Listconfiger, Listheader} from '../../components/common'
 
 
-class AdminList_ui extends Component {
+class AdminListUI extends Component {
 	render() {
-		const {dropTools, list, count, configs, page, toolsClickEvent, setSearchMode, orderbyEvent} = this.props
+		const {tools, list, count, configs, page, toolsClickEvent, setSearchMode, orderbyEvent} = this.props
 		return (
-			<div className="min-box">
+			<div className="main-box">
 				<div className="page-bar clear">
 	                <div className="page-bar-left">管理员列表</div>
 	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
@@ -35,7 +23,7 @@ class AdminList_ui extends Component {
 					<div id="listHeader" className="olist-header clear">
                         <div className="olist-header-l">
                             <Droptool icon="icon-wrench">
-								<Dropmenu options={dropTools} clickEvent={toolsClickEvent} />
+								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
                             <Listsearcher search="search..." searchMode={configs.searchMode} setSearchMode={setSearchMode} />
                         </div>
@@ -53,18 +41,18 @@ class AdminList_ui extends Component {
                             </tbody>
                         </table>
                     </div>
-					<Pagelist count={parseInt(count)} limit={parseInt(listConf.limit)} page={parseInt(page)}  />
+					<Pagelist count={parseInt(count)} limit={parseInt(configs.limit)} page={parseInt(page)}  />
 				</div>
             </div>
 		)
 	}
 }
 
-class AdminForm_ui extends Component {
+class AdminFormUI extends Component {
 	render() {
 		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
 		return (
-			<div className="min-box">
+			<div className="main-box">
 				<div className="page-bar clear">
 	                <div className="page-bar-left">新增管理员</div>
 	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
@@ -92,7 +80,7 @@ export const AdminList = connect(
 			}
 		};
 	}
-)(AdminList_ui)
+)(AdminListUI)
 
 
 export const AdminForm = connect(
@@ -106,4 +94,4 @@ export const AdminForm = connect(
 			}
 		};
 	}
-)(AdminForm_ui)
+)(AdminFormUI)
