@@ -9,7 +9,7 @@ const adminlistInitialState = {
     isFetching: 0,
     error: 0,
     message: '',
-    listActions: [
+    tools: [
         {
             text: '删除',
             icon: 'icon-close'
@@ -22,8 +22,8 @@ const adminlistInitialState = {
         }
     ],
     list: [], //列表数据
-    count: 0, //列表总条数
-    page: 1, //当前页
+    count: 64, //列表总条数
+    page: 2, //当前页
 
     //列表配置
     configs:{
@@ -35,31 +35,36 @@ const adminlistInitialState = {
             title: '序号',
             order: false,
             visibility: true,
-            width: 200
+            width: 200,
+            resize:0
         },{
             name: 'name',
             title: '名称',
             order: false,
             visibility: true,
-            width: 200
+            width: 200,
+            resize:0
         },{
             name: 'email',
             title: '邮箱',
             order: false,
             visibility: true,
-            width: 200
+            width: 200,
+            resize:0
         },{
             name: 'type',
             title: '类型',
             order: false,
-            visibility: true,
-            width: 200
+            visibility: false,
+            width: 200,
+            resize:0
         },{
             name: 'ouname',
             title: '部门',
             order: false,
             visibility: true,
-            width: 200
+            width: 200,
+            resize:0
         },{
             name: 'ip',
             title: '可登录IP',
@@ -70,14 +75,16 @@ const adminlistInitialState = {
             name: 'state',
             title: '状态',
             order: false,
-            visibility: true,
-            width: 200
+            visibility: false,
+            width: 200,
+            resize:0
         },{
             name: 'desp',
             title: '描述',
             order: false,
             visibility: true,
-            width: 0
+            width: 0,
+            resize:0
         }]
     }
 }

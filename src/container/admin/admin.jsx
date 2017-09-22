@@ -7,12 +7,22 @@ import {connect} from 'react-redux'
 import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入组件
-import {Pagelist, Listsearcher, Listconfiger, Listheader} from '../../components/common'
+import {PageList, ListSearcher, ListConfiger, ListHeader} from '../../components/common'
 
+//引入Action创建函数
+import {getAdminList} from '../../actions/actions'
 
 class AdminListUI extends Component {
+
+	componentWillMount() {
+        this.props.getList({
+			page: 2,
+			limit: this.props.configs.limit
+		});
+    }
+
 	render() {
-		const {tools, list, count, configs, page, toolsClickEvent, setSearchMode, orderbyEvent} = this.props
+		const {tools, list, count, configs, page, getList, toolsClickEvent, setSearchMode, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -22,26 +32,26 @@ class AdminListUI extends Component {
 				<div className="list-box">
 					<div id="listHeader" className="olist-header clear">
                         <div className="olist-header-l">
-                            <Droptool icon="icon-wrench">
+                            <Droptool icon="icon-wrench" bgColor="bg-red">
 								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <Listsearcher search="search..." searchMode={configs.searchMode} setSearchMode={setSearchMode} />
+                            <ListSearcher search="search..." getList={getList} searchMode={configs.searchMode} setSearchMode={setSearchMode} />
                         </div>
                         <div className="olist-header-r">
-                            <Link data-content="刷新" to="/admin/list"  className="olist-tool bg-teal ititle"><i className="icon-refresh"></i></Link>
-                            <Link data-content="新建" to="/admin/form" className="olist-tool bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <Listconfiger column={configs.column} limit={configs.limit}  />
+                            <Link data-content="刷新" to="/admin/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
+                            <Link data-content="新建" to="/admin/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
+                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={page}  column={configs.column} limit={configs.limit}  />
                         </div>
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-                            <Listheader column={configs.column} orderbyEvent={orderbyEvent} />
+							<ListHeader orderbyEvent={orderbyEvent} column={configs.column} />
                             <tbody id="listTbody" className="olist-body">
 
                             </tbody>
                         </table>
                     </div>
-					<Pagelist count={parseInt(count)} limit={parseInt(configs.limit)} page={parseInt(page)}  />
+					<PageList getList={getList} count={parseInt(count)} limit={parseInt(configs.limit)} page={parseInt(page)}  />
 				</div>
             </div>
 		)
@@ -50,7 +60,7 @@ class AdminListUI extends Component {
 
 class AdminFormUI extends Component {
 	render() {
-		const {dropTools, list, count, listConfig, page, toolsClickEvent, setSearchMode} = this.props
+		const {submit} = this.props
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -70,12 +80,21 @@ export const AdminList = connect(
 	(dispatch, ownProps) => {
 		return {
 			getList: (o) => {
-				//dispatch(loginFetch({email, password},'/common'))
+				dispatch(getAdminList(o, '/adminlist'))
 			},
 			toolsClickEvent: (v) => {
 				//
 			},
 			orderbyEvent: (v) => {
+				//
+			},
+			setSearchMode: (v) => {
+				//
+			},
+			changeLimitEvent: (v) => {
+				//
+			},
+			changeColumnEvent: (v) => {
 				//
 			}
 		};

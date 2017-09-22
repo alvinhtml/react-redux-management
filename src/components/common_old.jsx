@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router';
 
 
-/**
- * 内面顶部标题栏
- * @type {String}
- */
+
 export class Pagebar extends Component {
 
 	render() {
@@ -26,7 +23,7 @@ export class Pagebar extends Component {
  * 分页组件
  * @type {[type]}
  */
-export class PageList extends Component {
+export class Pagelist extends Component {
 
 	constructor(props) {
 		super(props)
@@ -118,12 +115,27 @@ export class ListActioner extends Component {
 		//this.search = this.props.search
 
 		//ES6 类中函数必须手动绑定
-
+		this.inputEnterEvent = this.inputEnterEvent.bind(this)
+		this.searchSubmitEvent = this.searchSubmitEvent.bind(this)
 	}
+
+    inputEnterEvent(event) {
+        if(event.charCode === 13){
+			this.getList({
+				search: this.search
+			})
+        }
+    }
+
+    searchSubmitEvent(event) {
+		this.getList({
+			search: this.search
+		})
+    }
 
 	render() {
 
-		const {} = this.props
+		const {searchMode, search, setSearchMode} = this.props
 
 		return (
 			<div class="olist-tool olist-operation dropdown">
@@ -147,7 +159,7 @@ export class ListSearcher extends Component {
 
 	constructor(props) {
 		super(props)
-		console.log("Listsearcher:", this.props)
+
 		this.search = this.props.search
 
 		//ES6 类中函数必须手动绑定
@@ -174,9 +186,9 @@ export class ListSearcher extends Component {
 		const {searchMode, search, setSearchMode} = this.props
 
 		return (
-            <div className="tools olist-search">
+            <div className="olist-tool olist-search">
                 <input type="text" className="form-control" ref={n=>this.search=n} placeholder={searchMode} defaultValue={search} onKeyPress={this.inputEnterEvent} />
-                <div className="olist-where dropdown"><a className="dropdown-toggler"><i className="icon-arrow-down"></i></a>
+                <div className="olist-where dropdown"><a className="dropdown-toggle"><i className="fa fa-angle-down"></i></a>
                     <div className="dropdown-main dropdown-menu">
                         <ul id="listSearch">
                             <li key={1} onClick={e=>setSearchMode('模糊搜索')}><i className="icon-magnifier"></i><span className="itext">模糊搜索</span></li>
@@ -198,23 +210,9 @@ export class ListSearcher extends Component {
  * @type {String}
  */
 export class ListConfiger extends Component {
-	constructor(props) {
-		super(props)
 
-		//设置 initial state
-		this.state = {
-			opened: false
-		}
-
-		//ES6 类中函数必须手动绑定
-		this.handleClick = this.handleClick.bind(this)
-	}
-	handleClick(event) {
-		this.setState({
-			opened: !this.state.opened
-		})
-	}
 	render() {
+
 		const {column, limit, changeLimitEvent, changeColumnEvent} = this.props
 
 		const limitArray = [10,20,30,50,100,200]
@@ -232,8 +230,8 @@ export class ListConfiger extends Component {
 		})
 
 		return (
-			<div className={this.state.opened ? 'tools dropdown open' : 'tools dropdown'}>
-                <a className="bg-teal dropdown-toggler" onClick={this.handleClick}><i className="icon-settings"></i></a>
+			<div className="olist-tool dropdown">
+                <a className="bg-teal dropdown-toggle"><i className="icon-settings"></i></a>
                 <div className="dropdown-main dropdown-menu dropdown-dark dropdown-right">
                     <div className="olist-tool-conf">
                         <h4>每页显示数量</h4>
@@ -242,7 +240,7 @@ export class ListConfiger extends Component {
                         </div>
                         <h4>显示项目</h4>
                         <div className="list-column">
-                            {columns}
+                            {columnhtml}
                         </div>
                     </div>
                 </div>
@@ -258,7 +256,7 @@ export class ListConfiger extends Component {
 export class ListHeader extends Component {
 
 	render() {
-		console.log("ListHeader", this.props)
+
 		const {column, orderbyEvent} = this.props
 
 		let columns = column.map((v, i) => {

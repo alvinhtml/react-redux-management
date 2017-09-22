@@ -27,7 +27,7 @@ class LoginUI extends Component {
 		}
 
 		let emailInput, passwordInput
-
+		console.log("装载了登录界面")
 		return (
 			<div className="container">
                 <div className="login">

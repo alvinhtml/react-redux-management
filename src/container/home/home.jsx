@@ -180,7 +180,7 @@ export class Home extends Component {
 	                        <button className="button basic green">green</button>
 	                        <button className="button basic teal">teal</button>
 	                        <button className="button basic blue">blue</button>
-	                        <input type="button" className="button basic violet" value="violet" />
+	                        <input type="button" className="button basic violet" defaultValue="violet" />
 	                        <span className="button basic purple">purple</span>
 	                        <a className="button basic pink">pink</a>
 	                        <button className="button basic brown">brown</button>
@@ -197,13 +197,13 @@ export class Home extends Component {
 	                        <button className="button green">green</button>
 	                        <button className="button teal">teal</button>
 	                        <button className="button blue">blue</button>
-	                        <input type="button" className="button violet" value="violet" />
+	                        <input type="button" className="button violet" defaultValue="violet" />
 	                        <span className="button purple">purple</span>
 	                        <a className="button pink">pink</a>
 	                        <button className="button brown">brown</button>
 	                    </div>
 	                    <h3>Size</h3>
-	                    <div className="layout-box">
+	                    <div className="layout-box spaced">
 	                        <button className="button red mini">Mini</button>
 	                        <button className="button orange tiny">Tiny</button>
 	                        <button className="button yellow small">Small</button>
@@ -213,7 +213,7 @@ export class Home extends Component {
 	                        <button className="button teal huge">Huge</button>
 	                        <button className="button pink massive">Massive</button>
 	                    </div>
-	                    <div className="layout-box">
+	                    <div className="layout-box spaced">
 	                        <button className="button label red mini"><i className="icon-check"></i>Mini</button>
 	                        <button className="button label orange tiny"><i className="icon-check"></i>Tiny</button>
 	                        <button className="button label yellow small"><i className="icon-check"></i>Small</button>
@@ -224,12 +224,12 @@ export class Home extends Component {
 	                        <button className="button label pink massive"><i className="icon-check"></i>Massive</button>
 	                    </div>
 	                    <h3>Disabled & Loading</h3>
-	                    <div className="layout-box">
+	                    <div className="layout-box spaced">
 	                        <button className="button green disabled">Button disabled</button>
 	                        <button className="button teal loading">Loading...</button>
 	                    </div>
 	                    <h3>circular</h3>
-	                    <div className="layout-box">
+	                    <div className="layout-box spaced">
 	                        <button className="button circular teal"><i className="icon-doc"></i></button>
 	                        <button className="button circular green"><i className="icon-check"></i></button>
 	                        <button className="button circular red"><i className="icon-trash"></i></button>
@@ -240,11 +240,11 @@ export class Home extends Component {
 	                    <h3>radio</h3>
 	                    <div className="layout-box">
 	                        <div className="col-span8">
-	                            <div className="col-span2"><input name="radios" value="1" type="radio" /> one</div>
-	                            <label className="col-span2"><input name="radios" value="2" type="radio" /> two</label>
-	                            <label className="col-span2"><input name="radios" value="3" type="radio" /> three</label>
-	                            <label className="col-span2"><input disabled="disabled" value="4" name="radios" type="radio" /> four</label>
-	                            <label className="col-span2"><input disabled="disabled" checked="checked" value="5" type="radio" /> five</label>
+	                            <div className="col-span2"><input name="radios" defaultValue="1" type="radio" /> one</div>
+	                            <label className="col-span2"><input name="radios" defaultValue="2" type="radio" /> two</label>
+	                            <label className="col-span2"><input name="radios" defaultValue="3" type="radio" /> three</label>
+	                            <label className="col-span2"><input disabled="disabled" defaultValue="4" name="radios" type="radio" /> four</label>
+	                            <label className="col-span2"><input disabled="disabled" checked="checked" defaultValue="5" type="radio" /> five</label>
 	                        </div>
 	                    </div>
 	                    <h3>checkbox</h3>
@@ -260,12 +260,12 @@ export class Home extends Component {
 	                    <h3>switch</h3>
 	                    <div className="layout-box">
 	                        <div className="col-span8">
-	                            <div className="col-span2"><input name="switch" className="switchbox" value="1" type="checkbox" /></div>
+	                            <div className="col-span2"><input name="switch" className="switchbox" defaultValue="1" type="checkbox" /></div>
 	                        </div>
 	                    </div>
 	                    <h3>Input Text</h3>
 	                    <div className="layout-box">
-	                        <input className="inline-span2" type="text" value="default" /><input className="inline-span2 green" type="text" value="green" /><input className="inline-span2 yellow" type="text" value="yellow" /><input className="inline-span2 red" type="text" value="red" />
+	                        <input className="inline-span2" type="text" defaultValue="default" /><input className="inline-span2 green" type="text" defaultValue="green" /><input className="inline-span2 yellow" type="text" defaultValue="yellow" /><input className="inline-span2 red" type="text" defaultValue="red" />
 	                    </div>
 	                    <div className="layout-box">
 	                        <label className="input-prepend inline-span4">
@@ -311,7 +311,7 @@ export class Home extends Component {
 		return (<select name={name} id={id}>
 		{
 		   	options.map(function (option) {
-		    	return <option {selected ? "selected" : ''} value="{option.value}">{option.name}</option>
+		    	return <option {selected ? "selected" : ''} defaultValue="{option.value}">{option.name}</option>
 		    })
 		}
 		</select>)

@@ -229,22 +229,24 @@ li.open .nav-link .arrow {
 .olist-search { float: left;}
 
 /* olist -> tools */
-.olist-tool { display: block; float: left; height: 36px; position: relative;}
-a.olist-tool,.olist-tool>.dropdown-toggle { display: block; min-width: 36px; text-align: center; height: 36px; line-height: 36px; cursor: pointer; vertical-align: middle; color: #fff;}
-.olist-tool h4 { font-size: 16px; margin-top: 0;}
-.olist-header-l .olist-tool { margin-right: 10px;}
-.olist-header-r .olist-tool { margin-left: 10px;}
+.tools { display: block; float: left; height: 36px; position: relative;}
+a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-width: 36px; text-align: center; height: 36px; line-height: 36px; cursor: pointer; vertical-align: middle; color: #fff; padding:0 6px;}
+.tools h4 { font-size: 16px; margin-top: 0;}
+.olist-header-l .tools { margin-right: 10px;}
+.olist-header-r .tools { margin-left: 10px;}
+.dropdown-toggler .icon-arrow-down { font-size: 12px;}
 
 .olist-search input { border: 0; background: #f3f6f9; height: 36px; float: left; width: 180px;}
 .olist-where {height: 36px;  width: 30px; float: left; background: #f3f6f9;}
-.olist-where a.dropdown-toggle { height: 36px; line-height: 36px; padding: 0 10px; cursor: pointer;}
+.olist-where a.dropdown-toggler { height: 36px; line-height: 36px; padding: 0 10px; cursor: pointer;}
 .olist-where.open .dropdown-main,.olist-where:hover .dropdown-main { left: auto; right: 0; width: 210px; padding: 0;}
 .olist-where .ul-option { width: 208px;}
 .olist-where .dropdown-main::after,.olist-where .dropdown-main::before { display: none; }
 
 .olist-operation,.olist-type { width: 68px;}
 
-.olist-tool-conf {background: #536470; border:1px solid #536470; width: 320px; color: #c5ced4; padding: 20px;}
+.olist-tool-conf {background: #536470; border:1px solid #536470; width: 320px; color: #c5ced4; padding:0px 20px 20px 20px;}
+.olist-tool-conf h4 { margin: 20px 0 10px 0;}
 .tools-span-list span { display: inline-block; cursor: pointer; height: 24px; text-align: center; padding: 0px 6px; font-size: 14px; margin-right: 8px;  line-height: 24px; text-align: center; background: #fff; color: #838fa1;}
 .tools-span-list span.active,.tools-span-list span:hover { background: #36c6d3; color: #fff; }
 .list-column span { display: inline-block; width: 90px; line-height: 24px; cursor: pointer; height: 24px; position: relative; padding-left: 16px;}

@@ -201,3 +201,5 @@ console.log("LF:", logoutFetch)
 export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'path', 'error')
 
 console.log('loginFetch', loginFetch)
+//获取管理员列表
+export const getAdminList = makeGetActionCreator(GET_ADMIN_LIST, '/api/admin/list','body', 'path', 'error')

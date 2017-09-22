@@ -19,6 +19,9 @@ console.log("reducer:", reducer)
 //引入路由配置
 import App from './routes'
 
+//引入Redux调试工具DevTools
+import DevTools from './container/DevTools'
+
 //给增强后的store传入reducer
 const store = finalCreateStore(reducer)
 
@@ -26,6 +29,9 @@ console.log("state",store.getState());
 
 render(
     <Provider store={store}>
-        <App />
+        <div>
+            <App />
+            <DevTools />
+        </div>
     </Provider>,
 document.getElementById('webApplication'))
