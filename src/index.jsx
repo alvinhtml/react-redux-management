@@ -25,7 +25,7 @@ import DevTools from './container/DevTools'
 //给增强后的store传入reducer
 const store = finalCreateStore(reducer)
 
-console.log("state",store.getState());
+console.log("state",store);
 
 render(
     <Provider store={store}>
@@ -35,3 +35,14 @@ render(
         </div>
     </Provider>,
 document.getElementById('webApplication'))
+
+//body事件
+document.addEventListener('mousedown', (e) => {
+    console.log(44)
+    store.dispatch({
+        type: 'MOUSEDOWN',
+        payload: {
+            mousedown: 2
+        }
+    })
+})

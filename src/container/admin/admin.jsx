@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入组件
-import {PageList, ListSearcher, ListConfiger, ListHeader} from '../../components/common'
+import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../components/common'
 
 //引入Action创建函数
 import {getAdminList} from '../../actions/actions'
@@ -45,10 +45,8 @@ class AdminListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<ListHeader orderbyEvent={orderbyEvent} column={configs.column} />
-                            <tbody id="listTbody" className="olist-body">
-
-                            </tbody>
+							<ListHeader orderbyEvent={orderbyEvent} listPath={configs.listPath} column={configs.column} />
+                            <ListBody list={list} column={configs.column} />
                         </table>
                     </div>
 					<PageList getList={getList} count={parseInt(count)} limit={parseInt(configs.limit)} page={parseInt(page)}  />

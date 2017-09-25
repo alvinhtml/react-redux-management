@@ -27,64 +27,66 @@ const adminlistInitialState = {
 
     //列表配置
     configs:{
-        tbname: 'admins',
-        limit: 20, //单页显示条数
+        listPath: 'adminlist',
+        limit: 6, //单页显示条数
         searchMode: '精确搜索', //搜索模式
+        selectAll: true,
+        actions: [],
         column: [{
-            name: 'index',
+            key: 'index',
             title: '序号',
-            order: false,
+            order: 'order',
             visibility: true,
-            width: 200,
-            resize:0
+            width: 60,
+            resize: 0
         },{
-            name: 'name',
+            key: 'name',
             title: '名称',
-            order: false,
+            order: 'order',
             visibility: true,
             width: 200,
-            resize:0
+            resize: 1
         },{
-            name: 'email',
+            key: 'email',
             title: '邮箱',
-            order: false,
+            order: 'order',
             visibility: true,
             width: 200,
-            resize:0
+            resize: 1
         },{
-            name: 'type',
+            key: 'type',
             title: '类型',
-            order: false,
+            order: 'order',
             visibility: false,
-            width: 200,
-            resize:0
+            width: 120,
+            resize: 0
         },{
-            name: 'ouname',
+            key: 'ouname',
             title: '部门',
-            order: false,
+            order: 'order',
             visibility: true,
             width: 200,
-            resize:0
+            resize: 0
         },{
-            name: 'ip',
+            key: 'ip',
             title: '可登录IP',
             order: false,
             visibility: true,
             width: 0
         },{
-            name: 'state',
+            key: 'state',
             title: '状态',
-            order: false,
+            order: 'order',
             visibility: false,
             width: 200,
-            resize:0
+            resize: 0
         },{
-            name: 'desp',
+            key: 'desp',
             title: '描述',
             order: false,
             visibility: true,
             width: 0,
-            resize:0
+            resize: 0
         }]
     }
 }
@@ -94,6 +96,8 @@ export function adminlist(state = adminlistInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case GET_ADMIN_LIST:
+            return {...state, ...action.payload}
+        case "MOUSEDOWN":
             return {...state, ...action.payload}
         default:
             return { ...state }

@@ -257,64 +257,87 @@ export class ListConfiger extends Component {
  */
 export class ListHeader extends Component {
 
+	constructor(props) {
+		super(props)
+
+		//ES6 类中函数必须手动绑定
+		this.onMouseDown = this.onMouseDown.bind(this)
+	}
+
+	onMouseDown() {
+		window.resize = {
+			resizeing: true,
+			listPath: this.props.listPath
+		};
+	}
+
 	render() {
-		console.log("ListHeader", this.props)
 		const {column, orderbyEvent} = this.props
 
 		let columns = column.map((v, i) => {
-			let resizer = v.resize ? <span className="resize"></span> : ''
+			let resize = v.resize ? <span onMouseDown={this.onMouseDown} className="resize"></span> : ''
 			return (
 				<th
-					key = {i}
+					key = {v.key}
 					className = {v.order ? v.order : ''}
                     onClick = {orderbyEvent}
                     data-order = {v.order}
-					data-val = {v.name}
-					style = {v.width ? 'width:' + v.width + 'px' : ''}
-				>{v.title}{resizer}</th>
+					data-val = {v.key}
+					style = {{
+						width: v.width ? v.width + 'px' : 'auto'
+					}}
+				><strong>{v.title}</strong>{resize}</th>
 			)
 		})
 
 		return (
-			<thead id="listThead">
+			<thead id="list_head">
 				<tr>{columns}</tr>
 			</thead>
         )
 	}
 }
 
-export class ListBodyer extends Component {
+
+export class ListBody extends Component {
 
 	render() {
 
-		const {list} = this.props
+		const {list, column} = this.props
 
-
-
-		const lines = (line) => {
+		const lines = (line, key) => {
 
 			let columns = column.map((v, i) => {
-				return (
-					<td key={i}>{line[v.name]}</td>
-				)
+				if (v.key === "index") {
+					return (
+						<td key={v.key}><div className="td-cell">
+							{i}
+						</div></td>
+					)
+				} else {
+					return (
+						<td key={v.key}><div className="td-cell">
+							{line[v.key]}
+						</div></td>
+					)
+				}
 			})
 
 			return (
-				<tr>
+				<tr key={key}>
 					{columns}
 				</tr>
 			)
 		}
 
 		let lists = list.map((v, i) => {
-			return lines(v);
+			return lines(v, i);
 		})
 
-
 		return (
-			<thead id="listThead">
-
-			</thead>
+			<tbody id="list_body" className="olist-body">
+				{lists}
+			</tbody>
         )
 	}
 }

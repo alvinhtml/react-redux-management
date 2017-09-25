@@ -236,6 +236,7 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 .olist-header-r .tools { margin-left: 10px;}
 .dropdown-toggler .icon-arrow-down { font-size: 12px;}
 
+/* olist -> search */
 .olist-search input { border: 0; background: #f3f6f9; height: 36px; float: left; width: 180px;}
 .olist-where {height: 36px;  width: 30px; float: left; background: #f3f6f9;}
 .olist-where a.dropdown-toggler { height: 36px; line-height: 36px; padding: 0 10px; cursor: pointer;}
@@ -245,8 +246,9 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 
 .olist-operation,.olist-type { width: 68px;}
 
+/* olist -> coonfig */
 .olist-tool-conf {background: #536470; border:1px solid #536470; width: 320px; color: #c5ced4; padding:0px 20px 20px 20px;}
-.olist-tool-conf h4 { margin: 20px 0 10px 0;}
+.olist-tool-conf h4 { margin: 20px 0 10px ;}
 .tools-span-list span { display: inline-block; cursor: pointer; height: 24px; text-align: center; padding: 0px 6px; font-size: 14px; margin-right: 8px;  line-height: 24px; text-align: center; background: #fff; color: #838fa1;}
 .tools-span-list span.active,.tools-span-list span:hover { background: #36c6d3; color: #fff; }
 .list-column span { display: inline-block; width: 90px; line-height: 24px; cursor: pointer; height: 24px; position: relative; padding-left: 16px;}
@@ -269,13 +271,23 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 .olist-table td.row-checkbox .td-cell {width:auto; text-align: center;}
 .olist-table td.olist-td-opts .button { margin-right: 6px;}
 
-/* olist -> order-by */
+/* olist -> order-by resize */
 .olist-table th.order,
 .drag-mirror.order { background-image: url(../images/sort_both.png); background-position: right center; background-repeat: no-repeat; }
 .olist-table th.asc,
 .drag-mirror.asc { background-image: url(../images/sort_both_asc.png); background-position: right center; background-repeat: no-repeat;}
 .olist-table th.desc,
 .drag-mirror.desc { background-image:  url(../images/sort_both_desc.png); background-position: right center; background-repeat: no-repeat; }
+.olist-table .resize { display: block;
+    height: 36px;
+    width: 7px;
+    position: absolute;
+    right: -4px;
+    left: auto;
+    top: 0;
+    cursor: ew-resize;
+    z-index: 8;
+}
 
 /* olist -> pagelist */
 .pagelist { padding: 25px 0 10px 0; text-align: right;}
