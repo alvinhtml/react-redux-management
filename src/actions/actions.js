@@ -46,14 +46,20 @@ const makeActionCreator = (type, ...argNames) => {
 
 
 
-//发起POST请求
-export const requestPosts = makeActionCreator(REQUESTPOST, "payload", "error")
-//接收POST请求
-export const receivePosts = makeActionCreator(RECEIVEPOST, "payload", "error")
-//发起GET请求
-export const requestGets = makeActionCreator(REQUESTGET, "payload", "error")
-//接收GET请求
-export const receiveGets = makeActionCreator(RECEIVEGET, "payload", "error")
+//Action Creators 生成器
+const ActionCreator = (type, body, path) => {
+    //因为使用了 redux-thunk 中间件, action 创建函数应当反回一个函数 (dispatch,getState) => {}
+    return (dispatch, getState) => {
+        dispatch({
+            type: type,
+            payload: body,
+            path: path
+        });
+    }
+}
+
+
+
 
 
 //异步Action函数创建器 POST请求
@@ -69,7 +75,7 @@ const makePostActionCreator = (type, url, ...argNames) => {
                 isFetching: true,
             },
             path: path
-        });
+        })
 
         //发起fetch请求
         return fetch(url, {
@@ -134,7 +140,7 @@ const makeGetActionCreator = (type, url, ...argNames) => {
                 isFetching: true,
             },
             path: path
-        });
+        })
 
         //将json参数转为url参数
         let urlParams = body ? formatParams(body) : '';
