@@ -9,8 +9,11 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 //引入组件
 import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../components/common'
 
+//引入action类型常量名
+import {RESIZE_TH_WIDTH} from '../../constants'
+
 //引入Action创建函数
-import {getAdminList} from '../../actions/actions'
+import {ActionCreator, getAdminList} from '../../actions/actions'
 
 class AdminListUI extends Component {
 
@@ -22,7 +25,8 @@ class AdminListUI extends Component {
     }
 
 	render() {
-		const {tools, list, count, configs, page, getList, toolsClickEvent, setSearchMode, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
+		const {tools, list, count, configs, page} = this.props
+		const {resizeThEvent, getList, toolsClickEvent, setSearchMode, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -45,7 +49,7 @@ class AdminListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<ListHeader orderbyEvent={orderbyEvent} listPath={configs.listPath} column={configs.column} />
+							<ListHeader orderbyEvent={orderbyEvent} resizeThEvent={resizeThEvent} configs={configs} />
                             <ListBody list={list} column={configs.column} />
                         </table>
                     </div>
@@ -77,6 +81,17 @@ export const AdminList = connect(
 	},
 	(dispatch, ownProps) => {
 		return {
+			resizeThEvent: (e, configs) => {
+				console.log(ActionCreator)
+				dispatch(ActionCreator(RESIZE_TH_WIDTH, {
+					resizeing: true,
+					resize_column: configs.column,
+					resize_path: configs.listPath,
+					resize_key: e.currentTarget.getAttribute("data-key"),
+					resize_clientX: e.clientX
+				}, '/common'))
+				e.stopPropagation()
+			},
 			getList: (o) => {
 				dispatch(getAdminList(o, '/adminlist'))
 			},

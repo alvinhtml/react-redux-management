@@ -1,6 +1,7 @@
 //引入action类型常量名
 import {
-    GET_ADMIN_LIST
+    GET_ADMIN_LIST,
+    RESIZE_TH_ING
 } from '../constants'
 
 
@@ -28,7 +29,7 @@ const adminlistInitialState = {
     //列表配置
     configs:{
         listPath: 'adminlist',
-        limit: 6, //单页显示条数
+        limit: 20, //单页显示条数
         searchMode: '精确搜索', //搜索模式
         selectAll: true,
         actions: [],
@@ -97,8 +98,10 @@ export function adminlist(state = adminlistInitialState, action) {
     switch (action.type) {
         case GET_ADMIN_LIST:
             return {...state, ...action.payload}
-        case "MOUSEDOWN":
-            return {...state, ...action.payload}
+        case 'adminlist_resize_th':
+            let configs = {...state.configs}
+                configs.column = action.payload.column;
+            return {...state, ...{configs}}
         default:
             return { ...state }
     }

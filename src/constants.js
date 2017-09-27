@@ -26,3 +26,7 @@ export const GET_LOGOUT = 'GET_LOGOUT'
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
 export const SET_ADMIN_CONFIG = 'SET_ADMIN_CONFIG'
+
+//drag
+export const RESIZE_TH_WIDTH = 'RESIZE_TH_WIDTH'
+export const RESIZE_TH_ING = 'RESIZE_TH_WIDTH'

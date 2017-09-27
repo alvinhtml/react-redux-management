@@ -257,25 +257,12 @@ export class ListConfiger extends Component {
  */
 export class ListHeader extends Component {
 
-	constructor(props) {
-		super(props)
-
-		//ES6 类中函数必须手动绑定
-		this.onMouseDown = this.onMouseDown.bind(this)
-	}
-
-	onMouseDown() {
-		window.resize = {
-			resizeing: true,
-			listPath: this.props.listPath
-		};
-	}
-
 	render() {
-		const {column, orderbyEvent} = this.props
+		const {orderbyEvent, resizeThEvent} = this.props
+		const column = this.props.configs.column
 
 		let columns = column.map((v, i) => {
-			let resize = v.resize ? <span onMouseDown={this.onMouseDown} className="resize"></span> : ''
+			let resize = v.resize ? <span onMouseDown={(e)=>{resizeThEvent(e, this.props.configs)}} data-key={i} className="resize"></span> : ''
 			return (
 				<th
 					key = {v.key}

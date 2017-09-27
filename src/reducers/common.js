@@ -2,7 +2,8 @@
 import {
     POST_LOGIN,
     GET_LOGOUT,
-    GET_AUTH_INFO
+    GET_AUTH_INFO,
+    RESIZE_TH_WIDTH
 } from '../constants'
 
 
@@ -25,8 +26,10 @@ export function common(state = commonInitialState, action) {
         case POST_LOGIN:
             return {...state, ...action.payload}
         case GET_LOGOUT:
-                return {...state, ...action.payload}
+            return {...state, ...action.payload}
         case GET_AUTH_INFO:
+            return {...state, ...action.payload}
+        case RESIZE_TH_WIDTH:
             return {...state, ...action.payload}
         default:
             return { ...state }

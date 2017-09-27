@@ -28,26 +28,10 @@ function formatParams(data) {
     return arr.join("&");
 }
 
-/**
- * Action Creators 生成器
- * @param  {[type]} type     action.type
- * @param  {[type]} argNames action argument
- * @return {[type]}          action creator
- */
-const makeActionCreator = (type, ...argNames) => {
-    return function(...args) {
-        let action = { type }
-        argNames.forEach((arg, index) => {
-            action[argNames[index]] = args[index]
-        })
-        return action
-    }
-}
-
 
 
 //Action Creators 生成器
-const ActionCreator = (type, body, path) => {
+export const ActionCreator = (type, body, path) => {
     //因为使用了 redux-thunk 中间件, action 创建函数应当反回一个函数 (dispatch,getState) => {}
     return (dispatch, getState) => {
         dispatch({
