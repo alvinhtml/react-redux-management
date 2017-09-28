@@ -10,7 +10,10 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../components/common'
 
 //引入action类型常量名
-import {RESIZE_TH_WIDTH} from '../../constants'
+import {
+	RESIZE_TH_WIDTH,
+	CHANGE_COLUMN_VISIBILITY
+} from '../../constants'
 
 //引入Action创建函数
 import {ActionCreator, getAdminList} from '../../actions/actions'
@@ -69,7 +72,6 @@ class AdminFormUI extends Component {
 	                <div className="page-bar-left">新增管理员</div>
 	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
 	            </div>
-
             </div>
 		)
 	}
@@ -107,8 +109,23 @@ export const AdminList = connect(
 			changeLimitEvent: (v) => {
 				//
 			},
-			changeColumnEvent: (v) => {
-				//
+			changeColumnEvent: (key, column_arr) => {
+				let column = [...column_arr]
+
+				for (let v of column) {
+					if (v.key === key) {
+
+					}
+				}
+
+				dispatch(ActionCreator(CHANGE_COLUMN_VISIBILITY, {
+					resizeing: true,
+					resize_column: configs.column,
+					resize_path: configs.listPath,
+					resize_key: e.currentTarget.getAttribute("data-key"),
+					resize_clientX: e.clientX
+				}, '/common'))
+				e.stopPropagation()
 			}
 		};
 	}

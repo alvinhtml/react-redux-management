@@ -3,7 +3,6 @@ import {render} from 'react-dom'
 
 import {Provider} from 'react-redux'
 
-
 //引入样式文件
 // import './less/miniui.less'
 // import './css/style.css'
@@ -42,46 +41,56 @@ document.getElementById('webApplication'))
 //body事件
 document.addEventListener('mousemove', (e) => {
 
-    let state = store.getState()
-
-    //拖动改变表格列宽
-    if (state.common.resizeing) {
-        const width = state.common.resize_column[state.common.resize_key].width
-
-        //限制表头宽总是 >= 60
-        if ((width + e.clientX - state.common.resize_clientX) > 60) {
-            state.common.resize_column[state.common.resize_key].width = width + e.clientX - state.common.resize_clientX
-            console.log(state.common.resize_clientX, e.clientX, width, width + e.clientX - state.common.resize_clientX)
-            store.dispatch({
-                type: state.common.resize_path + "_resize_th",
-                payload: {
-                    column: state.common.resize_column
-                }
-            })
-            store.dispatch({
-                type: RESIZE_TH_WIDTH,
-                payload: {
-                    resize_clientX: e.clientX
-                }
-            })
+    console.log(window.td, window.tw)
+    if (window.ing) {
+        if (window.tw + e.pageX - window.tx > 60) {
+            window.td.style.width = (window.tw + e.pageX - window.tx) + 'px'
         }
     }
+
+
+    //let state = store.getState()
+
+    //拖动改变表格列宽
+    // if (state.common.resizeing) {
+    //     const width = state.common.resize_column[state.common.resize_key].width
+    //
+    //     //限制表头宽总是 >= 60
+    //     if ((width + e.clientX - state.common.resize_clientX) > 60) {
+    //         state.common.resize_column[state.common.resize_key].width = width + e.clientX - state.common.resize_clientX
+    //         console.log(state.common.resize_clientX, e.clientX, width, width + e.clientX - state.common.resize_clientX)
+    //         store.dispatch({
+    //             type: state.common.resize_path + "_resize_th",
+    //             payload: {
+    //                 column: state.common.resize_column
+    //             }
+    //         })
+    //         store.dispatch({
+    //             type: RESIZE_TH_WIDTH,
+    //             payload: {
+    //                 resize_clientX: e.clientX
+    //             }
+    //         })
+    //     }
+    // }
 })
 
 document.addEventListener('mouseup', (e) => {
-
-    let state = store.getState()
-
-    if (state.common.resizeing) {
-        store.dispatch({
-            type: RESIZE_TH_WIDTH,
-            payload: {
-                resizeing: false,
-                resize_column: undefined,
-                resize_path: undefined,
-                resize_key: undefined,
-                resize_clientX: undefined
-            }
-        })
+    if (window.ing) {
+        window.ing = false
     }
+    // let state = store.getState()
+    //
+    // if (state.common.resizeing) {
+    //     store.dispatch({
+    //         type: RESIZE_TH_WIDTH,
+    //         payload: {
+    //             resizeing: false,
+    //             resize_column: undefined,
+    //             resize_path: undefined,
+    //             resize_key: undefined,
+    //             resize_clientX: undefined
+    //         }
+    //     })
+    // }
 })

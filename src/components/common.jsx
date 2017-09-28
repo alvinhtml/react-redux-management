@@ -227,7 +227,7 @@ export class ListConfiger extends Component {
 
 		let columns = column.map((v, i) => {
 			return (
-				<span key={i} onClick={e => changeColumnEvent(e.currentTarget.getAttribute("data-id"))} className={v.visibility ? 'active' : ''} data-id={v.name}>{v.title}</span>
+				<span key={i} onClick={e => changeColumnEvent(e.currentTarget.getAttribute("data-key"), column)} className={v.visibility ? 'active' : ''} data-key={v.key}>{v.title}</span>
 			)
 		})
 
@@ -256,15 +256,42 @@ export class ListConfiger extends Component {
  * @type {Array}
  */
 export class ListHeader extends Component {
+	constructor(props) {
+		super(props)
 
+		//设置 initial state
+		this.state = {
+			opened: false
+		}
+
+		//ES6 类中函数必须手动绑定
+		this.onmousedown = this.onmousedown.bind(this)
+	}
+	onmousedown(e, element, key, listPath) {
+		window.resize = {
+			element: ele,
+			pageX: e.pageX,
+			width,
+			key,
+			listPath
+		}
+		window.reszeing = true
+
+
+		window.resize_ele = ele
+		window.resize_x = e.pageX
+		window.resize_width = ele.offsetWidth
+		window.resize_ing = true
+	}
 	render() {
 		const {orderbyEvent, resizeThEvent} = this.props
 		const column = this.props.configs.column
 
 		let columns = column.map((v, i) => {
-			let resize = v.resize ? <span onMouseDown={(e)=>{resizeThEvent(e, this.props.configs)}} data-key={i} className="resize"></span> : ''
+			let resize = v.resize ? <span onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key])}} data-key={i} className="resize"></span> : ''
 			return (
 				<th
+					ref = {"resize_" + v.key}
 					key = {v.key}
 					className = {v.order ? v.order : ''}
                     onClick = {orderbyEvent}
