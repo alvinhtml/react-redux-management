@@ -23,9 +23,13 @@ export const GET_AUTH_INFO = 'GET_AUTH_INFO'
 export const POST_LOGIN = 'POST_LOGIN'
 export const GET_LOGOUT = 'GET_LOGOUT'
 
+//list config
+export const CHANGE_COLUMN = 'CHANGE_COLUMN'
+
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
 export const SET_ADMIN_CONFIG = 'SET_ADMIN_CONFIG'
+
 
 //drag
 export const RESIZE_TH_WIDTH = 'RESIZE_TH_WIDTH'

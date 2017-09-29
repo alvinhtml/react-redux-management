@@ -227,7 +227,7 @@ export class ListConfiger extends Component {
 
 		let columns = column.map((v, i) => {
 			return (
-				<span key={i} onClick={e => changeColumnEvent(e.currentTarget.getAttribute("data-key"), column)} className={v.visibility ? 'active' : ''} data-key={v.key}>{v.title}</span>
+				<span key={i} onClick={e => changeColumnEvent(i, column)} className={v.visibility ? 'active' : ''}>{v.title}</span>
 			)
 		})
 
@@ -269,26 +269,20 @@ export class ListHeader extends Component {
 	}
 	onmousedown(e, element, key, listPath) {
 		window.resize = {
-			element: ele,
+			column: this.props.configs.column,
 			pageX: e.pageX,
-			width,
+			width: element.offsetWidth,
+			element,
 			key,
 			listPath
 		}
-		window.reszeing = true
-
-
-		window.resize_ele = ele
-		window.resize_x = e.pageX
-		window.resize_width = ele.offsetWidth
-		window.resize_ing = true
 	}
 	render() {
 		const {orderbyEvent, resizeThEvent} = this.props
-		const column = this.props.configs.column
+		const {column, listPath} = this.props.configs
 
 		let columns = column.map((v, i) => {
-			let resize = v.resize ? <span onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key])}} data-key={i} className="resize"></span> : ''
+			let resize = v.resize ? <span onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key], i, listPath)}} className="resize"></span> : ''
 			return (
 				<th
 					ref = {"resize_" + v.key}
@@ -298,7 +292,8 @@ export class ListHeader extends Component {
                     data-order = {v.order}
 					data-val = {v.key}
 					style = {{
-						width: v.width ? v.width + 'px' : 'auto'
+						width: v.width ? v.width + 'px' : 'auto',
+						display: v.visibility ? undefined : 'none',
 					}}
 				><strong>{v.title}</strong>{resize}</th>
 			)
@@ -329,8 +324,14 @@ export class ListBody extends Component {
 						</div></td>
 					)
 				} else {
+
 					return (
-						<td key={v.key}><div className="td-cell">
+						<td
+							key={v.key}
+							style = {{
+								display: v.visibility ? undefined : 'none',
+							}}
+						><div className="td-cell">
 							{line[v.key]}
 						</div></td>
 					)

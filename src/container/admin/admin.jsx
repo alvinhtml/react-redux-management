@@ -12,7 +12,7 @@ import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../
 //引入action类型常量名
 import {
 	RESIZE_TH_WIDTH,
-	CHANGE_COLUMN_VISIBILITY
+	CHANGE_COLUMN
 } from '../../constants'
 
 //引入Action创建函数
@@ -109,23 +109,14 @@ export const AdminList = connect(
 			changeLimitEvent: (v) => {
 				//
 			},
-			changeColumnEvent: (key, column_arr) => {
-				let column = [...column_arr]
+			changeColumnEvent: (key, column) => {
+				//let column = [...column_arr]
 
-				for (let v of column) {
-					if (v.key === key) {
+				column[key].visibility = column[key].visibility ? false : true
 
-					}
-				}
-
-				dispatch(ActionCreator(CHANGE_COLUMN_VISIBILITY, {
-					resizeing: true,
-					resize_column: configs.column,
-					resize_path: configs.listPath,
-					resize_key: e.currentTarget.getAttribute("data-key"),
-					resize_clientX: e.clientX
+				dispatch(ActionCreator(CHANGE_COLUMN, {
+					column
 				}, '/common'))
-				e.stopPropagation()
 			}
 		};
 	}

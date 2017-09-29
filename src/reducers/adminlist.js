@@ -1,7 +1,7 @@
 //引入action类型常量名
 import {
     GET_ADMIN_LIST,
-    RESIZE_TH_ING
+    CHANGE_COLUMN
 } from '../constants'
 
 
@@ -51,7 +51,7 @@ const adminlistInitialState = {
             key: 'email',
             title: '邮箱',
             order: 'order',
-            visibility: true,
+            visibility: false,
             width: 200,
             resize: 1
         },{
@@ -65,14 +65,14 @@ const adminlistInitialState = {
             key: 'ouname',
             title: '部门',
             order: 'order',
-            visibility: true,
+            visibility: false,
             width: 200,
             resize: 0
         },{
             key: 'ip',
             title: '可登录IP',
             order: false,
-            visibility: true,
+            visibility: false,
             width: 0
         },{
             key: 'state',
@@ -94,13 +94,17 @@ const adminlistInitialState = {
 
 export function adminlist(state = adminlistInitialState, action) {
 
+    let configs
+
     //根据不同的action type进行state的更新
     switch (action.type) {
         case GET_ADMIN_LIST:
             return {...state, ...action.payload}
         case 'adminlist_resize_th':
-            let configs = {...state.configs}
-                configs.column = action.payload.column;
+            configs = {...state.configs, ...action.payload}
+            return {...state, ...{configs}}
+        case CHANGE_COLUMN:
+            configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         default:
             return { ...state }

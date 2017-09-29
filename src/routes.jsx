@@ -77,7 +77,7 @@ const App = connect((state) => {
 
 export default App
 
-
+// <meta http-equiv="refresh" content="0;url=http://www.baidu.com">
 // <div className="manage">
 //     <Header />
 //     <Sidebar />

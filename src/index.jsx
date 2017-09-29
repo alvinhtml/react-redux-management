@@ -7,8 +7,6 @@ import {Provider} from 'react-redux'
 // import './less/miniui.less'
 // import './css/style.css'
 
-//引入action类型常量名
-import {RESIZE_TH_WIDTH} from './constants'
 
 //引入store配置
 import finalCreateStore from './stores/configureStore'
@@ -38,59 +36,31 @@ render(
     </Provider>,
 document.getElementById('webApplication'))
 
-//body事件
+
+//document mousemove 事件
 document.addEventListener('mousemove', (e) => {
 
-    console.log(window.td, window.tw)
-    if (window.ing) {
-        if (window.tw + e.pageX - window.tx > 60) {
-            window.td.style.width = (window.tw + e.pageX - window.tx) + 'px'
+    //表头宽度调整
+    if (window.resize) {
+        let {column, element, pageX, width, key, listPath} = window.resize
+        if (width + e.pageX - pageX > 60) {
+            element.style.width = (width + e.pageX - pageX) + 'px'
         }
     }
-
-
-    //let state = store.getState()
-
-    //拖动改变表格列宽
-    // if (state.common.resizeing) {
-    //     const width = state.common.resize_column[state.common.resize_key].width
-    //
-    //     //限制表头宽总是 >= 60
-    //     if ((width + e.clientX - state.common.resize_clientX) > 60) {
-    //         state.common.resize_column[state.common.resize_key].width = width + e.clientX - state.common.resize_clientX
-    //         console.log(state.common.resize_clientX, e.clientX, width, width + e.clientX - state.common.resize_clientX)
-    //         store.dispatch({
-    //             type: state.common.resize_path + "_resize_th",
-    //             payload: {
-    //                 column: state.common.resize_column
-    //             }
-    //         })
-    //         store.dispatch({
-    //             type: RESIZE_TH_WIDTH,
-    //             payload: {
-    //                 resize_clientX: e.clientX
-    //             }
-    //         })
-    //     }
-    // }
 })
 
 document.addEventListener('mouseup', (e) => {
-    if (window.ing) {
-        window.ing = false
+
+    //结束表头宽度调整, 并把调整后的宽 dispatch 到 store
+    if (window.resize) {
+        let {column, element, key, listPath} = window.resize
+        column[key].width = element.offsetWidth
+        store.dispatch({
+            type: listPath + "_resize_th",
+            payload: {
+                column: column
+            }
+        })
+        window.resize = undefined
     }
-    // let state = store.getState()
-    //
-    // if (state.common.resizeing) {
-    //     store.dispatch({
-    //         type: RESIZE_TH_WIDTH,
-    //         payload: {
-    //             resizeing: false,
-    //             resize_column: undefined,
-    //             resize_path: undefined,
-    //             resize_key: undefined,
-    //             resize_clientX: undefined
-    //         }
-    //     })
-    // }
 })
