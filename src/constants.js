@@ -25,6 +25,7 @@ export const GET_LOGOUT = 'GET_LOGOUT'
 
 //list config
 export const CHANGE_COLUMN = 'CHANGE_COLUMN'
+export const UPDATE_LIST_CONFIGS = 'UPDATE_LIST_CONFIGS'
 
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'

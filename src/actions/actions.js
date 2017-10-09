@@ -12,7 +12,8 @@ import {
     POST_LOGIN,
     GET_LOGOUT,
     GET_AUTH_INFO,
-    GET_ADMIN_LIST
+    GET_ADMIN_LIST,
+    UPDATE_LIST_CONFIGS
 } from '../constants'
 
 /**
@@ -108,12 +109,53 @@ const makePostActionCreator = (type, url, ...argNames) => {
     }
 }
 
+//无Action POST请求
+export const makePost = (url, body) => {
+
+        //发起fetch请求
+        return fetch(url, {
+            method: "POST",
+            //请求带上cookie
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': window.Laravel.csrfToken
+            },
+            body: JSON.stringify({_token: window.Laravel.csrfToken, ...body})
+        })
+
+        //判断HTTP请求结果，200-299 表示请求成功
+        .then(response => {
+            if (response.status >= 200 && response.status < 300) {
+                return response
+            } else {
+                var error = new Error(response.statusText)
+                error.response = response
+                throw error
+            }
+        })
+
+        //生成JSON.parse(responseText)的结果
+        .then(response => response.json())
+
+        //获取并处理请求结果
+        .then(json => {
+            console.log ("状态码:",json.error, json.message);
+        })
+
+        //处理请求错误
+        .catch(error => {
+            //
+        })
+}
+
+
+
 //异步Action函数创建器 GET请求
 const makeGetActionCreator = (type, url, ...argNames) => {
 
     return (...args) => (dispatch, getState) => {
-
-        console.log("ARGS:", ...args);
 
         let [body, path, error] = [...args]
 
@@ -178,18 +220,18 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 
 
 //发送登录请求
-export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'error')
+export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'message')
 //退出登录
-export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout','body', 'path', 'error')
+export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout','body', 'path', 'message')
 
 
-console.log("LF:", logoutFetch)
-
+//更新列表配置
+export const updateListConfigs = makePostActionCreator(UPDATE_LIST_CONFIGS, '/api/setting/list_configs', 'body', 'path', 'message')
 
 
 //获取认证信息
-export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'path', 'error')
+export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'path', 'message')
 
 console.log('loginFetch', loginFetch)
 //获取管理员列表
-export const getAdminList = makeGetActionCreator(GET_ADMIN_LIST, '/api/admin/list','body', 'path', 'error')
+export const getAdminList = makeGetActionCreator(GET_ADMIN_LIST, '/api/admin/list','body', 'path', 'message')

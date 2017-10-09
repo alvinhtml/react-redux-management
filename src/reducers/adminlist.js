@@ -107,6 +107,6 @@ export function adminlist(state = adminlistInitialState, action) {
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         default:
-            return { ...state }
+            return {...state}
     }
 }

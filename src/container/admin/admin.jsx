@@ -12,11 +12,12 @@ import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../
 //引入action类型常量名
 import {
 	RESIZE_TH_WIDTH,
-	CHANGE_COLUMN
+	CHANGE_COLUMN,
+	UPDATE_LIST_CONFIGS
 } from '../../constants'
 
 //引入Action创建函数
-import {ActionCreator, getAdminList} from '../../actions/actions'
+import {ActionCreator, getAdminList, makePost} from '../../actions/actions'
 
 class AdminListUI extends Component {
 
@@ -82,9 +83,14 @@ export const AdminList = connect(
 		return state.adminlist
 	},
 	(dispatch, ownProps) => {
+		const updateConfigs = (configs) => {
+			makePost('/api/setting/list_configs', {
+				listPath: configs.listPath,
+				configs
+			})
+		}
 		return {
 			resizeThEvent: (e, configs) => {
-				console.log(ActionCreator)
 				dispatch(ActionCreator(RESIZE_TH_WIDTH, {
 					resizeing: true,
 					resize_column: configs.column,
@@ -92,6 +98,7 @@ export const AdminList = connect(
 					resize_key: e.currentTarget.getAttribute("data-key"),
 					resize_clientX: e.clientX
 				}, '/common'))
+				//updateConfigs(configs)
 				e.stopPropagation()
 			},
 			getList: (o) => {

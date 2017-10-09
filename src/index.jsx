@@ -7,6 +7,8 @@ import {Provider} from 'react-redux'
 // import './less/miniui.less'
 // import './css/style.css'
 
+//引入Action创建函数
+import {makePost} from './actions/actions'
 
 //引入store配置
 import finalCreateStore from './stores/configureStore'
@@ -26,6 +28,7 @@ import DevTools from './container/DevTools'
 const store = finalCreateStore(reducer)
 
 console.log("state",store);
+
 
 render(
     <Provider store={store}>
@@ -60,6 +63,11 @@ document.addEventListener('mouseup', (e) => {
             payload: {
                 column: column
             }
+        })
+        let stores = store.getState()
+        makePost('/api/setting/list_configs', {
+            listPath: listPath,
+            configs: JSON.stringify(stores[listPath].configs)
         })
         window.resize = undefined
     }
