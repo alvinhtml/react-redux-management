@@ -48,7 +48,7 @@ class AdminListUI extends Component {
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
                             <Link data-content="新建" to="/admin/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={page}  column={configs.column} limit={configs.limit}  />
+                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={page}  configs={configs} />
                         </div>
                     </div>
 					<div id="listTable" className="olist-main">
@@ -83,24 +83,17 @@ export const AdminList = connect(
 		return state.adminlist
 	},
 	(dispatch, ownProps) => {
+
+		console.group("connect")
+		console.log(ownProps.props)
+		console.groupEnd("connect")
 		const updateConfigs = (configs) => {
 			makePost('/api/setting/list_configs', {
 				listPath: configs.listPath,
-				configs
+				configs: JSON.stringify(configs)
 			})
 		}
 		return {
-			resizeThEvent: (e, configs) => {
-				dispatch(ActionCreator(RESIZE_TH_WIDTH, {
-					resizeing: true,
-					resize_column: configs.column,
-					resize_path: configs.listPath,
-					resize_key: e.currentTarget.getAttribute("data-key"),
-					resize_clientX: e.clientX
-				}, '/common'))
-				//updateConfigs(configs)
-				e.stopPropagation()
-			},
 			getList: (o) => {
 				dispatch(getAdminList(o, '/adminlist'))
 			},
@@ -113,17 +106,28 @@ export const AdminList = connect(
 			setSearchMode: (v) => {
 				//
 			},
-			changeLimitEvent: (v) => {
-				//
+			changeLimitEvent: (v, configs) => {
+
+				configs.limit = parseInt(v)
+
+				dispatch(ActionCreator(CHANGE_COLUMN, {
+					limit: v
+				}, '/adminlist'))
+
+				updateConfigs(configs)
+
 			},
-			changeColumnEvent: (key, column) => {
-				//let column = [...column_arr]
+			changeColumnEvent: (key, configs) => {
+
+				let column = configs.column
 
 				column[key].visibility = column[key].visibility ? false : true
 
 				dispatch(ActionCreator(CHANGE_COLUMN, {
 					column
-				}, '/common'))
+				}, '/adminlist'))
+
+				updateConfigs(configs)
 			}
 		};
 	}

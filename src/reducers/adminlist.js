@@ -34,7 +34,7 @@ const adminlistInitialState = {
         selectAll: true,
         actions: [],
         column: [{
-            key: 'index',
+            key: 'id',
             title: '序号',
             order: 'order',
             visibility: true,

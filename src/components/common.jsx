@@ -215,19 +215,20 @@ export class ListConfiger extends Component {
 		})
 	}
 	render() {
-		const {column, limit, changeLimitEvent, changeColumnEvent} = this.props
+		const {configs, changeLimitEvent, changeColumnEvent} = this.props
+		const {column, limit} = configs
 
 		const limitArray = [10,20,30,50,100,200]
 
 		let limits = limitArray.map((v, i) => {
 			return (
-                <span key={i} onClick={e => changeLimitEvent(e.currentTarget.getAttribute("data-val"))} data-val={v} className={v == limit ? 'active' : ''}>{v}</span>
+                <span key={i} onClick={e => changeLimitEvent(e.currentTarget.getAttribute("data-val"), configs)} data-val={v} className={v == limit ? 'active' : ''}>{v}</span>
             )
 		})
 
 		let columns = column.map((v, i) => {
 			return (
-				<span key={i} onClick={e => changeColumnEvent(i, column)} className={v.visibility ? 'active' : ''}>{v.title}</span>
+				<span key={i} onClick={e => changeColumnEvent(i, configs)} className={v.visibility ? 'active' : ''}>{v.title}</span>
 			)
 		})
 
@@ -317,25 +318,16 @@ export class ListBody extends Component {
 		const lines = (line, key) => {
 
 			let columns = column.map((v, i) => {
-				if (v.key === "index") {
-					return (
-						<td key={v.key}><div className="td-cell">
-							{i}
-						</div></td>
-					)
-				} else {
-
-					return (
-						<td
-							key={v.key}
-							style = {{
-								display: v.visibility ? undefined : 'none',
-							}}
-						><div className="td-cell">
-							{line[v.key]}
-						</div></td>
-					)
-				}
+				return (
+					<td
+						key={v.key}
+						style = {{
+							display: v.visibility ? undefined : 'none',
+						}}
+					><div className="td-cell">
+						{line[v.key]}
+					</div></td>
+				)
 			})
 
 			return (
