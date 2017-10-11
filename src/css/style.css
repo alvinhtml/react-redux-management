@@ -291,8 +291,9 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 
 /* olist -> pagelist */
 .pagelist { padding: 25px 0 10px 0; text-align: right;}
-.pagelist input { width: 64px; height: 28px; padding: 3px;}
-.pagelist a { height: 28px; min-width: 28px; line-height: 26px; text-align: center; box-sizing:border-box; border:1px solid #36c6d3; padding: 0; cursor: pointer; display: inline-block; margin-left: 5px; vertical-align: middle;}
+.pagelist input { width: 40px; height: 28px; padding: 3px; text-align: center; border:1px solid #36c6d3; border-radius: 0; }
+.pagelist input:focus { border:1px solid #36c6d3; border-radius: 0; }
+.pagelist a { height: 28px; min-width: 28px; line-height: 26px; text-align: center; box-sizing:border-box; border:1px solid #36c6d3; color: #36c6d3; padding: 0; cursor: pointer; display: inline-block; margin-left: 5px; vertical-align: middle;}
 .pagelist a:hover,
 .pagelist a.active { background-color: #36c6d3; color: #fff; }
 

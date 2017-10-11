@@ -1,7 +1,7 @@
 //引入action类型常量名
 import {
     GET_ADMIN_LIST,
-    CHANGE_COLUMN
+    UPDATE_LIST_CONFIGS
 } from '../constants'
 
 
@@ -24,14 +24,15 @@ const adminlistInitialState = {
     ],
     list: [], //列表数据
     count: 64, //列表总条数
-    page: 2, //当前页
 
     //列表配置
     configs:{
         listPath: 'adminlist',
+        page: 1, //当前页
         limit: 20, //单页显示条数
         searchMode: '精确搜索', //搜索模式
         selectAll: true,
+        search: '',
         actions: [],
         column: [{
             key: 'id',
@@ -103,7 +104,7 @@ export function adminlist(state = adminlistInitialState, action) {
         case 'adminlist_resize_th':
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
-        case CHANGE_COLUMN:
+        case UPDATE_LIST_CONFIGS:
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         default:

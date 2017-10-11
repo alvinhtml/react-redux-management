@@ -3,17 +3,10 @@ import fetch from 'isomorphic-fetch'
 
 //引入action类型常量名
 import {
-    ERROR,
-    SUCCESS,
-    REQUESTPOST,
-    RECEIVEPOST,
-    REQUESTGET,
-    RECEIVEGET,
     POST_LOGIN,
     GET_LOGOUT,
     GET_AUTH_INFO,
     GET_ADMIN_LIST,
-    UPDATE_LIST_CONFIGS
 } from '../constants'
 
 /**
@@ -223,10 +216,6 @@ const makeGetActionCreator = (type, url, ...argNames) => {
 export const loginFetch = makePostActionCreator(POST_LOGIN, '/api/admin/login', 'body', 'path', 'message')
 //退出登录
 export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout','body', 'path', 'message')
-
-
-//更新列表配置
-export const updateListConfigs = makePostActionCreator(UPDATE_LIST_CONFIGS, '/api/setting/list_configs', 'body', 'path', 'message')
 
 
 //获取认证信息

@@ -12,7 +12,6 @@ import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../
 //引入action类型常量名
 import {
 	RESIZE_TH_WIDTH,
-	CHANGE_COLUMN,
 	UPDATE_LIST_CONFIGS
 } from '../../constants'
 
@@ -23,14 +22,13 @@ class AdminListUI extends Component {
 
 	componentWillMount() {
         this.props.getList({
-			page: 2,
-			limit: this.props.configs.limit
+			page: 1
 		});
     }
 
 	render() {
-		const {tools, list, count, configs, page} = this.props
-		const {resizeThEvent, getList, toolsClickEvent, setSearchMode, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
+		const {tools, list, count, configs} = this.props
+		const {resizeThEvent, setPageEvent, toolsClickEvent, setSearchMode, searchEvent, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -43,12 +41,12 @@ class AdminListUI extends Component {
                             <Droptool icon="icon-wrench" bgColor="bg-red">
 								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <ListSearcher search="search..." getList={getList} searchMode={configs.searchMode} setSearchMode={setSearchMode} />
+                            <ListSearcher search="search..." searchEvent={searchEvent} configs={configs} setSearchMode={setSearchMode} />
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
                             <Link data-content="新建" to="/admin/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={page}  configs={configs} />
+                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={configs.page}  configs={configs} />
                         </div>
                     </div>
 					<div id="listTable" className="olist-main">
@@ -57,7 +55,7 @@ class AdminListUI extends Component {
                             <ListBody list={list} column={configs.column} />
                         </table>
                     </div>
-					<PageList getList={getList} count={parseInt(count)} limit={parseInt(configs.limit)} page={parseInt(page)}  />
+					<PageList setPageEvent={setPageEvent} count={parseInt(count)} configs={configs} />
 				</div>
             </div>
 		)
@@ -84,9 +82,6 @@ export const AdminList = connect(
 	},
 	(dispatch, ownProps) => {
 
-		console.group("connect")
-		console.log(ownProps.props)
-		console.groupEnd("connect")
 		const updateConfigs = (configs) => {
 			makePost('/api/setting/list_configs', {
 				listPath: configs.listPath,
@@ -103,27 +98,52 @@ export const AdminList = connect(
 			orderbyEvent: (v) => {
 				//
 			},
-			setSearchMode: (v) => {
-				//
+			//搜索模式
+			setSearchMode: (modeValue) => {
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+					searchMode: modeValue
+				}, '/adminlist'))
 			},
+			//搜索
+			searchEvent: (search) => {
+				dispatch(getAdminList({
+					search
+				}, '/adminlist'))
+			},
+			//改变页码
+			setPageEvent: (page) => {
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+					page
+				}, '/adminlist'))
+				dispatch(getAdminList({
+					page
+				}, '/adminlist'))
+			},
+			//改变每页显示条数
 			changeLimitEvent: (v, configs) => {
 
 				configs.limit = parseInt(v)
 
-				dispatch(ActionCreator(CHANGE_COLUMN, {
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					limit: v
 				}, '/adminlist'))
 
 				updateConfigs(configs)
 
+				dispatch(getAdminList({
+					page: configs.page,
+					limit: configs.limit
+				}, '/adminlist'))
+
 			},
+			//改变表格列宽
 			changeColumnEvent: (key, configs) => {
 
 				let column = configs.column
 
 				column[key].visibility = column[key].visibility ? false : true
 
-				dispatch(ActionCreator(CHANGE_COLUMN, {
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					column
 				}, '/adminlist'))
 
