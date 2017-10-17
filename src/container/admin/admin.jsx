@@ -12,7 +12,8 @@ import {PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../
 //引入action类型常量名
 import {
 	RESIZE_TH_WIDTH,
-	UPDATE_LIST_CONFIGS
+	UPDATE_LIST_CONFIGS,
+	CHANGE_LIST_CHECKBOX
 } from '../../constants'
 
 //引入Action创建函数
@@ -23,12 +24,24 @@ class AdminListUI extends Component {
 	componentWillMount() {
         this.props.getList({
 			page: 1
-		});
+		})
     }
 
 	render() {
-		const {tools, list, count, configs} = this.props
-		const {resizeThEvent, setPageEvent, toolsClickEvent, setSearchMode, searchEvent, changeLimitEvent, changeColumnEvent, orderbyEvent} = this.props
+		const {tools, list, count, configs, isCheckAll} = this.props
+		const {
+			resizeThEvent,
+			setPageEvent,
+			toolsClickEvent,
+			setSearchMode,
+			searchEvent,
+			changeLimitEvent,
+			changeColumnEvent,
+			orderbyEvent,
+			checkEvent,
+			checkAllEvent
+		} = this.props
+
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -51,8 +64,8 @@ class AdminListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<ListHeader orderbyEvent={orderbyEvent} resizeThEvent={resizeThEvent} configs={configs} />
-                            <ListBody list={list} column={configs.column} />
+							<ListHeader orderbyEvent={orderbyEvent} resizeThEvent={resizeThEvent} checkAllEvent={checkAllEvent} isCheckAll={isCheckAll} configs={configs} />
+                            <ListBody list={list} configs={configs} checkEvent={checkEvent} />
                         </table>
                     </div>
 					<PageList setPageEvent={setPageEvent} count={parseInt(count)} configs={configs} />
@@ -82,6 +95,8 @@ export const AdminList = connect(
 	},
 	(dispatch, ownProps) => {
 
+
+
 		const updateConfigs = (configs) => {
 			makePost('/api/setting/list_configs', {
 				listPath: configs.listPath,
@@ -90,34 +105,48 @@ export const AdminList = connect(
 		}
 		return {
 			getList: (o) => {
-				dispatch(getAdminList(o, '/adminlist'))
+				dispatch(getAdminList(o))
 			},
 			toolsClickEvent: (v) => {
 				//
 			},
 			orderbyEvent: (v) => {
-				//
+				console.log("orderby")
+			},
+			//全选
+			checkAllEvent: (element) => {
+				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
+					isCheckAll: element.checked
+				}, 'adminlist'))
+			},
+			//单选
+			checkEvent: (e, element, id) => {
+				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
+					//isCheckAll: element.checked
+					id,
+					checked: element.checked
+				}, 'adminlist'))
 			},
 			//搜索模式
 			setSearchMode: (modeValue) => {
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					searchMode: modeValue
-				}, '/adminlist'))
+				}, 'adminlist'))
 			},
 			//搜索
 			searchEvent: (search) => {
 				dispatch(getAdminList({
 					search
-				}, '/adminlist'))
+				}))
 			},
 			//改变页码
 			setPageEvent: (page) => {
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					page
-				}, '/adminlist'))
+				}, 'adminlist'))
 				dispatch(getAdminList({
 					page
-				}, '/adminlist'))
+				}))
 			},
 			//改变每页显示条数
 			changeLimitEvent: (v, configs) => {
@@ -126,14 +155,14 @@ export const AdminList = connect(
 
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					limit: v
-				}, '/adminlist'))
+				}, 'adminlist'))
 
 				updateConfigs(configs)
 
 				dispatch(getAdminList({
 					page: configs.page,
 					limit: configs.limit
-				}, '/adminlist'))
+				}))
 
 			},
 			//改变表格列宽
@@ -145,7 +174,7 @@ export const AdminList = connect(
 
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
 					column
-				}, '/adminlist'))
+				}, 'adminlist'))
 
 				updateConfigs(configs)
 			}

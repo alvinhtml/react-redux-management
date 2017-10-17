@@ -1,7 +1,8 @@
 //引入action类型常量名
 import {
     GET_ADMIN_LIST,
-    UPDATE_LIST_CONFIGS
+    UPDATE_LIST_CONFIGS,
+    CHANGE_LIST_CHECKBOX
 } from '../constants'
 
 
@@ -24,14 +25,14 @@ const adminlistInitialState = {
     ],
     list: [], //列表数据
     count: 64, //列表总条数
-
+    isCheckAll: false,
     //列表配置
     configs:{
         listPath: 'adminlist',
         page: 1, //当前页
         limit: 20, //单页显示条数
         searchMode: '精确搜索', //搜索模式
-        selectAll: true,
+        checkboxs: true, //选择框 0:无, 1:有
         search: '',
         actions: [],
         column: [{
@@ -105,6 +106,33 @@ export function adminlist(state = adminlistInitialState, action) {
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         case UPDATE_LIST_CONFIGS:
+            configs = {...state.configs, ...action.payload}
+            return {...state, ...{configs}}
+        case CHANGE_LIST_CHECKBOX:
+            if (action.path === "adminlist") {
+                if (action.payload.hasOwnProperty("isCheckAll")) {
+                    //参数为全选的时候
+                    var list = [];
+                    for (let v of state.list) {
+                        v.checked = action.payload.isCheckAll
+                    }
+                    return {...state, ...action.payload}
+                } else {
+                    //参数为单选的时候
+                    let isCheckAll = true
+                    for (let v of state.list) {
+                        if (action.payload.id == v.id) {
+                            v.checked = action.payload.checked
+                        }
+                        //只要有一个复选框为 false, 全选复选框就会为 false
+                        console.log(v.id, v.checked)
+                        if (v.checked === false || v.checked === undefined) {
+                            isCheckAll = false
+                        }
+                    }
+                    return {...state, ...{list:[...state.list]}, ...{isCheckAll}}
+                }
+            }
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         default:

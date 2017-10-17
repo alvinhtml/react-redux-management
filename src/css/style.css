@@ -258,9 +258,11 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 /* olist -> table */
 .olist-main { margin-top: 10px; border-left:1px solid #e7ecf1; border-right:1px solid #e7ecf1; overflow-x: auto; position: relative;}
 .olist-table { border:0; width:100%; }
-.olist-table tbody tr:hover { background-color: #eef1f5;}
-.olist-table th { white-space:nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
+.olist-table tbody tr:hover,  .olist-table th:hover { background-color: #eef1f5;}
+.olist-table th { white-space:nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-right:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
 .olist-table td { padding:0; vertical-align: top; box-sizing:border-box; border-right:1px solid #e7ecf1;  border-bottom:1px solid #e7ecf1; }
+.olist-table tr>th:last-child,
+.olist-table tr>td:last-child { border-right: 0;}
 .olist-table th strong,
 .drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px;}
 .olist-table .td-cell { padding:6px 6px; line-height: 26px; white-space: nowrap; overflow: hidden; width:-moz-calc(100% - 24px); width:calc(100% - 24px); }
@@ -285,7 +287,7 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
     right: -4px;
     left: auto;
     top: 0;
-    cursor: ew-resize;
+    cursor: col-resize;
     z-index: 8;
 }
 

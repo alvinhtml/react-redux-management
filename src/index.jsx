@@ -51,7 +51,6 @@ document.addEventListener('mousemove', (e) => {
         }
     }
 })
-
 document.addEventListener('mouseup', (e) => {
 
     //结束表头宽度调整, 并把调整后的宽 dispatch 到 store

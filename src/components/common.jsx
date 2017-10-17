@@ -265,20 +265,21 @@ export class ListHeader extends Component {
 			key,
 			listPath
 		}
+		e.stopPropagation();
 	}
 
 	onOrderByEvent(e, order) {
 		if (order) {
-			orderbyEvent(order !== 'asc' ? 'asc' : 'desc', this.props.configs)
+			this.props.orderbyEvent(order !== 'asc' ? 'asc' : 'desc', this.props.configs)
 		}
 	}
 
 	render() {
-		const {resizeThEvent} = this.props
-		const {column, listPath} = this.props.configs
+		const {resizeThEvent, orderbyEvent, checkAllEvent, isCheckAll} = this.props
+		const {column, listPath, checkboxs} = this.props.configs
 
 		let columns = column.map((v, i) => {
-			let resize = v.resize ? <span onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key], i, listPath)}} className="resize"></span> : ''
+			let resize = v.resize ? <span onClick={e=>{e.stopPropagation()}} onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key], i, listPath);}} className="resize"></span> : ''
 			return (
 				<th
 					ref = {"resize_" + v.key}
@@ -295,9 +296,18 @@ export class ListHeader extends Component {
 			)
 		})
 
+		let checkboxDom = checkboxs ?
+			<th
+				className="row-checkbox"
+				key="check-all"
+			><input checked={isCheckAll} type="checkbox" ref="checkbox_all" onChange={e=>{checkAllEvent(this.refs['checkbox_all'])}} /></th> : ''
+
 		return (
 			<thead id="list_head">
-				<tr>{columns}</tr>
+				<tr>
+					{checkboxDom}
+					{columns}
+				</tr>
 			</thead>
         )
 	}
@@ -310,11 +320,11 @@ export class ListBody extends Component {
 
 	render() {
 
-		const {list, column} = this.props
+		const {list, configs, checkEvent, ischeck} = this.props
 
 		const lines = (line, key) => {
 
-			let columns = column.map((v, i) => {
+			let columns = configs.column.map((v, i) => {
 				return (
 					<td
 						key={v.key}
@@ -326,9 +336,18 @@ export class ListBody extends Component {
 					</div></td>
 				)
 			})
+			console.log(typeof(line.checked))
+			let checked =  typeof(line.checked) === 'undefined' ? false : line.checked
+			let checkboxDom = configs.checkboxs ?
+				<td className="row-checkbox" key="check">
+					<div className="td-cell">
+						<input value={line.id} checked={checked} type="checkbox" ref={"checkbox_" + line.id} onChange={e=>checkEvent(e,this.refs['checkbox_'+line.id],line.id)} />
+					</div>
+				</td> : ''
 
 			return (
 				<tr key={key}>
+					{checkboxDom}
 					{columns}
 				</tr>
 			)
