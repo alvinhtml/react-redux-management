@@ -14,18 +14,14 @@
 </head>
 <body>
     <div id="webApplication" style="height: 2000px;"></div>
-	
+
     <!-- JavaScript -->
     <script type="text/javascript">
-        console.log(fetch);
+    var str1 = "http://ggjd.cnstock.com/company/scp_ggjd/tjd_sdlh/201710/4140474.htmhttp://ggjd.cnstock.com/company/scp_ggjd/tjd_sdlh/201710/4140474.htmhttp://www.cnstock.com/help/hezuo.htm"
 
-        fetch('a.php').then(function(response){
-            console.log();
+    var regex = /http:\/\/(.+)\.cnstock\.com\/.+\.htm/i
 
-            response.json().then(function(json){
-                console.log(json);
-            })
-        });
+    console.log(str1.match(regex))
 
 
     </script>

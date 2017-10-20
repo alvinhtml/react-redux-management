@@ -280,6 +280,7 @@ export class ListHeader extends Component {
 
 		let columns = column.map((v, i) => {
 			let resize = v.resize ? <span onClick={e=>{e.stopPropagation()}} onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key], i, listPath);}} className="resize"></span> : ''
+			let order = v.order ? <span className={v.order}></span> : ''
 			return (
 				<th
 					ref = {"resize_" + v.key}
@@ -292,7 +293,7 @@ export class ListHeader extends Component {
 						width: v.width ? v.width + 'px' : 'auto',
 						display: v.visibility ? undefined : 'none',
 					}}
-				><strong>{v.title}</strong>{resize}</th>
+				><strong>{v.title}</strong>{order}{resize}</th>
 			)
 		})
 

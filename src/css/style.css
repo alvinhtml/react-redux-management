@@ -291,6 +291,13 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
     z-index: 8;
 }
 
+.olist-table th .order { position: absolute; left: 4px; top: 8px; width: 9px; height: 20px; background: red; }
+.olist-table th .order::before { content: ""; width: 0; height: 0; display: block; border:7px solid  #f4f6f9; border-top:0; border-bottom:7px solid #ccc;}
+.olist-table th .order::after {  }
+
+
+
+
 /* olist -> pagelist */
 .pagelist { padding: 25px 0 10px 0; text-align: right;}
 .pagelist input { width: 40px; height: 28px; padding: 3px; text-align: center; border:1px solid #36c6d3; border-radius: 0; }
