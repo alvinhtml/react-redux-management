@@ -76,14 +76,3 @@ const App = connect((state) => {
 })(AppUI)
 
 export default App
-
-// <meta http-equiv="refresh" content="0;url=http://www.baidu.com">
-// <div className="manage">
-//     <Header />
-//     <Sidebar />
-//     <Switch>
-//         <Route exact path="/" component={Home}/>
-//         <Route path="/home" component={Home}/>
-//         <Route path="/admin" component={Adminlist}/>
-//     </Switch>
-// </div>

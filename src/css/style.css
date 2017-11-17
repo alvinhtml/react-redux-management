@@ -258,7 +258,7 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 /* olist -> table */
 .olist-main { margin-top: 10px; border-left:1px solid #e7ecf1; border-right:1px solid #e7ecf1; overflow-x: auto; position: relative;}
 .olist-table { border:0; width:100%; }
-.olist-table tbody tr:hover,  .olist-table th:hover { background-color: #eef1f5;}
+.olist-table tbody tr:hover { background-color: #eef1f5;}
 .olist-table th { white-space:nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-right:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
 .olist-table td { padding:0; vertical-align: top; box-sizing:border-box; border-right:1px solid #e7ecf1;  border-bottom:1px solid #e7ecf1; }
 .olist-table tr>th:last-child,
@@ -274,12 +274,6 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 .olist-table td.olist-td-opts .button { margin-right: 6px;}
 
 /* olist -> order-by resize */
-.olist-table th.order,
-.drag-mirror.order { background-image: url(../images/sort_both.png); background-position: right center; background-repeat: no-repeat; }
-.olist-table th.asc,
-.drag-mirror.asc { background-image: url(../images/sort_both_asc.png); background-position: right center; background-repeat: no-repeat;}
-.olist-table th.desc,
-.drag-mirror.desc { background-image:  url(../images/sort_both_desc.png); background-position: right center; background-repeat: no-repeat; }
 .olist-table .resize { display: block;
     height: 36px;
     width: 7px;
@@ -290,10 +284,16 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
     cursor: col-resize;
     z-index: 8;
 }
+.olist-table th .order { position: absolute; right: 4px; top: 10px; width: 8px; height: 16px;}
+.olist-table th .order::before, .olist-table th .order::after {
+    content: ""; width: 0; height: 0; position: absolute; border:4px solid  #f4f6f9; display: block;
+}
+.olist-table th .order::before { top: 0; border-top:0; border-bottom:7px solid #d5dade;}
+.olist-table th .order::after { bottom: 0; border-bottom:0; border-top:7px solid #d5dade;}
+.olist-table th .order.desc::before { top: 0; border-top:0; border-bottom:7px solid #aaa;}
+.olist-table th .order.asc::after { bottom: 0; border-bottom:0; border-top:7px solid #aaa;}
 
-.olist-table th .order { position: absolute; left: 4px; top: 8px; width: 9px; height: 20px; background: red; }
-.olist-table th .order::before { content: ""; width: 0; height: 0; display: block; border:7px solid  #f4f6f9; border-top:0; border-bottom:7px solid #ccc;}
-.olist-table th .order::after {  }
+
 
 
 

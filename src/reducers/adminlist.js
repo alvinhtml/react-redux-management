@@ -101,7 +101,10 @@ export function adminlist(state = adminlistInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case GET_ADMIN_LIST:
-            return {...state, ...action.payload}
+            return {
+                ...state,
+                ...action.payload
+            }
         case 'adminlist_resize_th':
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}

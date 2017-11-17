@@ -110,8 +110,30 @@ export const AdminList = connect(
 			toolsClickEvent: (v) => {
 				//
 			},
-			orderbyEvent: (v) => {
-				console.log("orderby")
+			//排序
+			orderbyEvent: (v, key, configs) => {
+				let column = configs.column
+
+				for (let i = 0; i < column.length; i++) {
+					console.log(key, i)
+					if (column[i].order) {
+						if (i == key) {
+							column[i].order = v
+						} else {
+							column[i].order = 'order'
+						}
+					}
+				}
+
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+					column
+				}, 'adminlist'))
+
+				updateConfigs(configs)
+
+				dispatch(getAdminList({
+					order: column[key].key + ',' + v
+				}))
 			},
 			//全选
 			checkAllEvent: (element) => {

@@ -268,9 +268,9 @@ export class ListHeader extends Component {
 		e.stopPropagation();
 	}
 
-	onOrderByEvent(e, order) {
+	onOrderByEvent(e, i, order) {
 		if (order) {
-			this.props.orderbyEvent(order !== 'asc' ? 'asc' : 'desc', this.props.configs)
+			this.props.orderbyEvent(order !== 'asc' ? 'asc' : 'desc', i, this.props.configs)
 		}
 	}
 
@@ -280,14 +280,11 @@ export class ListHeader extends Component {
 
 		let columns = column.map((v, i) => {
 			let resize = v.resize ? <span onClick={e=>{e.stopPropagation()}} onMouseDown={(e)=>{this.onmousedown(e, this.refs['resize_'+v.key], i, listPath);}} className="resize"></span> : ''
-			let order = v.order ? <span className={v.order}></span> : ''
+			let order = v.order ? <span onClick = {e=>this.onOrderByEvent(e, i, v.order)} className={'order ' + v.order}></span> : ''
 			return (
 				<th
 					ref = {"resize_" + v.key}
 					key = {v.key}
-					className = {v.order ? v.order : ''}
-                    onClick = {e=>this.onOrderByEvent(e, v.order)}
-                    data-order = {v.order}
 					data-val = {v.key}
 					style = {{
 						width: v.width ? v.width + 'px' : 'auto',
