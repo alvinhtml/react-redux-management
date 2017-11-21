@@ -244,6 +244,8 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 .olist-where .ul-option { width: 208px;}
 .olist-where .dropdown-main::after,.olist-where .dropdown-main::before { display: none; }
 
+.dropdown-search { box-shadow: 5px 5px rgba(102, 102, 102, 0.1); background: #fff; }
+
 .olist-operation,.olist-type { width: 68px;}
 
 /* olist -> coonfig */
