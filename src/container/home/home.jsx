@@ -14,11 +14,9 @@ import {
 
 
 
-export class Home extends Component {
+export class HomeUI extends Component {
 
 	render() {
-
-
 		return (
 			<div className="main-box">
 				<div className="layout-row">
@@ -304,29 +302,15 @@ export class Home extends Component {
 
 }
 
-
-/*export class Myselect extends Component {
-	render() {
-		const {id, name, selected, options} = this.props;
-		return (<select name={name} id={id}>
-		{
-		   	options.map(function (option) {
-		    	return <option {selected ? "selected" : ''} defaultValue="{option.value}">{option.name}</option>
-		    })
-		}
-		</select>)
+export const Home = connect(
+	(state) => {
+		return state.common
+	},
+	(dispatch, ownProps) => {
+		return {
+			submit: (o) => {
+				//dispatch(loginFetch({email, password},'/common'))
+			}
+		};
 	}
-}
-
-var selectOption = [{
-		value: 1,
-		name: '选项1'
-},{
-		value: 2,
-		name: '选项2'
-},{
-		value: 3,
-		name: '选项3'
-}];
-
-<Myselect name="select1" id="select1" selected="2" options={selectOption}></Myselect>*/
+)(HomeUI)

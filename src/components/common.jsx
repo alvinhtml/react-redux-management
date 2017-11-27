@@ -70,7 +70,7 @@ export class PageList extends Component {
 				if (pageNumber == page) {
 					pages.push(<a key={pageNumber} className="active">{pageNumber}</a>)
 				} else {
-					pages.push(<a key={pageNumber} onClick={e=>setPageEvent(pageNumber)}>{pageNumber}</a>)
+					pages.push(<a key={pageNumber} className="animates" onClick={e=>setPageEvent(pageNumber)}>{pageNumber}</a>)
 				}
 
 			}
@@ -78,12 +78,12 @@ export class PageList extends Component {
 
             return (
                 <div className="pagelist">
-                    <b>{count}</b>条信息 共<b>{pageCount}</b>页
+                    <em>{count}</em>条信息 共<em>{pageCount}</em>页
                     转到 <input onKeyPress={this.inputEnterEvent} type="text" onChange={n=>this.gotoPage=n} defaultValue={page} /> 页
                     <a onClick={e=>setPageEvent(this.gotoPage)}>Go</a>
-                    <a className="page-prev" onClick={e=>setPageEvent(page - 1 ? page - 1 : page)}><i className="icon-arrow-left"></i></a>
+                    <a className="page-prev animates" onClick={e=>setPageEvent(page - 1 ? page - 1 : page)}><i className="icon-arrow-left"></i></a>
                     {pages}
-                    <a className="page-next" onClick={e=>setPageEvent(page + 1 < pageCount ? page + 1 : pageCount)}><i className="icon-arrow-right"></i></a>
+                    <a className="page-next animates" onClick={e=>setPageEvent(page + 1 < pageCount ? page + 1 : pageCount)}><i className="icon-arrow-right"></i></a>
                 </div>
             )
         }else{
@@ -117,7 +117,7 @@ export class ListActioner extends Component {
 
 		return (
 			<div class="olist-tool olist-operation dropdown">
-                <a class="dropdown-toggle bg-red"><i class="icon-wrench"></i> &nbsp; <i class="fa fa-angle-down"></i></a>
+                <a class="dropdown-toggle bg-red"><i class="icon-wrench"></i></a>
                 <div class="dropdown-main dropdown-menu">
                     <ul class="ul-option">
 						{this.props.children}
@@ -136,22 +136,39 @@ export class ListSearcher extends Component {
 
 	constructor(props) {
 		super(props)
-		console.log("Listsearcher:", this.props)
+
 		this.searchValue = this.props.search
 
 		//ES6 类中函数必须手动绑定
 		this.inputEnterEvent = this.inputEnterEvent.bind(this)
 		this.searchSubmitEvent = this.searchSubmitEvent.bind(this)
+		this.openTaggleEvent = this.openTaggleEvent.bind(this)
+
+		this.state = {
+			opened: false
+		}
+	}
+
+	openTaggleEvent() {
+		this.setState({
+			opened: !this.state.opened
+		})
 	}
 
     inputEnterEvent(event) {
         if(event.charCode === 13){
 			this.props.searchEvent(this.searchValue)
+			this.setState({
+				opened: false
+			})
         }
     }
 
     searchSubmitEvent(event) {
 		this.props.searchEvent(this.searchValue)
+		this.setState({
+			opened: false
+		})
     }
 
 	render() {
@@ -160,19 +177,42 @@ export class ListSearcher extends Component {
 		const {searchMode, search} = this.props.configs
 
 		return (
-            <div className="tools olist-search">
-                <input type="text" className="form-control" ref={n=>this.searchValue=n} placeholder={searchMode} defaultValue={search} onKeyPress={this.inputEnterEvent} />
-                <div className="olist-where dropdown"><a className="dropdown-toggler"><i className="icon-arrow-down"></i></a>
-                    <div className="dropdown-main dropdown-menu">
-                        <ul id="listSearch">
-                            <li key={1} onClick={e=>setSearchMode('模糊搜索')}><i className="icon-magnifier"></i><span className="itext">模糊搜索</span></li>
-                            <li key={2} onClick={e=>setSearchMode('精确搜索')}><i className="icon-magnifier-add"></i><span className="itext">精确搜索</span></li>
-                            {this.props.children}
-                        </ul>
-                    </div>
-                </div>
-                <span className="button blue" onClick={this.searchSubmitEvent} type="button">搜索</span>
-            </div>
+			<div className="tools olist-search">
+				<input type="text" className="form-control" ref={n=>this.searchValue=n} placeholder={searchMode} defaultValue={search} onKeyPress={this.inputEnterEvent} />
+				<div className="search-toggle" onClick={this.openTaggleEvent}><i className="icon-arrow-down"></i></div>
+				<span className="button blue" onClick={this.searchSubmitEvent} type="button"><i className="icon-magnifier"></i></span>
+				<div className="search-where ilinks" style={{display : this.state.opened ? "block" : "none"}}>
+					<span className="search-close animates rotate" onClick={this.openTaggleEvent}>×</span>
+					<dl className="search-where-line clear">
+						<dt>搜索模式：</dt>
+						<dd className="animates"><span>精确搜索</span></dd>
+						<dd className="animates"><span>模糊搜索</span></dd>
+					</dl>
+					<dl className="search-where-line clear">
+						<dt>在线状态：</dt>
+						<dd className="animates"><span>全部</span><em className="color-blue">225</em></dd>
+						<dd className="animates"><span>在线</span><em className="color-green">235</em></dd>
+						<dd className="animates"><span>离线</span><em className="color-blue">44</em></dd>
+					</dl>
+					<dl className="search-where-line clear">
+						<dt>告诉状态：</dt>
+						<dd className="animates"><span>全部</span><em className="color-blue">436</em></dd>
+						<dd className="animates"><span>告警</span><em className="color-red">34</em></dd>
+						<dd className="animates"><span>正常</span><em className="color-green">235</em></dd>
+					</dl>
+					<dl className="search-where-line clear">
+						<dt>客户端：</dt>
+						<dd className="animates"><span>全部</span><em className="color-blue">7023</em></dd>
+						<dd className="animates"><span>已安装</span><em className="color-green">6087</em></dd>
+						<dd className="animates"><span>未安装</span><em className="color-blue">0</em></dd>
+						<dd className="animates"><span>客户端在线</span><em className="color-blue">2446</em></dd>
+						<dd className="animates"><span>客户端离线</span><em className="color-blue">17</em></dd>
+					</dl>
+					<div className="search-where-footer spaced">
+						<button className="button teal">含条件搜索</button><button className="button blue">不含条件搜索</button>
+					</div>
+				</div>
+			</div>
         )
 	}
 }
@@ -344,7 +384,7 @@ export class ListBody extends Component {
 				</td> : ''
 
 			return (
-				<tr key={key}>
+				<tr key={key} className="animates">
 					{checkboxDom}
 					{columns}
 				</tr>

@@ -54,7 +54,9 @@ class AdminListUI extends Component {
                             <Droptool icon="icon-wrench" bgColor="bg-red">
 								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <ListSearcher search="search..." searchEvent={searchEvent} configs={configs} setSearchMode={setSearchMode} />
+                            <ListSearcher search="search..." searchEvent={searchEvent} configs={configs} setSearchMode={setSearchMode}>
+								
+                            </ListSearcher>
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>

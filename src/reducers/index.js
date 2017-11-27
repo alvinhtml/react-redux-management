@@ -9,6 +9,7 @@ import {common} from './common'
 import {header} from './header'
 import {list} from './list'
 import {adminlist} from './adminlist'
+import {termlist} from './termlist'
 
 
 
@@ -21,6 +22,7 @@ export default combineReducers({
 	common, //登录相关
 	header, //头部相关
 	adminlist, //管理员列表
+	termlist, //终端列表
 
     routing: routerReducer
 })

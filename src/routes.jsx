@@ -7,6 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {Login} from './container/admin/login'
 import {Home} from './container/home/home'
 import {AdminList, AdminForm} from './container/admin/admin'
+import {Termhome} from './container/company/term'
 
 import {Header} from './container/common/header'
 import {Sidebar} from './container/common/sidebar'
@@ -14,18 +15,34 @@ import {Sidebar} from './container/common/sidebar'
 //引入Action创建函数
 import {authInfo} from './actions/actions'
 
+//引入cookie操作库
+import Cookies from 'js-cookie'
 
 class Manage extends Component {
+
+    constructor(props) {
+		super(props)
+
+		let sidebar = Cookies.get("sidebar")
+
+		if (!sidebar) {
+			 Cookies.set("sidebar", "opened", { path: '/' })
+			 sidebar = "opened"
+		}
+
+        this.sidebar = sidebar
+	}
+
     render () {
-        console.log("管理界面")
         return (
-            <div className="manage">
+            <div className={"manage " + this.sidebar} id="manage">
                 <Header />
                 <Sidebar />
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route path="/home" component={Home}/>
                     <Route path="/admin" component={AdminList}/>
+                    <Route path="/term" component={Termhome}/>
                 </Switch>
             </div>
         )

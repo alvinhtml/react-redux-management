@@ -221,6 +221,5 @@ export const logoutFetch = makeGetActionCreator(GET_LOGOUT, '/api/admin/logout',
 //获取认证信息
 export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'path', 'message')
 
-console.log('loginFetch', loginFetch)
 //获取管理员列表
 export const getAdminList = makeGetActionCreator(GET_ADMIN_LIST, '/api/admin/list','body', 'path', 'message')
