@@ -5,19 +5,17 @@ import { Link } from 'react-router';
 
 /**
  * 内面顶部标题栏
- * @type {String}
  */
-export class Pagebar extends Component {
+export class Crumbs extends Component {
 
 	render() {
 
 		const {title, clickEvent} = this.props
 
 		return (
-			<div className="page-bar clear">
-                <div className="page-bar-left">{title}</div>
-                <div className="page-bar-right">{this.props.children}</div>
-            </div>
+			<div className='crumbs animates'>
+				{this.props.children}
+			</div>
 		)
 	}
 }
@@ -179,30 +177,30 @@ export class ListSearcher extends Component {
 		return (
 			<div className="tools olist-search">
 				<input type="text" className="form-control" ref={n=>this.searchValue=n} placeholder={searchMode} defaultValue={search} onKeyPress={this.inputEnterEvent} />
-				<div className="search-toggle" onClick={this.openTaggleEvent}><i className="icon-arrow-down"></i></div>
+				<div className="search-toggle" onClick={this.openTaggleEvent}><i className="fa fa-angle-down"></i></div>
 				<span className="button blue" onClick={this.searchSubmitEvent} type="button"><i className="icon-magnifier"></i></span>
 				<div className="search-where ilinks" style={{display : this.state.opened ? "block" : "none"}}>
 					<span className="search-close animates rotate" onClick={this.openTaggleEvent}>×</span>
 					<dl className="search-where-line clear">
 						<dt>搜索模式：</dt>
-						<dd className="animates"><span>精确搜索</span></dd>
+						<dd className="animates active"><span>精确搜索</span></dd>
 						<dd className="animates"><span>模糊搜索</span></dd>
 					</dl>
 					<dl className="search-where-line clear">
 						<dt>在线状态：</dt>
 						<dd className="animates"><span>全部</span><em className="color-blue">225</em></dd>
-						<dd className="animates"><span>在线</span><em className="color-green">235</em></dd>
+						<dd className="animates active"><span>在线</span><em className="color-green">235</em></dd>
 						<dd className="animates"><span>离线</span><em className="color-blue">44</em></dd>
 					</dl>
 					<dl className="search-where-line clear">
 						<dt>告诉状态：</dt>
 						<dd className="animates"><span>全部</span><em className="color-blue">436</em></dd>
 						<dd className="animates"><span>告警</span><em className="color-red">34</em></dd>
-						<dd className="animates"><span>正常</span><em className="color-green">235</em></dd>
+						<dd className="animates active"><span>正常</span><em className="color-green">235</em></dd>
 					</dl>
 					<dl className="search-where-line clear">
 						<dt>客户端：</dt>
-						<dd className="animates"><span>全部</span><em className="color-blue">7023</em></dd>
+						<dd className="animates active"><span>全部</span><em className="color-blue">7023</em></dd>
 						<dd className="animates"><span>已安装</span><em className="color-green">6087</em></dd>
 						<dd className="animates"><span>未安装</span><em className="color-blue">0</em></dd>
 						<dd className="animates"><span>客户端在线</span><em className="color-blue">2446</em></dd>

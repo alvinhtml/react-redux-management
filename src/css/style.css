@@ -242,7 +242,51 @@ li.open .nav-link .arrow {
 .olist-header {}
 .olist-header-l { float: left;}
 .olist-header-r { float: right;}
-.olist-search { float: left;}
+
+/* crumbs */
+.crumbs-box { line-height: 18px; }
+.crumbs-first { float: left; margin-top: 1px; }
+.crumbs-box b { font-weight: 400; font-size: 16px; }
+.crumbs-arrow { float: left; width: 15px; height: 15px; border-radius: 50%; line-height: 14px; margin: 3px 6px 0 6px; text-align: center; color: #fff; }
+.crumbs-dot::before { content: ""; display:block; width: 4px; height: 4px; border-radius: 50%; background: #999; position: absolute; left: 7px; top: 8px;}
+.crumbs { float: left; position: relative; font-size: 12px; cursor: default; margin-right: 6px; background-color: #fcdddf; box-sizing: border-box; border:1px solid #fcdddf; border-radius: 2px; padding: 0 18px 0 6px;}
+.crumbs:hover { border:1px solid #fa5a64; }
+.crumbs::after { content: "×"; right: 5px; cursor: pointer; top: 3px; position: absolute; line-height: 10px;}
+.crumbs:hover::after { color: #fa5a64; }
+
+.crumbs-main { width: 452px; display: none; position: absolute; top: 28px; left: -1px; border: 1px solid rgba(39, 41, 43, 0.15); border-radius: 4px; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); padding: 10px; background-color: #fff8db; color: #b58105; z-index: 1;}
+.crumbs-main::before {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 7px;
+    top: -4px;
+    left: 24px;
+    overflow: hidden;
+    display: block;
+    background-image: none;
+    background-color: rgba(0,0,0,1);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    z-index: 2;
+    border-style:solid;
+    border-width: 1px;
+    border-color: rgba(0,0,0,1);
+    background-color: #fff8db;
+    border-color: rgba(39, 41, 43, 0.15);
+    border-bottom: 0;
+    border-right: 0;
+}
+.crumbs-main .title {
+  padding: 0em 0em 0.5em;
+  font-size: 1.125em;
+}
+.crumbs:hover .crumbs-main { display: block; }
+.crumbs-main span { display: inline-block; min-width: 100px; margin-right: 12px; line-height: 2em;}
+
+
 
 /* olist -> tools */
 .tools { display: block; float: left; height: 36px; position: relative;}
@@ -253,6 +297,7 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 .dropdown-toggler .icon-arrow-down { font-size: 12px;}
 
 /* olist -> search */
+.olist-search { float: left;}
 .olist-search input { border: 0; background: #f3f6f9; height: 36px; float: left; width: 180px; padding-right: 0;}
 .olist-operation,.olist-type { width: 68px; }
 .search-toggle { line-height: 36px; font-size: 12px; padding: 0 4px; display: inline-block; background: #f3f6f9; vertical-align: middle;}
@@ -261,7 +306,7 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 dl.search-where-line { margin: 10px 0; }
 dl.search-where-line dt { font-size: 12px; color: #aeaeae; width: 100%; float: left;}
 dl.search-where-line dd { float: left; width: 150px; margin:0 0 8px 8px; box-sizing: border-box; background-color: #f4f6f9; line-height: 36px; height: 36px; border:1px solid #f4f6f9;}
-dl.search-where-line dd:hover { border:1px solid #50d2fa; background-color: #fff;}
+dl.search-where-line dd:hover, dl.search-where-line dd.active { border:1px solid #50d2fa; background-color: #fff;}
 dl.search-where-line dd span { display: inline-block; vertical-align: middle; width: 80px; padding-left: 9px;}
 dl.search-where-line dd em { display: inline-block; vertical-align: middle; width: 50px; padding-right: 9px; text-align: right; font-style: normal;}
 .search-where-footer { margin:18px 8px; text-align: right;}

@@ -23,7 +23,7 @@ export class HomeUI extends Component {
 	                <section className="section">
 	                    <h2 className="section-head">布局</h2>
 	                    <h3>栅格化布局12格分</h3>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span1 bg-gray">col-span1</div>
 	                        <div className="col-span1 bg-gray">col-span1</div>
 	                        <div className="col-span1 bg-gray">col-span1</div>
@@ -37,36 +37,36 @@ export class HomeUI extends Component {
 	                        <div className="col-span1 bg-gray">col-span1</div>
 	                        <div className="col-span1 bg-gray">col-span1</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span2 bg-gray">col-span2</div>
 	                        <div className="col-span10 bg-gray">col-span10</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span3 bg-gray">col-span3</div>
 	                        <div className="col-span9 bg-gray">col-span9</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span4 bg-gray">col-span4</div>
 	                        <div className="col-span8 bg-gray">col-span8</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span5 bg-gray">col-span5</div>
 	                        <div className="col-span7 bg-gray">col-span7</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span4 bg-gray">col-span4</div>
 	                        <div className="col-span6 offset-span2 bg-gray">col-span6 offset-span2</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-span8 offset-span4 bg-gray">col-span8 offset-span4</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row align-center">
 	                        <div className="col-span4 bg-gray">col-span4</div>
 	                        <div className="col-span4 bg-gray">col-span4</div>
 	                        <div className="col-span4 bg-gray">col-span4</div>
 	                    </div>
 	                    <h3>栅格化布局24格分</h3>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div title="col-grid" className="col-grid1 bg-gray">1</div>
 	                        <div title="col-grid" className="col-grid1 bg-gray">1</div>
 	                        <div title="col-grid" className="col-grid1 bg-gray">1</div>
@@ -92,32 +92,32 @@ export class HomeUI extends Component {
 	                        <div title="col-grid" className="col-grid1 bg-gray">1</div>
 	                        <div title="col-grid" className="col-grid1 bg-gray">1</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid1 bg-gray">1</div>
 	                        <div className="col-grid2 bg-gray">col-grid2</div>
 	                        <div className="col-grid3 bg-gray">col-grid3</div>
 	                        <div className="col-grid18 bg-gray">col-grid18</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid4 bg-gray">col-grid4</div>
 	                        <div className="col-grid5 bg-gray">col-grid5</div>
 	                        <div className="col-grid6 bg-gray">col-grid6</div>
 	                        <div className="col-grid5 bg-gray">col-grid5</div>
 	                        <div className="col-grid4 bg-gray">col-grid4</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid7 bg-gray">col-grid7</div>
 	                        <div className="col-grid8 bg-gray">col-grid8</div>
 	                        <div className="col-grid9 bg-gray">col-grid9</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid8 bg-gray">col-grid10</div>
 	                        <div className="col-grid8 offset-grid8 bg-gray">col-grid8 offset-grid8</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid16 offset-grid8 bg-gray">col-grid16 offset-grid8</div>
 	                    </div>
-	                    <div className="layout-box align-center">
+	                    <div className="row margin align-center">
 	                        <div className="col-grid10 bg-gray">col-grid10</div>
 	                        <div className="col-grid14 bg-gray">col-grid14</div>
 	                    </div>
@@ -167,7 +167,7 @@ export class HomeUI extends Component {
 	                <section className="section">
 	                    <h2 className="section-head">按钮</h2>
 	                    <h3>Basic</h3>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button basic lightgray">lightgray</button>
 	                        <button className="button basic gray">gray</button>
 	                        <button className="button basic dark">dark</button>
@@ -184,7 +184,7 @@ export class HomeUI extends Component {
 	                        <button className="button basic brown">brown</button>
 	                    </div>
 	                    <h3>Colored</h3>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button lightgray">lightgray</button>
 	                        <button className="button gray">gray</button>
 	                        <button className="button dark">dark</button>
@@ -201,7 +201,7 @@ export class HomeUI extends Component {
 	                        <button className="button brown">brown</button>
 	                    </div>
 	                    <h3>Size</h3>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button red mini">Mini</button>
 	                        <button className="button orange tiny">Tiny</button>
 	                        <button className="button yellow small">Small</button>
@@ -211,7 +211,7 @@ export class HomeUI extends Component {
 	                        <button className="button teal huge">Huge</button>
 	                        <button className="button pink massive">Massive</button>
 	                    </div>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button label red mini"><i className="icon-check"></i>Mini</button>
 	                        <button className="button label orange tiny"><i className="icon-check"></i>Tiny</button>
 	                        <button className="button label yellow small"><i className="icon-check"></i>Small</button>
@@ -222,12 +222,12 @@ export class HomeUI extends Component {
 	                        <button className="button label pink massive"><i className="icon-check"></i>Massive</button>
 	                    </div>
 	                    <h3>Disabled & Loading</h3>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button green disabled">Button disabled</button>
 	                        <button className="button teal loading">Loading...</button>
 	                    </div>
 	                    <h3>circular</h3>
-	                    <div className="layout-box spaced">
+	                    <div className="row spaced">
 	                        <button className="button circular teal"><i className="icon-doc"></i></button>
 	                        <button className="button circular green"><i className="icon-check"></i></button>
 	                        <button className="button circular red"><i className="icon-trash"></i></button>
@@ -236,7 +236,7 @@ export class HomeUI extends Component {
 	                <section className="section">
 	                    <h2 className="section-head">表单元素</h2>
 	                    <h3>radio</h3>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <div className="col-span8">
 	                            <div className="col-span2"><input name="radios" defaultValue="1" type="radio" /> one</div>
 	                            <label className="col-span2"><input name="radios" defaultValue="2" type="radio" /> two</label>
@@ -246,7 +246,7 @@ export class HomeUI extends Component {
 	                        </div>
 	                    </div>
 	                    <h3>checkbox</h3>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <div className="col-span8">
 	                            <label className="col-span2"><input name="checkboxs" type="checkbox" /> one</label>
 	                            <label className="col-span2"><input name="checkboxs" type="checkbox" /> two</label>
@@ -256,16 +256,16 @@ export class HomeUI extends Component {
 	                        </div>
 	                    </div>
 	                    <h3>switch</h3>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <div className="col-span8">
 	                            <div className="col-span2"><input name="switch" className="switchbox" defaultValue="1" type="checkbox" /></div>
 	                        </div>
 	                    </div>
 	                    <h3>Input Text</h3>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <input className="inline-span2" type="text" defaultValue="default" /><input className="inline-span2 green" type="text" defaultValue="green" /><input className="inline-span2 yellow" type="text" defaultValue="yellow" /><input className="inline-span2 red" type="text" defaultValue="red" />
 	                    </div>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <label className="input-prepend inline-span4">
 	                            <input type="text" placeholder="" />
 	                            <span className="add-on"><i className="icon-magnifier"></i></span>
@@ -274,14 +274,14 @@ export class HomeUI extends Component {
 	                            <input type="text" placeholder="" />
 	                        </label>
 	                    </div>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <label className="input-prepend labled inline-span6">
 	                            <span className="add-on"><i className="icon-magnifier"></i></span>
 	                            <input type="text" className="teal" placeholder="Search..." />
 	                            <a className="button teal">Search</a>
 	                        </label>
 	                    </div>
-	                    <div className="layout-box">
+	                    <div className="row">
 	                        <label className="input-prepend labled inline-span4">
 	                            <input type="text" placeholder="" />
 	                            <span className="add-on"><i className="icon-magnifier"></i></span>
