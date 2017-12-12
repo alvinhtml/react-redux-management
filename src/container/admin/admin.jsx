@@ -10,7 +10,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 import {Popup} from '../../components/popup'
 
 //引入组件
-import {Crumbs, PageList, ListSearcher, ListConfiger, ListHeader, ListBody} from '../../components/common'
+import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer} from '../../components/common'
 
 //引入action类型常量名
 import {
@@ -33,16 +33,19 @@ class AdminListUI extends Component {
 	render() {
 		const {tools, list, count, configs, isCheckAll} = this.props
 		const {
-			resizeThEvent,
-			setPageEvent,
 			toolsClickEvent,
-			setSearchMode,
-			searchEvent,
-			changeLimitEvent,
-			changeColumnEvent,
-			orderbyEvent,
-			checkEvent,
-			checkAllEvent
+			getList,
+			updateConfigs
+			// resizeThEvent,
+			// setPageEvent,
+			// toolsClickEvent,
+			// setSearchMode,
+			// searchEvent,
+			// changeLimitEvent,
+			// changeColumnEvent,
+			// orderbyEvent,
+			// checkEvent,
+			// checkAllEvent
 		} = this.props
 
 		return (
@@ -81,23 +84,21 @@ class AdminListUI extends Component {
                             <Droptool icon="icon-wrench" bgColor="bg-red">
 								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <ListSearcher search="search..." searchEvent={searchEvent} configs={configs} setSearchMode={setSearchMode}>
-
-                            </ListSearcher>
+                            <Searcher getList={getList} updateConfigs={updateConfigs} configs={configs}></Searcher>
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/admin/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
                             <Link data-content="新建" to="/admin/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
-                            <ListConfiger changeLimitEvent={changeLimitEvent} changeColumnEvent={changeColumnEvent} page={configs.page}  configs={configs} />
+                            <Configer getList={getList} updateConfigs={updateConfigs} configs={configs} />
                         </div>
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<ListHeader orderbyEvent={orderbyEvent} resizeThEvent={resizeThEvent} checkAllEvent={checkAllEvent} isCheckAll={isCheckAll} configs={configs} />
-                            <ListBody list={list} configs={configs} checkEvent={checkEvent} />
+							<Theader getList={getList} updateConfigs={updateConfigs} configs={configs} isCheckAll={isCheckAll} />
+                            <Tbodyer list={list} configs={configs} />
                         </table>
                     </div>
-					<PageList setPageEvent={setPageEvent} count={parseInt(count)} configs={configs} />
+					<PageList getList={getList} updateConfigs={updateConfigs} count={parseInt(count)} configs={configs} />
 				</div>
             </div>
 		)
@@ -124,111 +125,129 @@ export const AdminList = connect(
 	},
 	(dispatch, ownProps) => {
 
-
-
-		const updateConfigs = (configs) => {
-			makePost('/api/setting/list_configs', {
-				listPath: configs.listPath,
-				configs: JSON.stringify(configs)
-			})
-		}
+		// const updateConfigs = (configs) => {
+		// 	makePost('/api/setting/list_configs', {
+		// 		listPath: configs.listPath,
+		// 		configs: JSON.stringify(configs)
+		// 	})
+		// }
 		return {
-			getList: (o) => {
-				dispatch(getAdminList(o))
+			// getList: (o) => {
+			// 	dispatch(getAdminList(o))
+			// },
+			//获取列表
+			getList: (where, configs) => {
+				dispatch(getAdminList(where))
 			},
+			//更新配置
+			updateConfigs: (configs) => {
+				//更新数据库配置
+				makePost('/api/setting/list_configs', {
+					listPath: configs.listPath,
+					configs: JSON.stringify(configs)
+				})
+				//更新store配置
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'adminlist'))
+			},
+			//checked
+			// checkedEvent: (checked, action) => {
+			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
+			// 		isCheckAll: checked
+			// 	}, 'adminlist'))
+			// },
 			toolsClickEvent: (v) => {
 				//
-			},
-			//排序
-			orderbyEvent: (v, key, configs) => {
-				let column = configs.column
-
-				for (let i = 0; i < column.length; i++) {
-					console.log(key, i)
-					if (column[i].order) {
-						if (i == key) {
-							column[i].order = v
-						} else {
-							column[i].order = 'order'
-						}
-					}
-				}
-
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-					column
-				}, 'adminlist'))
-
-				updateConfigs(configs)
-
-				dispatch(getAdminList({
-					order: column[key].key + ',' + v
-				}))
-			},
-			//全选
-			checkAllEvent: (element) => {
-				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
-					isCheckAll: element.checked
-				}, 'adminlist'))
-			},
-			//单选
-			checkEvent: (e, element, id) => {
-				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
-					//isCheckAll: element.checked
-					id,
-					checked: element.checked
-				}, 'adminlist'))
-			},
-			//搜索模式
-			setSearchMode: (modeValue) => {
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-					searchMode: modeValue
-				}, 'adminlist'))
-			},
-			//搜索
-			searchEvent: (search) => {
-				dispatch(getAdminList({
-					search
-				}))
-			},
-			//改变页码
-			setPageEvent: (page) => {
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-					page
-				}, 'adminlist'))
-				dispatch(getAdminList({
-					page
-				}))
-			},
-			//改变每页显示条数
-			changeLimitEvent: (v, configs) => {
-
-				configs.limit = parseInt(v)
-
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-					limit: v
-				}, 'adminlist'))
-
-				updateConfigs(configs)
-
-				dispatch(getAdminList({
-					page: configs.page,
-					limit: configs.limit
-				}))
-
-			},
-			//改变表格列宽
-			changeColumnEvent: (key, configs) => {
-
-				let column = configs.column
-
-				column[key].visibility = column[key].visibility ? false : true
-
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-					column
-				}, 'adminlist'))
-
-				updateConfigs(configs)
 			}
+			// //排序
+			// orderbyEvent: (v, key, configs) => {
+			// 	let column = configs.column
+            //
+			// 	for (let i = 0; i < column.length; i++) {
+			// 		console.log(key, i)
+			// 		if (column[i].order) {
+			// 			if (i == key) {
+			// 				column[i].order = v
+			// 			} else {
+			// 				column[i].order = 'order'
+			// 			}
+			// 		}
+			// 	}
+            //
+			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+			// 		column
+			// 	}, 'adminlist'))
+            //
+			// 	updateConfigs(configs)
+            //
+			// 	dispatch(getAdminList({
+			// 		order: column[key].key + ',' + v
+			// 	}))
+			// },
+			// //全选
+			// checkAllEvent: (element) => {
+			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
+			// 		isCheckAll: element.checked
+			// 	}, 'adminlist'))
+			// },
+			// //单选
+			// checkEvent: (e, element, id) => {
+			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
+			// 		//isCheckAll: element.checked
+			// 		id,
+			// 		checked: element.checked
+			// 	}, 'adminlist'))
+			// },
+			// //搜索模式
+			// setSearchMode: (modeValue) => {
+			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+			// 		searchMode: modeValue
+			// 	}, 'adminlist'))
+			// },
+			// //搜索
+			// searchEvent: (search) => {
+			// 	dispatch(getAdminList({
+			// 		search
+			// 	}))
+			// },
+			// //改变页码
+			// setPageEvent: (page) => {
+			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+			// 		page
+			// 	}, 'adminlist'))
+			// 	dispatch(getAdminList({
+			// 		page
+			// 	}))
+			// },
+			// //改变每页显示条数
+			// changeLimitEvent: (v, configs) => {
+            //
+			// 	configs.limit = parseInt(v)
+            //
+			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+			// 		limit: v
+			// 	}, 'adminlist'))
+            //
+			// 	updateConfigs(configs)
+            //
+			// 	dispatch(getAdminList({
+			// 		page: configs.page,
+			// 		limit: configs.limit
+			// 	}))
+            //
+			// },
+			// //改变表格列宽
+			// changeColumnEvent: (key, configs) => {
+            //
+			// 	let column = configs.column
+            //
+			// 	column[key].visibility = column[key].visibility ? false : true
+            //
+			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
+			// 		column
+			// 	}, 'adminlist'))
+            //
+			// 	updateConfigs(configs)
+			// }
 		};
 	}
 )(AdminListUI)

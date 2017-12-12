@@ -16,8 +16,6 @@ import finalCreateStore from './stores/configureStore'
 //引入reducers集合
 import reducer from './reducers/index'
 
-console.log("reducer:", reducer)
-
 //引入路由配置
 import App from './routes'
 
@@ -45,7 +43,7 @@ document.addEventListener('mousemove', (e) => {
 
     //表头宽度调整
     if (window.resize) {
-        let {column, element, pageX, width, key, listPath} = window.resize
+        let {column, element, pageX, width, index, listPath} = window.resize
         if (width + e.pageX - pageX > 60) {
             element.style.width = (width + e.pageX - pageX) + 'px'
         }
@@ -55,8 +53,8 @@ document.addEventListener('mouseup', (e) => {
 
     //结束表头宽度调整, 并把调整后的宽 dispatch 到 store
     if (window.resize) {
-        let {column, element, key, listPath} = window.resize
-        column[key].width = element.offsetWidth
+        let {column, element, index, listPath} = window.resize
+        column[index].width = element.offsetWidth
         store.dispatch({
             type: listPath + "_resize_th",
             payload: {

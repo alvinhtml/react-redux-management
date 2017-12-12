@@ -22,6 +22,5 @@ const DevTools = createDevTools(
         <LogMonitor />
     </DockMonitor>
 )
-console.log("LogMonitor",LogMonitor)
 
 export default DevTools

@@ -13,7 +13,6 @@ import {termlist} from './termlist'
 
 
 
-console.log("login", common);
 
 export default combineReducers({
 

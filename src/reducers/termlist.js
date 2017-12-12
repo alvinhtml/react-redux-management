@@ -109,44 +109,6 @@ export function termlist(state = termlistInitialState, action) {
 
     //根据不同的action type进行state的更新
     switch (action.type) {
-        case GET_ADMIN_LIST:
-            return {
-                ...state,
-                ...action.payload
-            }
-        case 'termlist_resize_th':
-            configs = {...state.configs, ...action.payload}
-            return {...state, ...{configs}}
-        case UPDATE_LIST_CONFIGS:
-            configs = {...state.configs, ...action.payload}
-            return {...state, ...{configs}}
-        case CHANGE_LIST_CHECKBOX:
-            if (action.path === "termlist") {
-                if (action.payload.hasOwnProperty("isCheckAll")) {
-                    //参数为全选的时候
-                    var list = [];
-                    for (let v of state.list) {
-                        v.checked = action.payload.isCheckAll
-                    }
-                    return {...state, ...action.payload}
-                } else {
-                    //参数为单选的时候
-                    let isCheckAll = true
-                    for (let v of state.list) {
-                        if (action.payload.id == v.id) {
-                            v.checked = action.payload.checked
-                        }
-                        //只要有一个复选框为 false, 全选复选框就会为 false
-                        console.log(v.id, v.checked)
-                        if (v.checked === false || v.checked === undefined) {
-                            isCheckAll = false
-                        }
-                    }
-                    return {...state, ...{list:[...state.list]}, ...{isCheckAll}}
-                }
-            }
-            configs = {...state.configs, ...action.payload}
-            return {...state, ...{configs}}
         default:
             return {...state}
     }

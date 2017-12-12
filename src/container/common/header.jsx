@@ -19,7 +19,8 @@ class HeaderUI extends Component {
 
 	render () {
 
-		const {reminds, remindClickEvent, messages, messagesClickEvent, tasks, tasksClickEvent, adminActions, adminActionsClickEvent, admin, logined} = this.props
+		const {reminds, messages, tasks, adminActions, adminname, adminemail, avatar, logined} = this.props
+		const {remindClickEvent, messagesClickEvent, tasksClickEvent, adminActionsClickEvent} = this.props
 			//console.log("8.1", common);
 
 		if(logined !== true){
@@ -49,7 +50,7 @@ class HeaderUI extends Component {
 							</Dropdown>
 	                    </li>
 	                    <li className="dropdown">
-	                        <a className="dropdown-toggler"><span className="avatar"><img src={admin.avatar} /></span> {admin.name}</a>
+	                        <a className="dropdown-toggler"><span className="avatar"><img src={avatar} /></span> {adminname}</a>
 	                        <div className="dropdown-main dropdown-menu dropdown-right">
 								<Dropmenu options={adminActions} clickEvent={adminActionsClickEvent} />
 	                        </div>
