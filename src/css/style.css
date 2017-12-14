@@ -328,8 +328,21 @@ dl.search-where-line dd em { display: inline-block; vertical-align: middle; widt
 .olist-table tr>th:last-child,
 .olist-table tr>td:last-child { border-right: 0;}
 .olist-table th strong,
-.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px;}
+.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px; font-size: 14px; font-weight: normal; color: #222;}
 .olist-table .td-cell { padding:6px 6px; line-height: 26px; white-space: nowrap; overflow: hidden; width:-moz-calc(100% - 24px); width:calc(100% - 24px); }
+
+
+.olist-table.mirror {
+    position: absolute; opacity: 0.6;
+}
+table td.active, table td.hover {
+    background-image: linear-gradient(to top, #ced6df, #b6c6d7);
+}
+table td.moving .td-cell {
+    opacity: 0;
+}
+
+
 
 /* olist -> checkbox */
 .olist-table th.row-checkbox,
@@ -348,18 +361,14 @@ dl.search-where-line dd em { display: inline-block; vertical-align: middle; widt
     cursor: col-resize;
     z-index: 8;
 }
-.olist-table th .order { position: absolute; right: 4px; top: 10px; width: 8px; height: 16px;}
-.olist-table th .order::before, .olist-table th .order::after {
-    content: ""; width: 0; height: 0; position: absolute; border:4px solid  #f4f6f9; display: block;
+.olist-table th .order { position: absolute; right: 4px; top: 3px; width: 14px; height: 30px; cursor: pointer;}
+.olist-table th .order::before {
+    content: ""; width: 4px; height: 4px; position: absolute; top: 12px; left: 5px; border-right: 1px solid  #666; border-bottom: 1px solid  #666; display: block;
+    transform: rotate(45deg); display: none;
 }
-.olist-table th .order::before { top: 0; border-top:0; border-bottom:7px solid #d5dade;}
-.olist-table th .order::after { bottom: 0; border-bottom:0; border-top:7px solid #d5dade;}
-.olist-table th .order.desc::before { top: 0; border-top:0; border-bottom:7px solid #aaa;}
-.olist-table th .order.asc::after { bottom: 0; border-bottom:0; border-top:7px solid #aaa;}
-
-
-
-
+.olist-table th:hover .order::before { display: inline-block; }
+.olist-table th .order.asc::before { display: inline-block; }
+.olist-table th .order.desc::before { display: inline-block; transform: rotate(225deg); top: 14px; }
 
 
 /* olist -> pagelist */
