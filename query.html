@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+    @ Chrome    43+
+    @ Firefox   40+
+    @ Opera     31+
+    @ Android   44+
+    @ Chrome for Android    44+
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- External CSS -->
+    <link type="text/css" rel="stylesheet" href="/mui/src/css/miniui.min.css">
+    <link type="text/css" rel="stylesheet" href="/mui/src/css/simple-line-icons.css">
+
+    <title>Query</title>
+
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <div class="layout center">
+        <header>
+            <h1>Hello World !</h1>
+        </header>
+        <section class="section">
+            <ul class="a bg-red" id="myul">
+                <li class="aa">11</li>
+                <li class="aa bg-yellow" id="li2">12</li>
+                <li class="aa">13</li>
+            </ul>
+            <ul class="a bg-green" id="myul2">
+                <li class="aa bg-yellow">21</li>
+                <li class="aa">22</li>
+                <li class="aa bg-yellow">23</li>
+            </ul>
+        </section>
+
+    </div>
+    <!-- JavaScript -->
+    <script type="text/javascript" src="src/query.js"></script>
+<script type="text/javascript">
+    var a = $("ul");
+    console.log(a);
+    var li = $("ul li");
+    console.log(li.first(), li.last())
+    li.addClass("newclass").removeClass("aa").toggleClass("bg-yellow");
+    console.log(1);
+
+    console.log(document.getElementById("li2").parentNode.children);
+
+</script>
+</body>
+</html>

@@ -320,26 +320,39 @@ dl.search-where-line dd em { display: inline-block; vertical-align: middle; widt
 .list-column span.active::before { background: #36c6d3; }
 
 /* olist -> table */
-.olist-main { margin-top: 10px; border-left:1px solid #e7ecf1; border-right:1px solid #e7ecf1; overflow-x: auto; position: relative;}
-.olist-table { border:0; width:100%; }
+.olist-main { margin-top: 10px; border-right:1px solid #e7ecf1; overflow-x: auto; position: relative;}
+.olist-table { border:0; table-layout:fixed; width: 100%; }
 .olist-table tbody tr:hover { background-color: #eef1f5;}
-.olist-table th { white-space:nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-right:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
-.olist-table td { padding:0; vertical-align: top; box-sizing:border-box; border-right:1px solid #e7ecf1;  border-bottom:1px solid #e7ecf1; }
+.olist-table th { white-space: nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-left:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
+.olist-table td { white-space: nowrap;   padding:0; vertical-align: top; box-sizing:border-box; border-left:1px solid #e7ecf1;  border-bottom:1px solid #e7ecf1; }
 .olist-table tr>th:last-child,
-.olist-table tr>td:last-child { border-right: 0;}
+.olist-table tr>td:last-child { border-left: 0;}
 .olist-table th strong,
-.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px; font-size: 14px; font-weight: normal; color: #222;}
+.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px; font-size: 12px; font-weight: normal; color: #999;}
 .olist-table .td-cell { padding:6px 6px; line-height: 26px; white-space: nowrap; overflow: hidden; width:-moz-calc(100% - 24px); width:calc(100% - 24px); }
 
+.ebtn { width: 1.7142em; height: 1.7142em; display: inline-block; vertical-align: middle; line-height: 1.8571em; text-align: center; cursor: pointer; text-decoration: none; color: #fff;}
+.ebtn:hover, a.ebtn:hover { opacity: 0.8; color: #fff; }
+.row-action .ebtn { margin-right: 5px; }
 
 .olist-table.mirror {
-    position: absolute; opacity: 0.6;
+    position: absolute; border-left: 1px solid #e7ecf1; transition: all 0.3s ease-in-out;
+}
+.olist-table.current-mirror {
+    opacity: 0.6; box-shadow: 0 0 3px rgba(0,0,0,0.2); z-index: 2; transition: none;
 }
 table td.active, table td.hover {
     background-image: linear-gradient(to top, #ced6df, #b6c6d7);
 }
-table td.moving .td-cell {
+table.moving td, table.moving th {
     opacity: 0;
+}
+table.moving td.row-checkbox,
+table.moving th.row-checkbox,
+table.moving td.row-action,
+table.moving th.row-action,
+table.moving th.row-last {
+    opacity: 1;
 }
 
 
@@ -379,6 +392,22 @@ table td.moving .td-cell {
 .pagelist a:hover,
 .pagelist a.active { background-color: #fff; border:1px solid #36c6d3; }
 
+
+
+
+/* olist -> content */
+.state-green, .state-red, .state-yellow { position: relative; padding-left: 20px;}
+.state-green::before, .state-red::before, .state-yellow::before { content: ""; display: block; width: 16px; height: 16px; border-radius: 50%; top: 0px; left: 0; position: absolute; }
+.state-green::after, .state-red::after, .state-yellow::after { content: ""; display: block; width: 8px; height: 8px; border-radius: 50%; top: 4px; left: 4px; position: absolute; }
+.state-green { color: rgba(53, 205, 3, 1);}
+.state-red { color: rgba(253, 2, 2, 1);}
+.state-yellow { color: rgba(255, 153, 2, 1);}
+.state-green::after { background-color: rgba(53, 205, 3, 1);}
+.state-red::after { background-color: rgba(253, 2, 2, 1);}
+.state-yellow::after { background-color: rgba(255, 153, 2, 1);}
+.state-green::before { background-color: #c2efb2;}
+.state-red::before { background-color: #feb2b2;}
+.state-yellow::before { background-color: #fee0b3;}
 
 
 /*==================================

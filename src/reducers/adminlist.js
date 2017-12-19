@@ -25,6 +25,15 @@ const adminlistInitialState = {
     ],
     list: [], //列表数据
     count: 64, //列表总条数
+    actions: [{
+        type: 'link',
+        name: '编辑',
+        icon: 'icon-note'
+    },{
+        type: 'button',
+        name: '删除',
+        icon: 'icon-trash'
+    }], //列表单条操作
     //列表配置
     configs:{
         listPath: 'adminlist',
@@ -34,7 +43,6 @@ const adminlistInitialState = {
         checkboxs: true, //选择框 0->无, 1->有
         checked: false, //false->无, all->全选, []->单多选
         search: '',
-        actions: [], //列表单条操作
         orderkey: '', //排序字段
         orderby: '', //排序方式
         column: [{
@@ -71,26 +79,20 @@ const adminlistInitialState = {
             order: true,
             visibility: false,
             width: 200,
-            resize: 0
-        },{
-            key: 'ip',
-            title: '可登录IP',
-            order: false,
-            visibility: false,
-            width: 0
+            resize: 1
         },{
             key: 'state',
             title: '状态',
             order: true,
             visibility: false,
             width: 200,
-            resize: 0
+            resize: 1
         },{
             key: 'desp',
             title: '描述',
             order: false,
             visibility: true,
-            width: 0,
+            width: 200,
             resize: 0
         }]
     }

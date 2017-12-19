@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 
 import { Link } from 'react-router';
 
+import Query from '../tools/query.js'
+
+import {resize, remove} from '../index.jsx'
+
 
 /**
  * 内面顶部标题栏
@@ -132,10 +136,10 @@ export class ListActioner extends Component {
 		const {} = this.props
 
 		return (
-			<div class="olist-tool olist-operation dropdown">
-                <a class="dropdown-toggle bg-red"><i class="icon-wrench"></i></a>
-                <div class="dropdown-main dropdown-menu">
-                    <ul class="ul-option">
+			<div className="olist-tool olist-operation dropdown">
+                <a className="dropdown-toggle bg-red"><i className="icon-wrench"></i></a>
+                <div className="dropdown-main dropdown-menu">
+                    <ul className="ul-option">
 						{this.props.children}
 					</ul>
 				</div>
@@ -346,22 +350,13 @@ export class Theader extends Component {
 		this.onMousedown = this.onMousedown.bind(this)
 		this.onOrderByEvent = this.onOrderByEvent.bind(this)
 		this.onCheckEvent = this.onCheckEvent.bind(this)
+		this.onMouseDownTh = this.onMouseDownTh.bind(this)
 	}
 
-	onMousedown(e) {
-		let th = e.currentTarget.parentNode
-		window.resize = {
-			column: this.props.configs.column,
-			pageX: e.pageX,
-			width: th.offsetWidth,
-			th: th,
-			index: e.currentTarget.getAttribute("data-index"),
-			listPath: this.props.configs.listPath
-		}
-		e.stopPropagation();
-	}
+
 
 	onOrderByEvent(e) {
+		e.stopPropagation()
 		let {orderby, orderkey} = this.props.configs
 
 		let key = e.currentTarget.getAttribute("data-key")
@@ -390,7 +385,179 @@ export class Theader extends Component {
 		})
 	}
 
+	//resize 按下
+	onMousedown(e) {
+		e.stopPropagation()
+		resize.resizeing = true
+		resize.configs = this.props.configs
+		resize.event = e
+		resize.pageX = e.pageX
+		resize.element = e.currentTarget.parentNode
+		resize.width = e.currentTarget.parentNode.offsetWidth
+		resize.index = e.currentTarget.getAttribute("data-index")
+	}
+
+	//remove 按下, 开始拖动改变列序
+	onMouseDownTh(e) {
+
+		e.stopPropagation()
+
+		//当前按下的 th
+		let currentTh = Query(e.currentTarget)
+
+		//当前 th 的 index
+		let currentIndex = currentTh.index()
+
+		let olistTable = Query("#olist_table").addClass("moving")
+
+		//列表所有th
+		let thElements = Query("#olist_table th.column-th")
+
+		//镜像table集合
+		remove.mirrorArr = []
+
+		thElements.each((i, elem) => {
+			let th = Query(elem)
+
+			if(elem.offsetParent !== null) {
+
+				let index = th.index()
+				let position = th.offset()
+				let width = elem.offsetWidth
+
+				let tdElements = Query("#olist_table tr>td:nth-child(" + (index + 1) + ")")
+
+				//生成一个单列的镜像表格
+				let mirror = document.createElement("table")
+
+				mirror.style = 'top: '+ position.top +'px; left: '+ position.left +'px; width: '+ width +'px'
+
+				let Tdstr = '<tr><thead><th>' + elem.innerHTML + '</th></thead></tr>'
+
+				tdElements.each((ii, element) => {
+					Tdstr += '<tr><td style="height:' + element.offsetHeight + 'px;">' + element.innerHTML + '</td></tr>'
+				})
+
+				mirror.innerHTML = '<tbody>' + Tdstr + '</tbody>'
+
+
+
+				let mirrorObject = {
+					mirror,
+					position: position,
+					index,
+					width
+				}
+				if (currentIndex === index) {
+					remove.moving = true
+					remove.configs = this.props.configs
+					mirror.className = "olist-table mirror current-mirror"
+					remove.position = position
+					remove.mirror = mirror
+					remove.width = width
+					remove.index = i
+					remove.event = e
+					remove.pageX = e.pageX
+					remove.mouseOffsetLeft = e.pageX - position.left
+				} else {
+					mirror.className = "olist-table mirror"
+				}
+
+				remove.mirrorArr.push(mirrorObject)
+
+				document.body.appendChild(mirror)
+			}
+
+		})
+        //
+        //
+        //
+		// //当前按下的 th
+		// let thElement = e.currentTarget
+        //
+		// let thWidth = thElement.offsetWidth
+        //
+		// //当前按下的 th
+		// let th = Query(thElement)
+        //
+		// //当前 th 的 index
+		// let index = th.index()
+        //
+		// //当前列的所有td
+		// let tdElements = Query("#olist_table tr>td:nth-child(" + (index + 1) + ")")
+        //
+		// //列表所有th
+		// let thElements = Query("#olist_table th.column-th")
+        //
+		// let thPosition = th.offset()
+        //
+		// //用CSS属性隐藏当前列
+		// // th.addClass("moving")
+		// // tdElements.addClass("moving")
+        //
+		// //复制当前列做为拖动对象
+		// let Table = document.createElement("table")
+		// 	Table.className = "olist-table mirror"
+		// 	Table.style = 'top: '+ thPosition.top +'px; left: '+ thPosition.left +'px; width: '+ thWidth +'px'
+        //
+		// let Tdstr = '<tr><th>' + thElement.innerHTML + '</th></tr>'
+        //
+		// tdElements.each((i, elem) => {
+		// 	Tdstr += '<tr><td>' + elem.innerHTML + '</td></tr>'
+		// })
+        //
+		// Table.innerHTML = Tdstr
+        //
+		// document.body.appendChild(Table)
+        //
+		// //可见的 th
+		// remove.columnArray = []
+        //
+		// thElements.each((i, elem) => {
+		// 	let _this = Query(elem)
+		// 	remove.columnArray.push({
+		// 		index: i,
+		// 		left: _this.offset().left,
+		// 		width: elem.offsetWidth,
+		// 		visibility: this.props.configs.column[i].visibility
+		// 	})
+		// })
+        //
+		// console.log("columnArray", remove.columnArray);
+        //
+        //
+		// remove.moving = true
+		// remove.configs = this.props.configs
+		// remove.event = e
+		// remove.pageX = e.pageX
+		// remove.element = thElement
+		// remove.width = thWidth
+		// remove.table = Table
+		// remove.position = thPosition
+		// remove.index = index
+
+	}
+	onMouseOverTh(e) {
+		// e.stopPropagation()
+		// let index = Query(e.currentTarget).index()
+		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
+		// tds.addClass("hover")
+	}
+	onMouseOutTh(e) {
+		// e.stopPropagation()
+		// let index = Query(e.currentTarget).index()
+		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
+		// tds.removeClass("hover")
+	}
+	onClickTh(e) {
+		// e.stopPropagation()
+		// let index = Query(e.currentTarget).index()
+		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
+		// tds.toggleClass("active")
+	}
+
 	render() {
+		const actions = this.props.actions
 		const {column, checkboxs, orderby, orderkey, checked} = this.props.configs
 
 		let columns = column.map((v, i) => {
@@ -401,7 +568,7 @@ export class Theader extends Component {
 			}
 
 			if (v.order) {
-				order = <span onClick={this.onOrderByEvent} className={'order ' + (orderkey == v.key ? orderby : '')} data-key={v.key}></span>
+				order = <span onMouseDown={this.onOrderByEvent} className={'order ' + (orderkey == v.key ? orderby : '')} data-key={v.key}></span>
 			}
 
 			return (
@@ -409,9 +576,14 @@ export class Theader extends Component {
 					key = {v.key}
 					data-key = {v.key}
 					style = {{
-						width: v.width ? v.width + 'px' : 'auto',
+						width: v.width ? v.width + 'px' : '200px',
 						display: v.visibility ? undefined : 'none',
 					}}
+					className="column-th"
+					onMouseDown = {this.onMouseDownTh}
+					onMouseOver = {this.onMouseOverTh}
+					onMouseOut = {this.onMouseOutTh}
+					onClick = {this.onClickTh}
 				><strong>{v.title}</strong>{order}{resize}</th>
 			)
 		})
@@ -421,12 +593,15 @@ export class Theader extends Component {
 				className="row-checkbox"
 				key="check-all"
 			><input checked={checked} type="checkbox" ref="checkbox_all" onChange={e=>{this.onCheckEvent(this.refs['checkbox_all'])}} /></th> : ''
-
+			console.log(actions)
+		let action = actions.length ? <th className="row-action" style={{width:'120px'}}><strong>操作</strong></th> : ''
 		return (
 			<thead id="list_head">
 				<tr>
 					{inputCheck}
 					{columns}
+					{action}
+					<th className="row-last"></th>
 				</tr>
 			</thead>
         )
@@ -444,7 +619,7 @@ export class Tbodyer extends Component {
 
 	render() {
 
-		const {list, configs, checkedEvent} = this.props
+		const {list, configs, actions, decorater, checkedEvent} = this.props
 
 		const lines = (line, key) => {
 
@@ -456,7 +631,7 @@ export class Tbodyer extends Component {
 							display: v.visibility ? undefined : 'none',
 						}}
 					><div className="td-cell">
-						{line[v.key]}
+						{decorater(v.key, line)}
 					</div></td>
 				)
 			})
@@ -469,10 +644,21 @@ export class Tbodyer extends Component {
 					</div>
 				</td> : ''
 
+			let action = actions.length ? actions.map((vv, ii) => {
+				if (vv.type == "link") {
+					return (<a key={ii} className="ebtn bg-green" href={""} title={vv.name}><i className={vv.icon}></i></a>)
+				}
+				if (vv.type == "button") {
+					return (<span key={ii} className="ebtn bg-red" title={vv.name}><i className={vv.icon}></i></span>)
+				}
+			}) : ''
+
 			return (
 				<tr key={key} className="animates">
 					{inputCheck}
 					{columns}
+					<td className="row-action"><div className="td-cell">{action}</div></td>
+					<td className="row-last"></td>
 				</tr>
 			)
 		}

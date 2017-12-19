@@ -30,8 +30,20 @@ class AdminListUI extends Component {
 		})
     }
 
+	componentWillReceiveProps(nextProps) {
+		//
+	}
+	//值修饰器
+	decorater(key, value) {
+		switch(key) {
+			case "state":
+			 	return value[key] == 1 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
+			default:
+				return value[key]
+		}
+	}
 	render() {
-		const {tools, list, count, configs, isCheckAll} = this.props
+		const {tools, actions, list, count, configs, isCheckAll} = this.props
 		const {
 			toolsClickEvent,
 			getList,
@@ -47,7 +59,6 @@ class AdminListUI extends Component {
 			// checkEvent,
 			// checkAllEvent
 		} = this.props
-
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
@@ -94,8 +105,8 @@ class AdminListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<Theader getList={getList} updateConfigs={updateConfigs} configs={configs} isCheckAll={isCheckAll} />
-                            <Tbodyer list={list} configs={configs} />
+							<Theader getList={getList} updateConfigs={updateConfigs} configs={configs}  actions={actions} isCheckAll={isCheckAll} />
+                            <Tbodyer list={list} configs={configs} actions={actions} decorater={this.decorater} />
                         </table>
                     </div>
 					<PageList getList={getList} updateConfigs={updateConfigs} count={parseInt(count)} configs={configs} />
