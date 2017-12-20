@@ -323,8 +323,9 @@ dl.search-where-line dd em { display: inline-block; vertical-align: middle; widt
 .olist-main { margin-top: 10px; border-right:1px solid #e7ecf1; overflow-x: auto; position: relative;}
 .olist-table { border:0; table-layout:fixed; width: 100%; }
 .olist-table tbody tr:hover { background-color: #eef1f5;}
-.olist-table th { white-space: nowrap; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-left:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
+.olist-table th { white-space: nowrap; background: none; position: relative; box-sizing:border-box; height: 36px; padding:0; min-width: 48px; border-left:1px solid #e7ecf1; border-top:1px solid #e7ecf1; user-select:none; padding-left: 6px; -webkit-user-select:none; -moz-user-select:none;-o-user-select:none;user-select:none;}
 .olist-table td { white-space: nowrap;   padding:0; vertical-align: top; box-sizing:border-box; border-left:1px solid #e7ecf1;  border-bottom:1px solid #e7ecf1; }
+.olist-table thead>tr { background-color: #f4f6f9; }
 .olist-table tr>th:last-child,
 .olist-table tr>td:last-child { border-left: 0;}
 .olist-table th strong,
@@ -346,7 +347,9 @@ table td.active, table td.hover {
 }
 table.moving td, table.moving th {
     opacity: 0;
+    border-left: 0;
 }
+
 table.moving td.row-checkbox,
 table.moving th.row-checkbox,
 table.moving td.row-action,

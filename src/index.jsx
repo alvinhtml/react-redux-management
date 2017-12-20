@@ -71,93 +71,91 @@ document.addEventListener('mousemove', (e) => {
     }
 
     //表格拖动
+    // NOTE: 用户按下拖动时, 先通过css opacity隐藏原表格支持拖动的列, 然后生成原表格每个列的镜像
     if (remove && remove.moving) {
 
-        let {event, configs, pageX, mirrorArr, mirror, position, width, index, mouseOffsetLeft} = remove
-        let {column, listPath} = configs
+        let {event, configs, mirrorArr, mirror, position, width, index, initial} = remove
 
         //鼠标向对于按下时在X轴上移动的距离
-        let moveX = e.pageX - pageX
-
+        let moveX = e.pageX - remove.pageX
+        let mirrorLeft = (initial.left + (e.pageX - initial.pageX))
 
         mirror.style.top = position.top + 'px'
-        mirror.style.left = e.pageX - mouseOffsetLeft + 'px'
+        mirror.style.left = mirrorLeft + 'px'
 
-        //mirrorArr[index].position.left = position.left + moveX
-
+        //moveX>0 说明鼠标在向右移动, 设置 orientation=1 当前列将和后一列进行交换
         let orientation = moveX > 0 ? 1 : -1
-        //console.log(mirrorArr[index + orientation]);
+
+        //index为当前列的索引, 当index为数组第一个元素, 或为数组最后一个元素, 都会禁止向前(<=0)和向后(>=length-1)的列拖动
+        if (index + orientation < 0 || index + orientation >= mirrorArr.length) {
+            return false;
+        }
+
+        //mirrorArr[index].position.left 是拖动目标最终left值
+        //mirrorLeft是拖动目标实际left值
+        if ( orientation > 0 ) {
+            //当向右拖动时实际left值必须大于或等于最终left值, 才会叠加movex的值, 否则设置 remove.pageX = e.pageX
+            if (mirrorArr[index].position.left > mirrorLeft) {
+                remove.pageX = e.pageX
+                return false
+            }
+        } else {
+            //向左拖动
+            if (mirrorLeft > mirrorArr[index].position.left) {
+                remove.pageX = e.pageX
+                return false
+            }
+        }
+
+        //跳过隐藏的列
+        let filterInvisible = () => {
+            if (mirrorArr[index + orientation].mirror == null) {
+                mirrorArr.splice(index, 0, mirrorArr.splice(index + orientation, 1)[0])
+                remove.index = index + orientation
+                filterInvisible()
+            }
+        }
+
+        filterInvisible()
+
+
+
+        //mirrorArr[index]是当前列
+        //mirrorArr[index + orientation] 是要与当前列进行交换的列
+        //moveX的绝对值代表距离, 只有在这个距离大于 mirrorArr[index + orientation] 宽的一半时才触发交换
         if (Math.abs(moveX) > mirrorArr[index + orientation].width / 2) {
 
-            mirrorArr[index + orientation].mirror.style.left = mirrorArr[index].position.left + 'px'
+            if ( orientation === 1 ) {
+                //orientation=1 与后一列进行交换
+                mirrorArr[index + orientation].mirror.style.left = mirrorArr[index].position.left + 'px'
 
-            let left = mirrorArr[index + orientation].position.left
+                let left = mirrorArr[index].position.left + mirrorArr[index + orientation].width
 
-            mirrorArr[index + orientation].position.left = mirrorArr[index].position.left
+                mirrorArr[index + orientation].position.left = mirrorArr[index].position.left
 
-            mirrorArr[index].position.left = left
+                mirrorArr[index].position.left = left
+
+                remove.position.left = left
+            } else if ( orientation === -1 ) {
+                //orientation=-1 与前一列进行交换
+                mirrorArr[index + orientation].mirror.style.left = (mirrorArr[index + orientation].position.left + mirrorArr[index].width) + 'px'
+
+                let left = mirrorArr[index + orientation].position.left
+
+                mirrorArr[index + orientation].position.left = (mirrorArr[index + orientation].position.left + mirrorArr[index].width)
+
+                mirrorArr[index].position.left = left
+
+                remove.position.left = left
+            }
 
             remove.index = index + orientation
             remove.pageX = e.pageX
-            remove.position.left = left
 
             mirrorArr.splice(index, 0, mirrorArr.splice(index + orientation, 1)[0])
 
-            console.log("mirrorArr", mirrorArr)
-
+            console.log("new:",[...mirrorArr])
         }
-
-
-        // for (let i = 0; i < mirrorArr.length; i++) {
-        //
-        //
-        //
-        //
-        //     // console.log("i index",i, index, moveToX, mirrorArr[i].position.left + mirrorArr[i].width / 2)
-        //     //
-        //     // if (moveToX > mirrorArr[i].position.left + mirrorArr[i].width / 2) {
-        //     //     console.log(mirrorArr[i].mirror, mirrorArr[i].position.left , mirrorArr[index].position.left)
-        //     //     mirrorArr[i].mirror.style.left = mirrorArr[index].position.left + 'px'
-        //     //     // mirrorArr[i].position.left = mirror.position.left
-        //     //     // mirrorArr[i].position.left = mirror.position.left
-        //     // }
-        // }
-
-
-
-
-        // let moveToX;
-        // if (moveX > 0) {
-        //
-        //     moveToX = position.left + width + moveX
-        //
-        //     console.log(position.left, width , moveX)
-        //
-        //     for (let i = mirrorArr.length; i--;) {
-        //
-        //         console.log("i index",i, index, moveToX, mirrorArr[i].position.left + mirrorArr[i].width / 2)
-        //
-        //         if (i == index) {
-        //             break;
-        //         }
-        //
-        //         if (moveToX > mirrorArr[i].position.left + mirrorArr[i].width / 2) {
-        //             console.log(mirrorArr[i].mirror, mirrorArr[i].position.left , mirrorArr[index].position.left)
-        //             mirrorArr[i].mirror.style.left = mirrorArr[index].position.left + 'px'
-        //             // mirrorArr[i].position.left = mirror.position.left
-        //             // mirrorArr[i].position.left = mirror.position.left
-        //         }
-        //     }
-        //
-        //
-        // } else if (moveX < 0)  {
-        //     moveToX = position.left + moveX
-        // }
-
-
-
-
-        //console.log("remove", position.left + (e.pageX - pageX))
     }
 })
 document.addEventListener('mouseup', (e) => {
@@ -183,5 +181,55 @@ document.addEventListener('mouseup', (e) => {
 
         resize.resizeing = false
     }
+
+    if (remove && remove.moving) {
+        let {event, configs, mirrorArr, mirror, position, width, index, initial} = remove
+
+        console.log(mirrorArr)
+
+        mirror.className = "olist-table mirror"
+        mirror.style.left = remove.position.left + 'px';
+
+        let newColumn = []
+
+        setTimeout(()=>{
+            for (let i = 0; i < mirrorArr.length; i++) {
+                newColumn.push(mirrorArr[i].column)
+                if (mirrorArr[i].mirror) {
+                    document.body.removeChild(mirrorArr[i].mirror)
+                }
+            }
+
+            Query("#olist_table").removeClass("moving")
+
+            //更新数据库中的数据
+            makePost('/api/setting/list_configs', {
+                listPath: configs.listPath,
+                configs: JSON.stringify({
+                    ...configs,
+                    column: newColumn
+                })
+            })
+
+            //更新store中的数据
+            store.dispatch({
+                type: configs.listPath + "resize",
+                payload: {
+                    column: newColumn
+                }
+            })
+        },300)
+
+
+
+        remove.moving = false
+    }
+
+
+
+
+
+
+
 
 })

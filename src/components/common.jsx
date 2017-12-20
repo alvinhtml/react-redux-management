@@ -402,6 +402,8 @@ export class Theader extends Component {
 
 		e.stopPropagation()
 
+		let configs = this.props.configs
+
 		//当前按下的 th
 		let currentTh = Query(e.currentTarget)
 
@@ -419,9 +421,16 @@ export class Theader extends Component {
 		thElements.each((i, elem) => {
 			let th = Query(elem)
 
-			if(elem.offsetParent !== null) {
+			let index = th.index()
 
-				let index = th.index()
+			if(elem.offsetParent === null) {
+				remove.mirrorArr.push({
+					mirror: null,
+					title: configs.column[i].title,
+					column: configs.column[i],
+					index,
+				})
+			} else {
 				let position = th.offset()
 				let width = elem.offsetWidth
 
@@ -441,24 +450,28 @@ export class Theader extends Component {
 				mirror.innerHTML = '<tbody>' + Tdstr + '</tbody>'
 
 
-
 				let mirrorObject = {
 					mirror,
 					position: position,
+					title: configs.column[i].title,
+					column: configs.column[i],
 					index,
 					width
 				}
 				if (currentIndex === index) {
 					remove.moving = true
-					remove.configs = this.props.configs
+					remove.configs = configs
 					mirror.className = "olist-table mirror current-mirror"
 					remove.position = position
 					remove.mirror = mirror
 					remove.width = width
 					remove.index = i
-					remove.event = e
 					remove.pageX = e.pageX
-					remove.mouseOffsetLeft = e.pageX - position.left
+					remove.initial = {
+						index: i,
+						pageX: e.pageX,
+						...position
+					}
 				} else {
 					mirror.className = "olist-table mirror"
 				}
@@ -469,72 +482,6 @@ export class Theader extends Component {
 			}
 
 		})
-        //
-        //
-        //
-		// //当前按下的 th
-		// let thElement = e.currentTarget
-        //
-		// let thWidth = thElement.offsetWidth
-        //
-		// //当前按下的 th
-		// let th = Query(thElement)
-        //
-		// //当前 th 的 index
-		// let index = th.index()
-        //
-		// //当前列的所有td
-		// let tdElements = Query("#olist_table tr>td:nth-child(" + (index + 1) + ")")
-        //
-		// //列表所有th
-		// let thElements = Query("#olist_table th.column-th")
-        //
-		// let thPosition = th.offset()
-        //
-		// //用CSS属性隐藏当前列
-		// // th.addClass("moving")
-		// // tdElements.addClass("moving")
-        //
-		// //复制当前列做为拖动对象
-		// let Table = document.createElement("table")
-		// 	Table.className = "olist-table mirror"
-		// 	Table.style = 'top: '+ thPosition.top +'px; left: '+ thPosition.left +'px; width: '+ thWidth +'px'
-        //
-		// let Tdstr = '<tr><th>' + thElement.innerHTML + '</th></tr>'
-        //
-		// tdElements.each((i, elem) => {
-		// 	Tdstr += '<tr><td>' + elem.innerHTML + '</td></tr>'
-		// })
-        //
-		// Table.innerHTML = Tdstr
-        //
-		// document.body.appendChild(Table)
-        //
-		// //可见的 th
-		// remove.columnArray = []
-        //
-		// thElements.each((i, elem) => {
-		// 	let _this = Query(elem)
-		// 	remove.columnArray.push({
-		// 		index: i,
-		// 		left: _this.offset().left,
-		// 		width: elem.offsetWidth,
-		// 		visibility: this.props.configs.column[i].visibility
-		// 	})
-		// })
-        //
-		// console.log("columnArray", remove.columnArray);
-        //
-        //
-		// remove.moving = true
-		// remove.configs = this.props.configs
-		// remove.event = e
-		// remove.pageX = e.pageX
-		// remove.element = thElement
-		// remove.width = thWidth
-		// remove.table = Table
-		// remove.position = thPosition
-		// remove.index = index
 
 	}
 	onMouseOverTh(e) {

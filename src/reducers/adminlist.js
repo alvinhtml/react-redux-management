@@ -109,7 +109,7 @@ export function adminlist(state = adminlistInitialState, action) {
                 ...state,
                 ...action.payload
             }
-        case 'adminlist_resize_th':
+        case 'adminlistresize':
             configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
         case UPDATE_LIST_CONFIGS:
