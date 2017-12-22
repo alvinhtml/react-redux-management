@@ -7,6 +7,10 @@ import {Provider} from 'react-redux'
 // import './less/miniui.less'
 // import './css/style.css'
 
+import {
+    UPDATE_LIST_CONFIGS
+} from './constants'
+
 //引入Action创建函数
 import {makePost} from './actions/actions'
 
@@ -167,10 +171,11 @@ document.addEventListener('mouseup', (e) => {
 
         //更新store中的数据
         store.dispatch({
-            type: listPath + "resize",
+            type: UPDATE_LIST_CONFIGS,
             payload: {
                 column: column
-            }
+            },
+            path: configs.listPath
         })
 
         //更新数据库中的数据
@@ -213,10 +218,11 @@ document.addEventListener('mouseup', (e) => {
 
             //更新store中的数据
             store.dispatch({
-                type: configs.listPath + "resize",
+                type: UPDATE_LIST_CONFIGS,
                 payload: {
                     column: newColumn
-                }
+                },
+                path: configs.listPath
             })
         },300)
 

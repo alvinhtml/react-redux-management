@@ -484,24 +484,6 @@ export class Theader extends Component {
 		})
 
 	}
-	onMouseOverTh(e) {
-		// e.stopPropagation()
-		// let index = Query(e.currentTarget).index()
-		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
-		// tds.addClass("hover")
-	}
-	onMouseOutTh(e) {
-		// e.stopPropagation()
-		// let index = Query(e.currentTarget).index()
-		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
-		// tds.removeClass("hover")
-	}
-	onClickTh(e) {
-		// e.stopPropagation()
-		// let index = Query(e.currentTarget).index()
-		// let tds = Query("#olist_table tr td:nth-child(" + (index + 1) + ")")
-		// tds.toggleClass("active")
-	}
 
 	render() {
 		const actions = this.props.actions
@@ -528,9 +510,6 @@ export class Theader extends Component {
 					}}
 					className="column-th"
 					onMouseDown = {this.onMouseDownTh}
-					onMouseOver = {this.onMouseOverTh}
-					onMouseOut = {this.onMouseOutTh}
-					onClick = {this.onClickTh}
 				><strong>{v.title}</strong>{order}{resize}</th>
 			)
 		})
@@ -560,8 +539,8 @@ export class Theader extends Component {
  */
 export class Tbodyer extends Component {
 
-	checkEvent() {
-
+	checkEvent(e) {
+		
 	}
 
 	render() {
@@ -582,12 +561,11 @@ export class Tbodyer extends Component {
 					</div></td>
 				)
 			})
-			//let checked =  typeof(line.checked) === 'undefined' ? false : line.checked
 			let checked =  configs.checked ? true : false
 			let inputCheck = configs.checkboxs ?
 				<td className="row-checkbox" key="check">
 					<div className="td-cell">
-						<input value={line.id} checked={checked} type="checkbox" ref={"checkbox_" + line.id} onChange={e=>this.checkEvent(e,this.refs['checkbox_'+line.id],line.id).bind(this)} />
+						<input className="input-checkbox" value={line.id} checked={checked} onChange={this.checkEvent} type="checkbox"  />
 					</div>
 				</td> : ''
 

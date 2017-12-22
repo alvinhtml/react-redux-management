@@ -24,8 +24,3 @@ export const CHANGE_LIST_CHECKBOX = 'CHANGE_LIST_CHECKBOX'
 
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
-
-
-//drag
-export const RESIZE_TH_WIDTH = 'RESIZE_TH_WIDTH'
-export const RESIZE_TH_ING = 'RESIZE_TH_WIDTH'

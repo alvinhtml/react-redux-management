@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
+import Query from '../../tools/query.js'
 
 //引入下拉菜单组件
 import {Dropmenu, Droptool} from '../../components/dropdown'
@@ -48,16 +49,6 @@ class AdminListUI extends Component {
 			toolsClickEvent,
 			getList,
 			updateConfigs
-			// resizeThEvent,
-			// setPageEvent,
-			// toolsClickEvent,
-			// setSearchMode,
-			// searchEvent,
-			// changeLimitEvent,
-			// changeColumnEvent,
-			// orderbyEvent,
-			// checkEvent,
-			// checkAllEvent
 		} = this.props
 		return (
 			<div className="main-box">
@@ -136,19 +127,9 @@ export const AdminList = connect(
 	},
 	(dispatch, ownProps) => {
 
-		// const updateConfigs = (configs) => {
-		// 	makePost('/api/setting/list_configs', {
-		// 		listPath: configs.listPath,
-		// 		configs: JSON.stringify(configs)
-		// 	})
-		// }
 		return {
-			// getList: (o) => {
-			// 	dispatch(getAdminList(o))
-			// },
-			//获取列表
 			getList: (where, configs) => {
-				dispatch(getAdminList(where))
+				dispatch(getAdminList(where,'adminlist'))
 			},
 			//更新配置
 			updateConfigs: (configs) => {
@@ -160,105 +141,15 @@ export const AdminList = connect(
 				//更新store配置
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'adminlist'))
 			},
-			//checked
-			// checkedEvent: (checked, action) => {
-			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
-			// 		isCheckAll: checked
-			// 	}, 'adminlist'))
-			// },
-			toolsClickEvent: (v) => {
-				//
+
+			toolsClickEvent: () => {
+				let idArray = []
+				let checkboxArray = Query("#list_body .input-checkbox:checked")
+				checkboxArray.each((ii, element) => {
+					idArray.push(element.value)
+				})
+				console.log(idArray);
 			}
-			// //排序
-			// orderbyEvent: (v, key, configs) => {
-			// 	let column = configs.column
-            //
-			// 	for (let i = 0; i < column.length; i++) {
-			// 		console.log(key, i)
-			// 		if (column[i].order) {
-			// 			if (i == key) {
-			// 				column[i].order = v
-			// 			} else {
-			// 				column[i].order = 'order'
-			// 			}
-			// 		}
-			// 	}
-            //
-			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-			// 		column
-			// 	}, 'adminlist'))
-            //
-			// 	updateConfigs(configs)
-            //
-			// 	dispatch(getAdminList({
-			// 		order: column[key].key + ',' + v
-			// 	}))
-			// },
-			// //全选
-			// checkAllEvent: (element) => {
-			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
-			// 		isCheckAll: element.checked
-			// 	}, 'adminlist'))
-			// },
-			// //单选
-			// checkEvent: (e, element, id) => {
-			// 	dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, {
-			// 		//isCheckAll: element.checked
-			// 		id,
-			// 		checked: element.checked
-			// 	}, 'adminlist'))
-			// },
-			// //搜索模式
-			// setSearchMode: (modeValue) => {
-			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-			// 		searchMode: modeValue
-			// 	}, 'adminlist'))
-			// },
-			// //搜索
-			// searchEvent: (search) => {
-			// 	dispatch(getAdminList({
-			// 		search
-			// 	}))
-			// },
-			// //改变页码
-			// setPageEvent: (page) => {
-			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-			// 		page
-			// 	}, 'adminlist'))
-			// 	dispatch(getAdminList({
-			// 		page
-			// 	}))
-			// },
-			// //改变每页显示条数
-			// changeLimitEvent: (v, configs) => {
-            //
-			// 	configs.limit = parseInt(v)
-            //
-			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-			// 		limit: v
-			// 	}, 'adminlist'))
-            //
-			// 	updateConfigs(configs)
-            //
-			// 	dispatch(getAdminList({
-			// 		page: configs.page,
-			// 		limit: configs.limit
-			// 	}))
-            //
-			// },
-			// //改变表格列宽
-			// changeColumnEvent: (key, configs) => {
-            //
-			// 	let column = configs.column
-            //
-			// 	column[key].visibility = column[key].visibility ? false : true
-            //
-			// 	dispatch(ActionCreator(UPDATE_LIST_CONFIGS, {
-			// 		column
-			// 	}, 'adminlist'))
-            //
-			// 	updateConfigs(configs)
-			// }
 		};
 	}
 )(AdminListUI)
