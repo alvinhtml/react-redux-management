@@ -29,6 +29,23 @@ class AdminListUI extends Component {
         this.props.getList({
 			page: 1
 		})
+
+		this.actions = [{
+			type: 'link',
+			href: '/admin/edit/{id}',
+			name: '编辑',
+			icon: 'icon-note',
+			bgcolor: 'green'
+		},{
+			type: 'button',
+			name: '删除',
+			icon: 'icon-trash',
+			bgcolor: 'red',
+			buttonEvent: id => {
+				this.props.getList()
+			}
+		}]
+
     }
 
 	componentWillReceiveProps(nextProps) {
@@ -43,12 +60,14 @@ class AdminListUI extends Component {
 				return value[key]
 		}
 	}
+
 	render() {
-		const {tools, actions, list, count, configs, isCheckAll} = this.props
+		const {tools, actions, list, count, configs} = this.props
 		const {
 			toolsClickEvent,
 			getList,
-			updateConfigs
+			updateConfigs,
+			checkEvent
 		} = this.props
 		return (
 			<div className="main-box">
@@ -96,8 +115,8 @@ class AdminListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<Theader getList={getList} updateConfigs={updateConfigs} configs={configs}  actions={actions} isCheckAll={isCheckAll} />
-                            <Tbodyer list={list} configs={configs} actions={actions} decorater={this.decorater} />
+							<Theader getList={getList} updateConfigs={updateConfigs} list={list} configs={configs}  actions={true} checkEvent={checkEvent} />
+                            <Tbodyer updateConfigs={updateConfigs} list={list} configs={configs} actions={this.actions} checkEvent={checkEvent} decorater={this.decorater} />
                         </table>
                     </div>
 					<PageList getList={getList} updateConfigs={updateConfigs} count={parseInt(count)} configs={configs} />
@@ -128,8 +147,8 @@ export const AdminList = connect(
 	(dispatch, ownProps) => {
 
 		return {
-			getList: (where, configs) => {
-				dispatch(getAdminList(where,'adminlist'))
+			getList: (where) => {
+				dispatch(getAdminList(where, 'adminlist'))
 			},
 			//更新配置
 			updateConfigs: (configs) => {
@@ -141,7 +160,11 @@ export const AdminList = connect(
 				//更新store配置
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'adminlist'))
 			},
-
+			//单选框
+			checkEvent: (list) => {
+				//更新store配置
+				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, list, 'adminlist'))
+			},
 			toolsClickEvent: () => {
 				let idArray = []
 				let checkboxArray = Query("#list_body .input-checkbox:checked")
@@ -157,7 +180,7 @@ export const AdminList = connect(
 
 export const AdminForm = connect(
 	(state) => {
-		return state.adminlist
+		return state.adminlist.single
 	},
 	(dispatch, ownProps) => {
 		return {

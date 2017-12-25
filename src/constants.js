@@ -20,7 +20,10 @@ export const GET_LOGOUT = 'GET_LOGOUT'
 
 //list config
 export const UPDATE_LIST_CONFIGS = 'UPDATE_LIST_CONFIGS'
+
+//list checkbox
 export const CHANGE_LIST_CHECKBOX = 'CHANGE_LIST_CHECKBOX'
 
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
+export const GET_ADMIN_INFO = 'GET_ADMIN_INFO'

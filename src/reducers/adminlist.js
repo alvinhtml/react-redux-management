@@ -1,7 +1,8 @@
 //引入action类型常量名
 import {
     GET_ADMIN_LIST,
-    UPDATE_LIST_CONFIGS
+    UPDATE_LIST_CONFIGS,
+    CHANGE_LIST_CHECKBOX
 } from '../constants'
 
 
@@ -23,16 +24,8 @@ const adminlistInitialState = {
         }
     ],
     list: [], //列表数据
+    single: [], //单条管理员信息(用于查看和编辑)
     count: 64, //列表总条数
-    actions: [{
-        type: 'link',
-        name: '编辑',
-        icon: 'icon-note'
-    },{
-        type: 'button',
-        name: '删除',
-        icon: 'icon-trash'
-    }], //列表单条操作
     //列表配置
     configs:{
         listPath: 'adminlist',
@@ -42,8 +35,7 @@ const adminlistInitialState = {
         checkboxs: true, //选择框 0->无, 1->有
         checked: false, //false->无, all->全选, []->单多选
         search: '',
-        orderkey: '', //排序字段
-        orderby: '', //排序方式
+        order: [],
         column: [{
             key: 'id',
             title: '序号',
@@ -106,6 +98,10 @@ export function adminlist(state = adminlistInitialState, action) {
     //根据不同的action type进行state的更新
     switch (action.type) {
         case GET_ADMIN_LIST:
+            action.payload.configs = {
+                ...state.configs,
+                ...action.payload.configs
+            }
             return {
                 ...state,
                 ...action.payload
@@ -113,6 +109,9 @@ export function adminlist(state = adminlistInitialState, action) {
         case UPDATE_LIST_CONFIGS:
             let configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
+        case CHANGE_LIST_CHECKBOX:
+            let list = [...action.payload]
+            return {...state, list:[...list]}
         default:
             return {...state}
     }

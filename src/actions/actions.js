@@ -223,3 +223,4 @@ export const authInfo = makeGetActionCreator(GET_AUTH_INFO, '/api/authinfo', 'pa
 
 //获取管理员列表
 export const getAdminList = makeGetActionCreator(GET_ADMIN_LIST, '/api/admin/list','body', 'path', 'message')
+export const getAdminInfo = makeGetActionCreator(GET_ADMIN_INFO, '/api/admin/list','body', 'path', 'message')

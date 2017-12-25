@@ -41,6 +41,7 @@ class Manage extends Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route path="/home" component={Home}/>
+                    <Route path="/admin/edit/:id" component={AdminForm}/>
                     <Route path="/admin" component={AdminList}/>
                     <Route path="/term" component={Termhome}/>
                 </Switch>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Query from '../tools/query.js'
 
@@ -71,8 +71,6 @@ export class PageList extends Component {
 			//获取总页数
             let pageCount = count === 0 ? 0 : Math.ceil(count / limit)
 
-			//console.log("count-", pageCount , limit);
-
 			let begin = 1, //起始页
                 showPage = 10 //要显示的页码个数
 
@@ -95,7 +93,6 @@ export class PageList extends Component {
 				}
 			}
 
-
             return (
                 <div className="pagelist">
                     <em>{count}</em>条信息 共<em>{pageCount}</em>页
@@ -108,7 +105,7 @@ export class PageList extends Component {
             )
         }else{
             return (
-                <div className="pagelist"><b>{count}</b>条信息 共<b>{pageCount}</b>页</div>
+                <div className="pagelist"><em>{count}</em>条信息 共<em>{1}</em>页</div>
             );
         }
 	}
@@ -171,7 +168,6 @@ export class Searcher extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log("sv: ", this.searchValue.value , nextProps.configs.search);
 		this.searchValue.value = nextProps.configs.search
 	}
 
@@ -357,31 +353,38 @@ export class Theader extends Component {
 
 	onOrderByEvent(e) {
 		e.stopPropagation()
-		let {orderby, orderkey} = this.props.configs
-
+		let order = this.props.configs.order
 		let key = e.currentTarget.getAttribute("data-key")
-		let order = 'asc'
 
-		if (key == orderkey) {
-			order = orderby == 'asc' ? 'desc' : 'asc'
+		if (order.length === 0) {
+			order = [key, 'asc']
+		} else {
+			if (order[0] === key) {
+				order = [key, order[1] === 'asc' ? 'desc' : 'asc']
+			} else {
+				order = [key, 'asc']
+			}
 		}
 
 		this.props.updateConfigs({
 			...this.props.configs,
-			orderkey: key,
-			orderby: order
+			order
 		})
 		this.props.getList({
 			page: 1,
-			order: key + ',' + order
+			order: order[0] + ',' + order[1]
 		})
 	}
 
 	onCheckEvent(currentTarget) {
-		// this.props.checkedEvent(currentTarget.checked)
+		let checked = currentTarget.checked
+		for (let v of this.props.list) {
+			v.checked = checked
+		}
+		this.props.checkEvent([...this.props.list])
 		this.props.updateConfigs({
 			...this.props.configs,
-			checked: currentTarget.checked
+			checked: checked
 		})
 	}
 
@@ -487,17 +490,18 @@ export class Theader extends Component {
 
 	render() {
 		const actions = this.props.actions
-		const {column, checkboxs, orderby, orderkey, checked} = this.props.configs
+		const {column, checkboxs, checked} = this.props.configs
+		const order = this.props.configs.order.length ? this.props.configs.order : ['','']
 
 		let columns = column.map((v, i) => {
-			let resize = '', order = ''
+			let resize = '', orders = ''
 
 			if (v.resize) {
 				resize = <span onClick={e=>{e.stopPropagation()}} onMouseDown={this.onMousedown} data-index={i} data-key={v.key} className="resize"></span>
 			}
 
 			if (v.order) {
-				order = <span onMouseDown={this.onOrderByEvent} className={'order ' + (orderkey == v.key ? orderby : '')} data-key={v.key}></span>
+				orders = <span onMouseDown={this.onOrderByEvent} className={'order ' + (order[0] == v.key ? order[1] : '')} data-key={v.key}></span>
 			}
 
 			return (
@@ -510,7 +514,7 @@ export class Theader extends Component {
 					}}
 					className="column-th"
 					onMouseDown = {this.onMouseDownTh}
-				><strong>{v.title}</strong>{order}{resize}</th>
+				><strong>{v.title}</strong>{orders}{resize}</th>
 			)
 		})
 
@@ -519,8 +523,7 @@ export class Theader extends Component {
 				className="row-checkbox"
 				key="check-all"
 			><input checked={checked} type="checkbox" ref="checkbox_all" onChange={e=>{this.onCheckEvent(this.refs['checkbox_all'])}} /></th> : ''
-			console.log(actions)
-		let action = actions.length ? <th className="row-action" style={{width:'120px'}}><strong>操作</strong></th> : ''
+		let action = actions ? <th className="row-action" style={{width:'120px'}}><strong>操作</strong></th> : ''
 		return (
 			<thead id="list_head">
 				<tr>
@@ -539,8 +542,22 @@ export class Theader extends Component {
  */
 export class Tbodyer extends Component {
 
-	checkEvent(e) {
-		
+	checkboxEvent(i) {
+		this.props.list[i].checked = this.props.list[i].checked ? false : true
+		this.props.checkEvent([...this.props.list])
+		for (let v of this.props.list) {
+			if (!v.checked) {
+				this.props.updateConfigs({
+					...this.props.configs,
+					checked: false
+				})
+				return false
+			}
+		}
+		this.props.updateConfigs({
+			...this.props.configs,
+			checked: true
+		})
 	}
 
 	render() {
@@ -561,20 +578,20 @@ export class Tbodyer extends Component {
 					</div></td>
 				)
 			})
-			let checked =  configs.checked ? true : false
+			let checked =  configs.checked ? true : line.checked ? true : false
 			let inputCheck = configs.checkboxs ?
 				<td className="row-checkbox" key="check">
 					<div className="td-cell">
-						<input className="input-checkbox" value={line.id} checked={checked} onChange={this.checkEvent} type="checkbox"  />
+						<input className="input-checkbox" value={line.id} checked={checked} onChange={e=>this.checkboxEvent(key)} type="checkbox"  />
 					</div>
 				</td> : ''
 
 			let action = actions.length ? actions.map((vv, ii) => {
 				if (vv.type == "link") {
-					return (<a key={ii} className="ebtn bg-green" href={""} title={vv.name}><i className={vv.icon}></i></a>)
+					return (<Link key={ii} className={'ebtn bg-' + vv.bgcolor} to={vv.href.replace('{id}', line.id)} title={vv.name}><i className={vv.icon}></i></Link>)
 				}
 				if (vv.type == "button") {
-					return (<span key={ii} className="ebtn bg-red" title={vv.name}><i className={vv.icon}></i></span>)
+					return (<span key={ii} className={'ebtn bg-' + vv.bgcolor} onClick={e=>vv.buttonEvent(line.id)} title={vv.name}><i className={vv.icon}></i></span>)
 				}
 			}) : ''
 
