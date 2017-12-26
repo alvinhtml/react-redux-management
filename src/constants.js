@@ -15,8 +15,8 @@ export const SUCCESS = 'SUCCESS'
 export const GET_AUTH_INFO = 'GET_AUTH_INFO'
 
 //login
-export const POST_LOGIN = 'POST_LOGIN'
-export const GET_LOGOUT = 'GET_LOGOUT'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
 
 //list config
 export const UPDATE_LIST_CONFIGS = 'UPDATE_LIST_CONFIGS'
@@ -27,3 +27,4 @@ export const CHANGE_LIST_CHECKBOX = 'CHANGE_LIST_CHECKBOX'
 //admin list
 export const GET_ADMIN_LIST = 'GET_ADMIN_LIST'
 export const GET_ADMIN_INFO = 'GET_ADMIN_INFO'
+export const POST_ADMIN_INFO = 'POST_ADMIN_INFO'

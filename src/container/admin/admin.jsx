@@ -15,20 +15,21 @@ import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer} from '../../comp
 
 //引入action类型常量名
 import {
-	RESIZE_TH_WIDTH,
+	GET_ADMIN_LIST,
 	UPDATE_LIST_CONFIGS,
-	CHANGE_LIST_CHECKBOX
+	CHANGE_LIST_CHECKBOX,
+	GET_ADMIN_INFO,
+	POST_ADMIN_INFO
 } from '../../constants'
 
+
 //引入Action创建函数
-import {ActionCreator, getAdminList, makePost} from '../../actions/actions'
+import {ActionCreator, ActionGet, FetchPost} from '../../actions/actions'
 
 class AdminListUI extends Component {
 
-	componentWillMount() {
-        this.props.getList({
-			page: 1
-		})
+	constructor(props) {
+		super(props)
 
 		this.actions = [{
 			type: 'link',
@@ -45,12 +46,14 @@ class AdminListUI extends Component {
 				this.props.getList()
 			}
 		}]
+	}
 
+	componentWillMount() {
+        this.props.getList({
+			page: 1
+		})
     }
 
-	componentWillReceiveProps(nextProps) {
-		//
-	}
 	//值修饰器
 	decorater(key, value) {
 		switch(key) {
@@ -126,19 +129,7 @@ class AdminListUI extends Component {
 	}
 }
 
-class AdminFormUI extends Component {
-	render() {
-		const {submit} = this.props
-		return (
-			<div className="main-box">
-				<div className="page-bar clear">
-	                <div className="page-bar-left">新增管理员</div>
-	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
-	            </div>
-            </div>
-		)
-	}
-}
+
 
 export const AdminList = connect(
 	(state) => {
@@ -148,12 +139,12 @@ export const AdminList = connect(
 
 		return {
 			getList: (where) => {
-				dispatch(getAdminList(where, 'adminlist'))
+				dispatch(ActionGet(GET_ADMIN_LIST, '/api/admin/list' ,where, 'adminlist'))
 			},
 			//更新配置
 			updateConfigs: (configs) => {
 				//更新数据库配置
-				makePost('/api/setting/list_configs', {
+				FetchPost('/api/setting/list_configs', {
 					listPath: configs.listPath,
 					configs: JSON.stringify(configs)
 				})
@@ -178,12 +169,153 @@ export const AdminList = connect(
 )(AdminListUI)
 
 
+
+class AdminFormUI extends Component {
+
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			name: '',
+			email: '',
+			ouid: 0,
+			type: 0,
+			state: 1,
+			desp: '',
+			password: '********'
+		}
+
+		//ES6 类中函数必须手动绑定
+		this.handleChange = this.handleChange.bind(this)
+		this.submitEvent = this.submitEvent.bind(this)
+	}
+
+	componentWillMount() {
+        this.props.getAdminInfo(this.props.match.params.id)
+    }
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.info) {
+			const {name, email, ouid, type, state, desp} = nextProps.info
+			this.setState({
+		      name, email, ouid, type, state, desp
+		    })
+		}
+	}
+
+	handleChange(e) {
+	    const target = e.target
+	    const value = target.type === 'checkbox' ? target.checked : target.value
+	    const name = target.name
+	    this.setState({
+	      [name]: value
+	    })
+	}
+
+	submitEvent(e) {
+		console.log(document.forms.adminform.);
+	}
+
+	render() {
+
+		const {submit} = this.props
+
+		const {ouObjectList, typeObjectList} = this.props
+
+		let ouOptions = ouObjectList.map((v, i) => {
+			return <option key={i} value={v.id}>{v.name}</option>
+		})
+
+		let typeOptions = typeObjectList.map((v, i) => {
+			return <option key={i} value={v.id}>{v.name}</option>
+		})
+
+		console.log("this.state", this.state)
+
+		return (
+			<div className="main-box">
+				<div className="page-bar clear">
+	                <div className="page-bar-left">新增管理员</div>
+	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
+	            </div>
+				<div className="form-box">
+					<form className="form" name="adminform">
+						<section className="section">
+							<h3 className="section-head">新增管理员</h3>
+							<div className="control">
+								<span className="control-label">用户名：</span>
+								<div className="controls">
+									<label className="input-prepend labled inline-span6"><input type="text" name="name" value={this.state.name} onChange={this.handleChange} /><span className="add-on"><i className="icon-user"></i></span></label>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">密码：</span>
+								<div className="controls">
+									<label className="input-prepend labled inline-span6"><input name="password" type="password" value={this.state.password} onChange={this.handleChange} /><span className="add-on"><i className="icon-lock"></i></span></label>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">邮箱：</span>
+								<div className="controls">
+									<label className="input-prepend labled inline-span6"><input type="text" name="email" value={this.state.email} onChange={this.handleChange} /><span className="add-on"><i className="icon-envelope-open"></i></span></label>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">状态：</span>
+								<div className="controls">
+									<label className="col-span2"><input name="state" defaultValue="0" type="radio" /> 启用</label>
+		                            <label className="col-span2"><input name="state" defaultValue="1" type="radio" /> 停用</label>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">部门：</span>
+								<div className="controls">
+									<select name="ouid" value={this.state.ouid} onChange={this.handleChange} className="inline-span4">
+										{ouOptions}
+									</select>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">类型：</span>
+								<div className="controls">
+									<select name="type" value={this.state.type} onChange={this.handleChange} className="inline-span4">
+										{typeOptions}
+									</select>
+								</div>
+							</div>
+							<div className="control">
+								<span className="control-label">描述：</span>
+								<div className="controls">
+									<textarea className="inline-span8" name="desp" value={this.state.desp} onChange={this.handleChange} />
+								</div>
+							</div>
+							<div className="control">
+								<div className="controls">
+									<span onClick={this.submitEvent} className="button green">提交</span>
+								</div>
+							</div>
+						</section>
+					</form>
+				</div>
+            </div>
+		)
+	}
+}
+
+
 export const AdminForm = connect(
 	(state) => {
-		return state.adminlist.single
+		return {
+			info: state.adminlist.info,
+			ouObjectList: state.common.ouObjectList,
+			typeObjectList: state.common.typeObjectList
+		}
 	},
 	(dispatch, ownProps) => {
 		return {
+			getAdminInfo: (id) => {
+				dispatch(ActionGet(GET_ADMIN_INFO, '/api/admin/view/' + id, 'adminlist'))
+			},
 			submit: (o) => {
 				//dispatch(loginFetch({email, password},'/common'))
 			}

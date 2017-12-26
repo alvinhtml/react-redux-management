@@ -13,7 +13,13 @@ import {Header} from './container/common/header'
 import {Sidebar} from './container/common/sidebar'
 
 //引入Action创建函数
-import {authInfo} from './actions/actions'
+import {ActionGet} from './actions/actions'
+
+//引入action类型常量名
+import {
+	GET_AUTH_INFO
+} from './constants'
+
 
 //引入cookie操作库
 import Cookies from 'js-cookie'
@@ -88,7 +94,7 @@ const App = connect((state) => {
 }, (dispatch) => {
     return {
         onWillMount: () => {
-			dispatch(authInfo())
+			dispatch(ActionGet(GET_AUTH_INFO, '/api/authinfo', 'common'))
 		}
     };
 })(AppUI)

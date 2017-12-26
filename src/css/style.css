@@ -416,7 +416,7 @@ table.moving th.row-last {
 /*==================================
             Form box
  =================================*/
-
+.form-box { }
 .form-footer { /* position: fixed; bottom: 0; left: 0; right: 0; top: auto; background-color: rgba(255,255,255,0.8); padding-top: 10px; box-shadow: 0px -5px rgba(102, 102, 102, 0.1); */  }
 .form-footer .button { margin-right: 1em;}
 

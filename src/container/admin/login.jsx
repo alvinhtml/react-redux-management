@@ -12,8 +12,15 @@ import {
 	connect
 } from 'react-redux'
 
+
+//引入action类型常量名
+import {
+	LOGIN
+} from '../../constants'
+
+
 //引入Action创建函数
-import {loginFetch} from '../../actions/actions'
+import {ActionPost} from '../../actions/actions'
 
 
 class LoginUI extends Component {
@@ -58,11 +65,11 @@ export const Login = connect(
 	(dispatch, ownProps) => {
 		return {
 			onSubmit: (email, password) => {
-				dispatch(loginFetch({email, password},'/common'))
+				dispatch(ActionPost(LOGIN, '/api/admin/login' ,{email, password}, 'common'))
 			},
 			onKeyPress: (event, email, password) => {
 				if(event.charCode === 13){
-					dispatch(loginFetch({email, password},'/common'))
+					dispatch(ActionPost(LOGIN, '/api/admin/login' ,{email, password}, 'common'))
 				}
 			}
 		};

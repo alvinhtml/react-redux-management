@@ -1,5 +1,4 @@
 //引入action类型常量名
-//引入action类型常量名
 import {
     GET_AUTH_INFO
 } from '../constants'
@@ -41,8 +40,6 @@ const headerInitialState = {
         }
     ],
     avatar: 'http://laravel.xuehtml.com/public/images/admin.png',
-    adminemail: '',
-    adminname: '',
     adminActions: [
         {
             text: '个人中心',
@@ -64,8 +61,6 @@ export function header(state = headerInitialState, action) {
 
     //根据不同的action type进行state的更新
     switch (action.type) {
-        case GET_AUTH_INFO:
-            return {...state, ...action.payload}
         default:
             return { ...state }
     }

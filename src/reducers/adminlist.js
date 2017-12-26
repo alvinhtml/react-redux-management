@@ -2,7 +2,9 @@
 import {
     GET_ADMIN_LIST,
     UPDATE_LIST_CONFIGS,
-    CHANGE_LIST_CHECKBOX
+    CHANGE_LIST_CHECKBOX,
+    GET_ADMIN_INFO,
+    POST_ADMIN_INFO
 } from '../constants'
 
 
@@ -24,7 +26,7 @@ const adminlistInitialState = {
         }
     ],
     list: [], //列表数据
-    single: [], //单条管理员信息(用于查看和编辑)
+    info: null, //单条管理员信息(用于查看和编辑)
     count: 64, //列表总条数
     //列表配置
     configs:{
@@ -112,6 +114,8 @@ export function adminlist(state = adminlistInitialState, action) {
         case CHANGE_LIST_CHECKBOX:
             let list = [...action.payload]
             return {...state, list:[...list]}
+        case GET_ADMIN_INFO:
+            return {...state, info: action.payload.info}
         default:
             return {...state}
     }

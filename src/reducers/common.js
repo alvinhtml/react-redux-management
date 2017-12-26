@@ -1,9 +1,8 @@
 //引入action类型常量名
 import {
-    POST_LOGIN,
-    GET_LOGOUT,
-    GET_AUTH_INFO,
-    RESIZE_TH_WIDTH
+    LOGIN,
+    LOGOUT,
+    GET_AUTH_INFO
 } from '../constants'
 
 
@@ -16,20 +15,65 @@ const commonInitialState = {
     version: '10.0.106',
     logo: 'http://project.xuehtml.com/react-redux/src/images/login-logo.png',
     logoname: "画方科技",
-    message: ''
+    message: '',
+    ouObjectList: [{
+        id: 0,
+        name: '根部门',
+        ouid: null,
+        path: '/根部门'
+    }, {
+        id: 1,
+        name: '技术部',
+        ouid: 0,
+        path: '/根部门/技术部'
+    }, {
+        id: 2,
+        name: '销售部',
+        ouid: 0,
+        path: '/根部门/销售部'
+    }, {
+        id: 3,
+        name: '研发小组',
+        ouid: 1,
+        path: '/根部门/技术部/研发小组'
+    }],
+    typeObjectList: [{
+        id: 0,
+        name: '台式机'
+    }, {
+        id: 1,
+        name: '服务器'
+    }, {
+        id: 2,
+        name: '笔记机'
+    }, {
+        id: 3,
+        name: '手机'
+    }, {
+        id: 4,
+        name: '平板电脑'
+    }, {
+        id: 5,
+        name: '交换机'
+    }, {
+        id: 6,
+        name: '路由器'
+    }]
 }
 
 export function common(state = commonInitialState, action) {
 
+    if (action.path !== "common") {
+        return state
+    }
+
     //根据不同的action type进行state的更新
     switch (action.type) {
-        case POST_LOGIN:
+        case LOGIN:
             return {...state, ...action.payload}
-        case GET_LOGOUT:
+        case LOGOUT:
             return {...state, ...action.payload}
         case GET_AUTH_INFO:
-            return {...state, ...action.payload}
-        case RESIZE_TH_WIDTH:
             return {...state, ...action.payload}
         default:
             return { ...state }

@@ -263,6 +263,12 @@ export class Configer extends Component {
 		this.changeColumnEvent = this.changeColumnEvent.bind(this)
 	}
 
+	componentWillMount() {
+        this.props.getList({
+			page: 1
+		})
+	}
+
 	handleClick(event) {
 		this.setState({
 			opened: !this.state.opened

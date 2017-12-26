@@ -7,12 +7,14 @@ import {Provider} from 'react-redux'
 // import './less/miniui.less'
 // import './css/style.css'
 
+
+//引入Action创建函数
+import {FetchPost} from './actions/actions'
+
+//引入action类型常量名
 import {
     UPDATE_LIST_CONFIGS
 } from './constants'
-
-//引入Action创建函数
-import {makePost} from './actions/actions'
 
 //引入store配置
 import finalCreateStore from './stores/configureStore'
@@ -179,7 +181,7 @@ document.addEventListener('mouseup', (e) => {
         })
 
         //更新数据库中的数据
-        makePost('/api/setting/list_configs', {
+        FetchPost('/api/setting/list_configs', {
             listPath: listPath,
             configs: JSON.stringify(configs)
         })
@@ -208,7 +210,7 @@ document.addEventListener('mouseup', (e) => {
             Query("#olist_table").removeClass("moving")
 
             //更新数据库中的数据
-            makePost('/api/setting/list_configs', {
+            FetchPost('/api/setting/list_configs', {
                 listPath: configs.listPath,
                 configs: JSON.stringify({
                     ...configs,

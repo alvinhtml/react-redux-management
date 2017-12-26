@@ -13,11 +13,18 @@ import {Dropdown, Dropmenu} from '../../components/dropdown'
 
 
 //引入Action创建函数
-import {logoutFetch} from '../../actions/actions'
+import {ActionGet} from '../../actions/actions'
+
+//引入action类型常量名
+import {
+	LOGOUT
+} from '../../constants'
 
 class HeaderUI extends Component {
 
 	render () {
+
+		console.log(this.props);
 
 		const {reminds, messages, tasks, adminActions, adminname, adminemail, avatar, logined} = this.props
 		const {remindClickEvent, messagesClickEvent, tasksClickEvent, adminActionsClickEvent} = this.props
@@ -85,7 +92,7 @@ export const Header = connect(
 				console.log("header admin click event",value)
 				switch (value) {
 					case "3":
-						dispatch(logoutFetch({a:1}, '/common'))
+						dispatch(ActionGet(LOGOUT, '/api/admin/logout', 'common'))
 						break;
 					default:
 
