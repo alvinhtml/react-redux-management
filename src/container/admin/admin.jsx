@@ -9,6 +9,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入弹出提示组件
 import {Popup} from '../../components/popup'
+import {Radios, Radio} from '../../components/radios'
 
 //引入组件
 import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer} from '../../components/common'
@@ -58,7 +59,7 @@ class AdminListUI extends Component {
 	decorater(key, value) {
 		switch(key) {
 			case "state":
-			 	return value[key] == 1 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
+			 	return value[key] == 0 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
 			default:
 				return value[key]
 		}
@@ -180,9 +181,9 @@ class AdminFormUI extends Component {
 			email: '',
 			ouid: 0,
 			type: 0,
-			state: 1,
+			state: 0,
 			desp: '',
-			password: '********'
+			password: ''
 		}
 
 		//ES6 类中函数必须手动绑定
@@ -213,7 +214,7 @@ class AdminFormUI extends Component {
 	}
 
 	submitEvent(e) {
-		console.log(document.forms.adminform.);
+		console.log(document.forms.adminform);
 	}
 
 	render() {
@@ -229,8 +230,6 @@ class AdminFormUI extends Component {
 		let typeOptions = typeObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
 		})
-
-		console.log("this.state", this.state)
 
 		return (
 			<div className="main-box">
@@ -263,8 +262,10 @@ class AdminFormUI extends Component {
 							<div className="control">
 								<span className="control-label">状态：</span>
 								<div className="controls">
-									<label className="col-span2"><input name="state" defaultValue="0" type="radio" /> 启用</label>
-		                            <label className="col-span2"><input name="state" defaultValue="1" type="radio" /> 停用</label>
+									<Radios name="state" value={this.state.state}>
+										<Radio className="col-span1" value="0">启用</Radio>
+										<Radio className="col-span1" value="1">停用</Radio>
+									</Radios>
 								</div>
 							</div>
 							<div className="control">

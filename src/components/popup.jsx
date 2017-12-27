@@ -150,12 +150,12 @@ export class Popup extends Component {
 				break;
 		}
 
-		console.log ("elementAttr", elementAttr);
-		console.log ("popupAttr", popupAttr);
-		console.log ("screenarea", screenarea);
-		console.log ("containment", containment);
-		console.log ("orientation", orientation);
-		console.log ("coordinate", coordinate);
+		// console.log ("elementAttr", elementAttr);
+		// console.log ("popupAttr", popupAttr);
+		// console.log ("screenarea", screenarea);
+		// console.log ("containment", containment);
+		// console.log ("orientation", orientation);
+		// console.log ("coordinate", coordinate);
 
 		popup.className += " " + orientation
 		popup.style = `left: ${coordinate.left}px; top: ${coordinate.top + screenarea.scrollTop}px; right: auto; bottom: auto; display: table`
