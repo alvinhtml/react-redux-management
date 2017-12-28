@@ -3,16 +3,18 @@ import {Redirect, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import Query from '../../tools/query.js'
+import Validator from '../../tools/validator.js'
 
 //引入下拉菜单组件
 import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入弹出提示组件
 import {Popup} from '../../components/popup'
+import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
 //引入组件
-import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer} from '../../components/common'
+import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, FetchButton} from '../../components/common'
 
 //引入action类型常量名
 import {
@@ -20,12 +22,13 @@ import {
 	UPDATE_LIST_CONFIGS,
 	CHANGE_LIST_CHECKBOX,
 	GET_ADMIN_INFO,
-	POST_ADMIN_INFO
+	POST_ADMIN_INFO,
+	DELETE_ADMIN
 } from '../../constants'
 
 
 //引入Action创建函数
-import {ActionCreator, ActionGet, FetchPost} from '../../actions/actions'
+import {ActionCreator, ActionGet, ActionPost, FetchPost} from '../../actions/actions'
 
 class AdminListUI extends Component {
 
@@ -34,7 +37,7 @@ class AdminListUI extends Component {
 
 		this.actions = [{
 			type: 'link',
-			href: '/admin/edit/{id}',
+			href: '/admin/form/{id}',
 			name: '编辑',
 			icon: 'icon-note',
 			bgcolor: 'green'
@@ -44,9 +47,11 @@ class AdminListUI extends Component {
 			icon: 'icon-trash',
 			bgcolor: 'red',
 			buttonEvent: id => {
-				this.props.getList()
+				this.props.deleteEvent(id)
 			}
 		}]
+
+		this.decorater = this.decorater.bind(this)
 	}
 
 	componentWillMount() {
@@ -57,9 +62,14 @@ class AdminListUI extends Component {
 
 	//值修饰器
 	decorater(key, value) {
+		const {ouObjectList, adminTypeObjectList} = this.props
 		switch(key) {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
+			case 'ouid':
+				return ouObjectList[value[key]].name
+			case 'type':
+				return adminTypeObjectList[value[key]].name
 			default:
 				return value[key]
 		}
@@ -134,7 +144,11 @@ class AdminListUI extends Component {
 
 export const AdminList = connect(
 	(state) => {
-		return state.adminlist
+		return {
+			...state.adminlist,
+			ouObjectList: state.common.ouObjectList,
+			adminTypeObjectList: state.common.adminTypeObjectList
+		}
 	},
 	(dispatch, ownProps) => {
 
@@ -143,12 +157,14 @@ export const AdminList = connect(
 				dispatch(ActionGet(GET_ADMIN_LIST, '/api/admin/list' ,where, 'adminlist'))
 			},
 			//更新配置
-			updateConfigs: (configs) => {
-				//更新数据库配置
-				FetchPost('/api/setting/list_configs', {
-					listPath: configs.listPath,
-					configs: JSON.stringify(configs)
-				})
+			updateConfigs: (configs, isPost) => {
+				if (isPost) {
+					//更新数据库配置
+					FetchPost('/api/setting/list_configs', {
+						listPath: configs.listPath,
+						configs: JSON.stringify(configs)
+					})
+				}
 				//更新store配置
 				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'adminlist'))
 			},
@@ -157,13 +173,28 @@ export const AdminList = connect(
 				//更新store配置
 				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, list, 'adminlist'))
 			},
-			toolsClickEvent: () => {
+			deleteEvent: (id) => {
+				//删除一条
+				dispatch(ActionGet(DELETE_ADMIN, '/api/admin/delete/' + id, 'adminlist'))
+			},
+			toolsClickEvent: (value) => {
 				let idArray = []
 				let checkboxArray = Query("#list_body .input-checkbox:checked")
 				checkboxArray.each((ii, element) => {
 					idArray.push(element.value)
 				})
-				console.log(idArray);
+
+				if (idArray.length === 0) {
+					return false
+				}
+
+				switch (value) {
+					case '0':
+						dispatch(ActionGet(DELETE_ADMIN, '/api/admin/delete/' + idArray.join(','), 'adminlist'))
+						break;
+					default:
+				}
+
 			}
 		};
 	}
@@ -177,6 +208,7 @@ class AdminFormUI extends Component {
 		super(props)
 
 		this.state = {
+			id: '',
 			name: '',
 			email: '',
 			ouid: 0,
@@ -197,9 +229,9 @@ class AdminFormUI extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.info) {
-			const {name, email, ouid, type, state, desp} = nextProps.info
+			const {id, name, email, ouid, type, state, desp} = nextProps.info
 			this.setState({
-		      name, email, ouid, type, state, desp
+		      id, name, email, ouid, type, state, desp
 		    })
 		}
 	}
@@ -214,20 +246,38 @@ class AdminFormUI extends Component {
 	}
 
 	submitEvent(e) {
-		console.log(document.forms.adminform);
+		const forms = document.forms.adminform
+		const formdata = {
+			id: forms.id.value,
+			name: Validator(forms.name),
+			email: Validator(forms.email),
+			ouid: Query(forms.ouid).val(),
+			type: Query(forms.type).val(),
+			state: forms.state.value,
+			desp: Validator(forms.desp),
+		}
+
+		if (formdata.id === "") {
+			formdata.password = forms.password.value
+		}
+
+		console.log(formdata)
+		this.props.submit(formdata, (data) => {
+			this.props.history.push('/admin/list')
+		})
 	}
 
 	render() {
 
-		const {submit} = this.props
+		const {isFetching} = this.props
 
-		const {ouObjectList, typeObjectList} = this.props
+		const {ouObjectList, adminTypeObjectList} = this.props
 
 		let ouOptions = ouObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
 		})
 
-		let typeOptions = typeObjectList.map((v, i) => {
+		let typeOptions = adminTypeObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
 		})
 
@@ -239,6 +289,7 @@ class AdminFormUI extends Component {
 	            </div>
 				<div className="form-box">
 					<form className="form" name="adminform">
+						<input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
 						<section className="section">
 							<h3 className="section-head">新增管理员</h3>
 							<div className="control">
@@ -292,7 +343,7 @@ class AdminFormUI extends Component {
 							</div>
 							<div className="control">
 								<div className="controls">
-									<span onClick={this.submitEvent} className="button green">提交</span>
+									<FetchButton isFetching={isFetching} submitEvent={this.submitEvent} className="button green">提-交</FetchButton>
 								</div>
 							</div>
 						</section>
@@ -307,9 +358,10 @@ class AdminFormUI extends Component {
 export const AdminForm = connect(
 	(state) => {
 		return {
+			isFetching: state.adminlist.isFetching,
 			info: state.adminlist.info,
 			ouObjectList: state.common.ouObjectList,
-			typeObjectList: state.common.typeObjectList
+			adminTypeObjectList: state.common.adminTypeObjectList
 		}
 	},
 	(dispatch, ownProps) => {
@@ -317,8 +369,14 @@ export const AdminForm = connect(
 			getAdminInfo: (id) => {
 				dispatch(ActionGet(GET_ADMIN_INFO, '/api/admin/view/' + id, 'adminlist'))
 			},
-			submit: (o) => {
-				//dispatch(loginFetch({email, password},'/common'))
+			submit: (formdata, callback) => {
+				let url = '/api/admin/edit'
+
+				if (formdata.id !== '') {
+					url += '/' + formdata.id
+				}
+
+				dispatch(ActionPost(POST_ADMIN_INFO, url, formdata, 'adminlist', callback))
 			}
 		};
 	}

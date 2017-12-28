@@ -31,8 +31,6 @@ import DevTools from './container/DevTools'
 //给增强后的store传入reducer
 const store = finalCreateStore(reducer)
 
-console.log("state",store);
-
 
 render(
     <Provider store={store}>
@@ -73,7 +71,6 @@ document.addEventListener('mousemove', (e) => {
         if (width + e.pageX - pageX > 60) {
             element.style.width = (width + e.pageX - pageX) + 'px'
         }
-        console.log("resize", resize);
     }
 
     //表格拖动
@@ -160,7 +157,6 @@ document.addEventListener('mousemove', (e) => {
 
             mirrorArr.splice(index, 0, mirrorArr.splice(index + orientation, 1)[0])
 
-            console.log("new:",[...mirrorArr])
         }
     }
 })
@@ -192,7 +188,6 @@ document.addEventListener('mouseup', (e) => {
     if (remove && remove.moving) {
         let {event, configs, mirrorArr, mirror, position, width, index, initial} = remove
 
-        console.log(mirrorArr)
 
         mirror.className = "olist-table mirror"
         mirror.style.left = remove.position.left + 'px';

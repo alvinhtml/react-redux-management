@@ -57,7 +57,7 @@ export class Radios extends Component {
                 <label className={className}>
                     <input
                         type="radio"
-                        name={name}
+                        name={name + '__radio_'}
                         value={value}
                         checked={this.state.value == value}
                         onChange={this.handleChange}

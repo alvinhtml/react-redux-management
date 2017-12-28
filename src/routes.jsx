@@ -47,7 +47,8 @@ class Manage extends Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route path="/home" component={Home}/>
-                    <Route path="/admin/edit/:id" component={AdminForm}/>
+                    <Route path="/admin/form/:id" component={AdminForm}/>
+                    <Route path="/admin/form" component={AdminForm}/>
                     <Route path="/admin" component={AdminList}/>
                     <Route path="/term" component={Termhome}/>
                 </Switch>
@@ -69,12 +70,10 @@ class AppUI extends Component {
                 <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={3000} transitionLeaveTimeout={3000}>
                     <Switch>
                         <Route key='/login' exact path="/login" render={(urls) => {
-                            //console.log("EEE-login",urls)
                             let url = urls.location.search.split("=")[1]
                             return this.props.logined ? <Redirect to={url} /> : <Login />
                         }} />
                     <Route key='/' path="/" render={(urls) => {
-                            //console.log("EEE-manage",urls)
                             let backurl = {
                                 pathname: '/login',
                                 search: '?=' + urls.location.pathname

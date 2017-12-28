@@ -37,6 +37,19 @@ const commonInitialState = {
         ouid: 1,
         path: '/根部门/技术部/研发小组'
     }],
+    adminTypeObjectList: [{
+        id: 0,
+        name: '超级管理员',
+    }, {
+        id: 1,
+        name: '系统管理员',
+    }, {
+        id: 2,
+        name: '安全管理员',
+    }, {
+        id: 3,
+        name: '审计管理员',
+    }],
     typeObjectList: [{
         id: 0,
         name: '台式机'

@@ -37,7 +37,7 @@ export const ActionCreator = (type, body, path) => {
 }
 
 //POST请求
-export const FetchPost = (url, body) => {
+export const FetchPost = (url, body, callback) => {
 
         //发起fetch请求
         return fetch(url, {
@@ -68,7 +68,9 @@ export const FetchPost = (url, body) => {
 
         //获取并处理请求结果
         .then(json => {
-            console.log ("状态码:",json.error, json.message);
+            if (typeof callback === "function") {
+                callback(json)
+            }
         })
 
         //处理请求错误
@@ -80,13 +82,14 @@ export const FetchPost = (url, body) => {
 //异步Action函数创建器 GET请求
 export const ActionGet = (type, url, ...args) => {
 
-    let [body, path] = [...args]
+    let [body, path, callback] = [...args]
 
     if (typeof body === 'object') {
         url = url + '?' + formatParams(body)
     }
 
     if (typeof body === 'string') {
+        callback = path
         path = body
     }
 
@@ -130,7 +133,9 @@ export const ActionGet = (type, url, ...args) => {
 
         //获取并处理请求结果
         .then(json => {
-            console.log(type, body, path);
+            if (typeof callback === "function") {
+                callback(json)
+            }
             return dispatch({
                 type: type,
                 payload: {
@@ -149,7 +154,7 @@ export const ActionGet = (type, url, ...args) => {
 }
 
 //异步Action函数创建器 POST请求
-export const ActionPost = (type, url, body, path) => {
+export const ActionPost = (type, url, body, path, callback) => {
 
     return (dispatch, getState) => {
 
@@ -161,7 +166,6 @@ export const ActionPost = (type, url, body, path) => {
             },
             path: path
         })
-        console.log("ActionPost", path)
         //发起fetch请求
         return fetch(url, {
             method: "POST",
@@ -191,7 +195,9 @@ export const ActionPost = (type, url, body, path) => {
 
         //获取并处理请求结果
         .then(json => {
-            console.log("then json")
+            if (typeof callback === "function") {
+                callback(json)
+            }
             return dispatch({
                 type: type,
                 payload: {

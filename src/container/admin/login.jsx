@@ -34,11 +34,10 @@ class LoginUI extends Component {
 		}
 
 		let emailInput, passwordInput
-		console.log("装载了登录界面")
 		return (
 			<div className="container">
                 <div className="login">
-                    <div className="logo" onClick={e=>console.log(e)}>
+                    <div className="logo">
                         <img src={logo} alt={logoname} />
                     </div>
                     {

@@ -65,7 +65,7 @@ Object.assign(Query.prototype, {
     //检测是否包含某个 class
     hasClass(className) {
         //return new RegExp(' ' + className + ' ').test(' ' + this.nodeList[0].className + ' ')
-        return this.nodeList[0].contains(className)
+        return this.nodeList[0].classList.contains(className)
     },
 
     //添加class
@@ -118,6 +118,19 @@ Object.assign(Query.prototype, {
             top: getOffsetTop(this.nodeList[0]),
             left: getOffsetLeft(this.nodeList[0])
         }
+    },
+
+    //取值
+    val(){
+        let element = this.nodeList[0]
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            return element.value
+        }
+
+        if (element.tagName === 'SELECT') {
+            return element.options[element.selectedIndex].value
+        }
+
     }
 })
 

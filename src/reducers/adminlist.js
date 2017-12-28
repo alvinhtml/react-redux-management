@@ -4,7 +4,8 @@ import {
     UPDATE_LIST_CONFIGS,
     CHANGE_LIST_CHECKBOX,
     GET_ADMIN_INFO,
-    POST_ADMIN_INFO
+    POST_ADMIN_INFO,
+    DELETE_ADMIN
 } from '../constants'
 
 
@@ -67,7 +68,7 @@ const adminlistInitialState = {
             width: 120,
             resize: 0
         },{
-            key: 'ouname',
+            key: 'ouid',
             title: '部门',
             order: true,
             visibility: false,
@@ -116,6 +117,21 @@ export function adminlist(state = adminlistInitialState, action) {
             return {...state, list:[...list]}
         case GET_ADMIN_INFO:
             return {...state, info: action.payload.info}
+        case POST_ADMIN_INFO:
+            return {...state, ...action.payload}
+        case DELETE_ADMIN:
+            let ids = action.payload.delete
+            let oldlist = state.list
+            if (ids) {
+                for (let i = 0; i < ids.length; i++) {
+                    for (let k = 0; k < oldlist.length; k++) {
+                        if (ids[i] == oldlist[k].id) {
+                            oldlist.splice(k, 1)
+                        }
+                    }
+                }
+            }
+            return {...state, ...action.payload, list: [...oldlist]}
         default:
             return {...state}
     }

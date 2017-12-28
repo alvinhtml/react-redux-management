@@ -49,7 +49,7 @@ export class PageList extends Component {
 		this.props.updateConfigs({
 			...this.props.configs,
 			page
-		})
+		}, true)
 
 		let where = {
 			page
@@ -187,7 +187,7 @@ export class Searcher extends Component {
 		this.props.updateConfigs({
 			...this.props.configs,
 			search: this.searchValue.value
-		})
+		}, true)
 		this.props.getList({
 			search: this.searchValue.value
 		})
@@ -281,7 +281,7 @@ export class Configer extends Component {
 		this.props.updateConfigs({
 			...this.props.configs,
 			limit
-		})
+		}, true)
 		this.props.getList({
 			page: 1,
 			limit
@@ -294,7 +294,7 @@ export class Configer extends Component {
 		this.props.configs.column[i].visibility = !this.props.configs.column[i].visibility
 		this.props.updateConfigs({
 			...this.props.configs
-		})
+		}, true)
 	}
 
 	render() {
@@ -375,7 +375,7 @@ export class Theader extends Component {
 		this.props.updateConfigs({
 			...this.props.configs,
 			order
-		})
+		}, true)
 		this.props.getList({
 			page: 1,
 			order: order[0] + ',' + order[1]
@@ -391,7 +391,7 @@ export class Theader extends Component {
 		this.props.updateConfigs({
 			...this.props.configs,
 			checked: checked
-		})
+		}, true)
 	}
 
 	//resize 按下
@@ -619,6 +619,40 @@ export class Tbodyer extends Component {
 			<tbody id="list_body" className="olist-body">
 				{lists}
 			</tbody>
+        )
+	}
+}
+
+
+
+
+/**
+ * Fetch 按钮
+ */
+export class FetchButton extends Component {
+	constructor(props) {
+		super(props)
+
+		//ES6 类中函数必须手动绑定
+		this.submitHandleEvent = this.submitHandleEvent.bind(this)
+	}
+
+	submitHandleEvent() {
+		if (!this.props.isFetching) {
+			this.props.submitEvent()
+		}
+	}
+
+	render() {
+
+		let {isFetching, className} = this.props
+
+		if (isFetching) {
+			className += ' loading'
+		}
+
+		return (
+			<span className={className} onClick={this.submitHandleEvent}>{this.props.children}</span>
         )
 	}
 }
