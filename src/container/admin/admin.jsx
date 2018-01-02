@@ -23,7 +23,8 @@ import {
 	CHANGE_LIST_CHECKBOX,
 	GET_ADMIN_INFO,
 	POST_ADMIN_INFO,
-	DELETE_ADMIN
+	DELETE_ADMIN,
+	UPDATE_ADMIN_STATE
 } from '../../constants'
 
 
@@ -185,12 +186,19 @@ export const AdminList = connect(
 				})
 
 				if (idArray.length === 0) {
+					Alert("请先勾选要执行操作的列!")
 					return false
 				}
 
 				switch (value) {
 					case '0':
-						dispatch(ActionGet(DELETE_ADMIN, '/api/admin/delete/' + idArray.join(','), 'adminlist'))
+						dispatch(ActionGet(DELETE_ADMIN, '/api/admin/del/' + idArray.join(','), 'adminlist'))
+						break;
+					case '1':
+						dispatch(ActionGet(UPDATE_ADMIN_STATE, '/api/admin/edit_state/' + idArray.join(','), {state: 1}, 'adminlist'))
+						break;
+					case '2':
+						dispatch(ActionGet(UPDATE_ADMIN_STATE, '/api/admin/edit_state/' + idArray.join(','), {state: 0}, 'adminlist'))
 						break;
 					default:
 				}

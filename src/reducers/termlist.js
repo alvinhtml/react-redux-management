@@ -105,10 +105,44 @@ const termlistInitialState = {
 
 export function termlist(state = termlistInitialState, action) {
 
-    let configs
+    if (action.path !== "termlist") {
+        return state
+    }
 
     //根据不同的action type进行state的更新
     switch (action.type) {
+        case GET_ADMIN_LIST:
+            action.payload.configs = {
+                ...state.configs,
+                ...action.payload.configs
+            }
+            return {
+                ...state,
+                ...action.payload
+            }
+        case UPDATE_LIST_CONFIGS:
+            let configs = {...state.configs, ...action.payload}
+            return {...state, ...{configs}}
+        case CHANGE_LIST_CHECKBOX:
+            let list = [...action.payload]
+            return {...state, list:[...list]}
+        case GET_ADMIN_INFO:
+            return {...state, info: action.payload.info}
+        case POST_ADMIN_INFO:
+            return {...state, ...action.payload}
+        case DELETE_ADMIN:
+            let ids = action.payload.delete
+            let oldlist = state.list
+            if (ids) {
+                for (let i = 0; i < ids.length; i++) {
+                    for (let k = 0; k < oldlist.length; k++) {
+                        if (ids[i] == oldlist[k].id) {
+                            oldlist.splice(k, 1)
+                        }
+                    }
+                }
+            }
+            return {...state, ...action.payload, list: [...oldlist]}
         default:
             return {...state}
     }

@@ -1,11 +1,12 @@
 //引入action类型常量名
 import {
-    GET_ADMIN_LIST,
     UPDATE_LIST_CONFIGS,
     CHANGE_LIST_CHECKBOX,
+    GET_ADMIN_LIST,
     GET_ADMIN_INFO,
     POST_ADMIN_INFO,
-    DELETE_ADMIN
+    DELETE_ADMIN,
+    UPDATE_ADMIN_STATE
 } from '../constants'
 
 
@@ -98,6 +99,8 @@ export function adminlist(state = adminlistInitialState, action) {
         return state
     }
 
+    let ids = [], oldlist = []
+
     //根据不同的action type进行state的更新
     switch (action.type) {
         case GET_ADMIN_LIST:
@@ -120,13 +123,26 @@ export function adminlist(state = adminlistInitialState, action) {
         case POST_ADMIN_INFO:
             return {...state, ...action.payload}
         case DELETE_ADMIN:
-            let ids = action.payload.delete
-            let oldlist = state.list
+            ids = action.payload.ids
+            oldlist = state.list
             if (ids) {
                 for (let i = 0; i < ids.length; i++) {
                     for (let k = 0; k < oldlist.length; k++) {
                         if (ids[i] == oldlist[k].id) {
                             oldlist.splice(k, 1)
+                        }
+                    }
+                }
+            }
+            return {...state, ...action.payload, list: [...oldlist]}
+        case UPDATE_ADMIN_STATE:
+            ids = action.payload.ids
+            oldlist = state.list
+            if (ids) {
+                for (let i = 0; i < ids.length; i++) {
+                    for (let k = 0; k < oldlist.length; k++) {
+                        if (ids[i] == oldlist[k].id) {
+                            oldlist[k].state = action.payload.state
                         }
                     }
                 }
