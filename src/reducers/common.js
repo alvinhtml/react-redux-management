@@ -17,25 +17,25 @@ const commonInitialState = {
     logoname: "画方科技",
     message: '',
     ouObjectList: [{
-        id: 0,
+        id: 1,
         name: '根部门',
         ouid: null,
         path: '/根部门'
     }, {
-        id: 1,
+        id: 2,
         name: '技术部',
-        ouid: 0,
+        ouid: 1,
         path: '/根部门/技术部'
     }, {
-        id: 2,
+        id: 3,
         name: '销售部',
-        ouid: 0,
+        ouid: 1,
         path: '/根部门/销售部'
     }, {
-        id: 3,
-        name: '研发小组',
+        id: 6,
+        name: '研发部',
         ouid: 1,
-        path: '/根部门/技术部/研发小组'
+        path: '/根部门/技术部/研发部'
     }],
     adminTypeObjectList: [{
         id: 0,

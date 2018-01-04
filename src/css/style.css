@@ -298,8 +298,12 @@ a.tools,.tools>.dropdown-toggler { display: block; box-sizing: border-box;min-wi
 
 /* olist -> search */
 .olist-search { float: left;}
-.olist-search input { border: 0; background: #f3f6f9; height: 36px; float: left; width: 180px; padding-right: 0;}
+.olist-search input { border: 0; background: #f3f6f9; height: 36px; float: left; width: 280px; padding-right: 0;}
 .olist-operation,.olist-type { width: 68px; }
+
+.search-clear {height: 36px; width: 1px; position: relative; display: inline-block; background: #f3f6f9; vertical-align: middle;}
+.search-clear span { position: absolute; top: 12px; right: 4px; line-height: 12px; text-align: center; display: inline-block; width: 14px; height: 14px; border-radius: 50%; cursor: pointer;}
+
 .search-toggle { line-height: 36px; font-size: 12px; padding: 0 4px; display: inline-block; background: #f3f6f9; vertical-align: middle;}
 .search-where { position: absolute; left: 0; top: 36px; width: 642px; box-shadow: 5px 5px rgba(102, 102, 102, 0.1); border: 1px solid #eee; padding: 10px; background: #fff; z-index: 1;}
 .search-close { position: absolute; top: 6px; right: 6px; cursor: pointer; line-height: 12px; width: 14px; height: 14px; text-align: center; font-size: 16px;}
@@ -310,6 +314,7 @@ dl.search-where-line dd:hover, dl.search-where-line dd.active { border:1px solid
 dl.search-where-line dd span { display: inline-block; vertical-align: middle; width: 80px; padding-left: 9px;}
 dl.search-where-line dd em { display: inline-block; vertical-align: middle; width: 50px; padding-right: 9px; text-align: right; font-style: normal;}
 .search-where-footer { margin:18px 8px; text-align: right;}
+
 /* olist -> coonfig */
 .olist-tool-conf {background: #536470; border:1px solid #536470; width: 320px; color: #c5ced4; padding:0px 20px 20px 20px;}
 .olist-tool-conf h4 { margin: 20px 0 10px ;}
@@ -329,7 +334,7 @@ dl.search-where-line dd em { display: inline-block; vertical-align: middle; widt
 .olist-table tr>th:last-child,
 .olist-table tr>td:last-child { border-left: 0;}
 .olist-table th strong,
-.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px; font-size: 12px; font-weight: normal; color: #999;}
+.drag-mirror strong { display: block; width:-moz-calc(100% - 18px); width:calc(100% - 18px); height: 36px; overflow: hidden; line-height: 36px; font-size: 12px; font-weight: normal; color: #999; cursor: move;}
 .olist-table .td-cell { padding:6px 6px; line-height: 26px; white-space: nowrap; overflow: hidden; width:-moz-calc(100% - 24px); width:calc(100% - 24px); }
 
 .ebtn { width: 1.7142em; height: 1.7142em; display: inline-block; vertical-align: middle; line-height: 1.8571em; text-align: center; cursor: pointer; text-decoration: none; color: #fff;}

@@ -67,7 +67,7 @@ class AdminListUI extends Component {
 		switch(key) {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
-			case 'ouid':
+			case 'ou_id':
 				return ouObjectList[value[key]].name
 			case 'type':
 				return adminTypeObjectList[value[key]].name
@@ -176,7 +176,7 @@ export const AdminList = connect(
 			},
 			deleteEvent: (id) => {
 				//删除一条
-				dispatch(ActionGet(DELETE_ADMIN, '/api/admin/delete/' + id, 'adminlist'))
+				dispatch(ActionGet(DELETE_ADMIN, '/api/admin/del/' + id, 'adminlist'))
 			},
 			toolsClickEvent: (value) => {
 				let idArray = []
@@ -219,7 +219,7 @@ class AdminFormUI extends Component {
 			id: '',
 			name: '',
 			email: '',
-			ouid: 0,
+			ou_id: 0,
 			type: 0,
 			state: 0,
 			desp: '',
@@ -237,9 +237,9 @@ class AdminFormUI extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.info) {
-			const {id, name, email, ouid, type, state, desp} = nextProps.info
+			const {id, name, email, ou_id, type, state, desp} = nextProps.info
 			this.setState({
-		      id, name, email, ouid, type, state, desp
+		      id, name, email, ou_id, type, state, desp
 		    })
 		}
 	}
@@ -259,7 +259,7 @@ class AdminFormUI extends Component {
 			id: forms.id.value,
 			name: Validator(forms.name),
 			email: Validator(forms.email),
-			ouid: Query(forms.ouid).val(),
+			ou_id: Query(forms.ou_id).val(),
 			type: Query(forms.type).val(),
 			state: forms.state.value,
 			desp: Validator(forms.desp),
@@ -330,7 +330,7 @@ class AdminFormUI extends Component {
 							<div className="control">
 								<span className="control-label">部门：</span>
 								<div className="controls">
-									<select name="ouid" value={this.state.ouid} onChange={this.handleChange} className="inline-span4">
+									<select name="ou_id" value={this.state.ou_id} onChange={this.handleChange} className="inline-span4">
 										{ouOptions}
 									</select>
 								</div>

@@ -7,7 +7,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {Login} from './container/admin/login'
 import {Home} from './container/home/home'
 import {AdminList, AdminForm} from './container/admin/admin'
-import {Termhome} from './container/company/term'
+import {TermList, TermForm} from './container/company/term'
+import {OuList, OuForm} from './container/company/ou'
 
 import {Header} from './container/common/header'
 import {Sidebar} from './container/common/sidebar'
@@ -50,7 +51,12 @@ class Manage extends Component {
                     <Route path="/admin/form/:id" component={AdminForm}/>
                     <Route path="/admin/form" component={AdminForm}/>
                     <Route path="/admin" component={AdminList}/>
-                    <Route path="/term" component={Termhome}/>
+					<Route path="/term/form/:id" component={TermForm}/>
+                    <Route path="/term/form" component={TermForm}/>
+                    <Route path="/term" component={TermList}/>
+					<Route path="/ou/form/:id" component={OuForm}/>
+                    <Route path="/ou/form" component={OuForm}/>
+                    <Route path="/ou" component={OuList}/>
                 </Switch>
             </div>
         )

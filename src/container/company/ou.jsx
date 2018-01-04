@@ -18,27 +18,27 @@ import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, FetchButton} fro
 
 //引入action类型常量名
 import {
-	GET_TERM_LIST,
+	GET_OU_LIST,
 	UPDATE_LIST_CONFIGS,
 	CHANGE_LIST_CHECKBOX,
-	GET_TERM_INFO,
-	POST_TERM_INFO,
-	DELETE_TERM,
-	UPDATE_TERM_STATE
+	GET_OU_INFO,
+	POST_OU_INFO,
+	DELETE_OU,
+	UPDATE_OU_STATE
 } from '../../constants'
 
 
 //引入Action创建函数
 import {ActionCreator, ActionGet, ActionPost, FetchPost} from '../../actions/actions'
 
-class TermListUI extends Component {
+class OuListUI extends Component {
 
 	constructor(props) {
 		super(props)
 
 		this.actions = [{
 			type: 'link',
-			href: '/term/form/{id}',
+			href: '/ou/form/{id}',
 			name: '编辑',
 			icon: 'icon-note',
 			bgcolor: 'green'
@@ -63,14 +63,8 @@ class TermListUI extends Component {
 
 	//值修饰器
 	decorater(key, value) {
-		const {ouObjectList, typeObjectList} = this.props
+		const {ouObjectList} = this.props
 		switch(key) {
-			case "state":
-			 	return value[key] == 0 ? <span className="state-green">在线</span> : <span className="state-red">离线</span>
-			case 'ou_id':
-				return ouObjectList[value[key]].name
-			case 'type':
-				return typeObjectList[value[key]].name
 			default:
 				return value[key]
 		}
@@ -88,14 +82,14 @@ class TermListUI extends Component {
 			<div className="main-box">
 				<div className="page-bar clear">
 	                <div className="page-bar-left crumbs-box">
-						<div className="crumbs-first"><b>终端列表</b> / 首页</div>
+						<div className="crumbs-first"><b>部门列表</b> / 首页</div>
 						<div className="crumbs-arrow bg-orange"><i className="fa fa-angle-right"></i></div>
 						<Crumbs>技术部
 							<div className="crumbs-main" style={{width: "280px"}}><div className="title"><i className="fa fa-cubes"></i> 部门路径</div><span>根部门/画方科技/技术部</span></div>
 						</Crumbs>
 						<Crumbs>用户设备 & 交换机 ...
 							<div className="crumbs-main">
-								<div className="title"><i className="icon-screen-desktop"></i> 终端类型</div>
+								<div className="title"><i className="icon-screen-desktop"></i> 部门类型</div>
 								<span>用户设备</span>
 								<span>交换机</span>
 								<span>网络打印机</span>
@@ -123,8 +117,8 @@ class TermListUI extends Component {
                             <Searcher getList={getList} updateConfigs={updateConfigs} configs={configs}></Searcher>
                         </div>
                         <div className="olist-header-r">
-                            <Link data-content="刷新" to="/term/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
-                            <Link data-content="新建" to="/term/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
+                            <Link data-content="刷新" to="/ou/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
+                            <Link data-content="新建" to="/ou/form" className="tools bg-teal ititle"><i className="icon-plus"></i></Link>
                             <Configer getList={getList} updateConfigs={updateConfigs} configs={configs} />
                         </div>
                     </div>
@@ -143,19 +137,18 @@ class TermListUI extends Component {
 
 
 
-export const TermList = connect(
+export const OuList = connect(
 	(state) => {
 		return {
-			...state.termlist,
-			ouObjectList: state.common.ouObjectList,
-			typeObjectList: state.common.typeObjectList
+			...state.oulist,
+			ouObjectList: state.common.ouObjectList
 		}
 	},
 	(dispatch, ownProps) => {
 
 		return {
 			getList: (where) => {
-				dispatch(ActionGet(GET_TERM_LIST, '/api/term/list' ,where, 'termlist'))
+				dispatch(ActionGet(GET_OU_LIST, '/api/ou/list' ,where, 'oulist'))
 			},
 			//更新配置
 			updateConfigs: (configs, isPost) => {
@@ -167,16 +160,16 @@ export const TermList = connect(
 					})
 				}
 				//更新store配置
-				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'termlist'))
+				dispatch(ActionCreator(UPDATE_LIST_CONFIGS, configs, 'oulist'))
 			},
 			//单选框
 			checkEvent: (list) => {
 				//更新store配置
-				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, list, 'termlist'))
+				dispatch(ActionCreator(CHANGE_LIST_CHECKBOX, list, 'oulist'))
 			},
 			deleteEvent: (id) => {
 				//删除一条
-				dispatch(ActionGet(DELETE_TERM, '/api/term/del/' + id, 'termlist'))
+				dispatch(ActionGet(DELETE_OU, '/api/ou/del/' + id, 'oulist'))
 			},
 			toolsClickEvent: (value) => {
 				let idArray = []
@@ -192,13 +185,13 @@ export const TermList = connect(
 
 				switch (value) {
 					case '0':
-						dispatch(ActionGet(DELETE_TERM, '/api/term/del/' + idArray.join(','), 'termlist'))
+						dispatch(ActionGet(DELETE_OU, '/api/ou/del/' + idArray.join(','), 'oulist'))
 						break;
 					case '1':
-						dispatch(ActionGet(UPDATE_TERM_STATE, '/api/term/edit_state/' + idArray.join(','), {state: 1}, 'termlist'))
+						dispatch(ActionGet(UPDATE_OU_STATE, '/api/ou/edit_state/' + idArray.join(','), {state: 1}, 'oulist'))
 						break;
 					case '2':
-						dispatch(ActionGet(UPDATE_TERM_STATE, '/api/term/edit_state/' + idArray.join(','), {state: 0}, 'termlist'))
+						dispatch(ActionGet(UPDATE_OU_STATE, '/api/ou/edit_state/' + idArray.join(','), {state: 0}, 'oulist'))
 						break;
 					default:
 				}
@@ -206,11 +199,11 @@ export const TermList = connect(
 			}
 		};
 	}
-)(TermListUI)
+)(OuListUI)
 
 
 
-class TermFormUI extends Component {
+class OuFormUI extends Component {
 
 	constructor(props) {
 		super(props)
@@ -218,11 +211,8 @@ class TermFormUI extends Component {
 		this.state = {
 			id: '',
 			name: '',
-			ou_id: 0,
-			type: 0,
-			hostname: '',
-			os: '',
-			state: 0,
+			ou_id: 1,
+			path: '',
 			desp: '',
 		}
 
@@ -237,9 +227,9 @@ class TermFormUI extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.info) {
-			const {id, name, ou_id, type, hostname, os, state, desp} = nextProps.info
+			const {id, name, ou_id, path, desp} = nextProps.info
 			this.setState({
-		      id, name, ou_id, type, hostname, os, state, desp
+		      id, name, ou_id, path, desp
 		    })
 		}
 	}
@@ -255,20 +245,28 @@ class TermFormUI extends Component {
 
 	submitEvent(e) {
 		const forms = document.forms.adminform
+		const ouObjectList = this.props.ouObjectList
+		const ou_id = Query(forms.ou_id).val()
+		let path = ''
+
+		for (let i = 0; i < ouObjectList.length; i++) {
+			if (ouObjectList[i].id == ou_id) {
+				path = (ouObjectList[i].path + '/' + Validator(forms.name)).replace("//", '/')
+			}
+		}
+
+
 		const formdata = {
 			id: forms.id.value,
 			name: Validator(forms.name),
-			ou_id: Query(forms.ou_id).val(),
-			type: Query(forms.type).val(),
-			hostname: Validator(forms.hostname),
-			os: Validator(forms.os),
-			state: forms.state.value,
+			ou_id: ou_id,
+			path: path,
 			desp: Validator(forms.desp),
 		}
 
 		console.log(formdata)
 		this.props.submit(formdata, (data) => {
-			this.props.history.push('/term/list')
+			this.props.history.push('/ou/list')
 		})
 	}
 
@@ -276,27 +274,23 @@ class TermFormUI extends Component {
 
 		const {isFetching} = this.props
 
-		const {ouObjectList, typeObjectList} = this.props
+		const {ouObjectList} = this.props
 
 		let ouOptions = ouObjectList.map((v, i) => {
-			return <option key={i} value={v.id}>{v.name}</option>
-		})
-
-		let typeOptions = typeObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
 		})
 
 		return (
 			<div className="main-box">
 				<div className="page-bar clear">
-	                <div className="page-bar-left">新增终端</div>
+	                <div className="page-bar-left">新增部门</div>
 	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
 	            </div>
 				<div className="form-box">
 					<form className="form" name="adminform">
 						<input type="hidden" name="id" value={this.state.id} onChange={this.handleChange} />
 						<section className="section">
-							<h3 className="section-head">新增终端</h3>
+							<h3 className="section-head">新增部门</h3>
 							<div className="control">
 								<span className="control-label">名称：</span>
 								<div className="controls">
@@ -304,40 +298,11 @@ class TermFormUI extends Component {
 								</div>
 							</div>
 							<div className="control">
-								<span className="control-label">状态：</span>
-								<div className="controls">
-									<Radios name="state" value={this.state.state}>
-										<Radio className="col-span1" value="0">在线</Radio>
-										<Radio className="col-span1" value="1">离线</Radio>
-									</Radios>
-								</div>
-							</div>
-							<div className="control">
-								<span className="control-label">部门：</span>
+								<span className="control-label">上级部门：</span>
 								<div className="controls">
 									<select name="ou_id" value={this.state.ou_id} onChange={this.handleChange} className="inline-span4">
 										{ouOptions}
 									</select>
-								</div>
-							</div>
-							<div className="control">
-								<span className="control-label">类型：</span>
-								<div className="controls">
-									<select name="type" value={this.state.type} onChange={this.handleChange} className="inline-span4">
-										{typeOptions}
-									</select>
-								</div>
-							</div>
-							<div className="control">
-								<span className="control-label">主机名：</span>
-								<div className="controls">
-									<label className="input-prepend labled inline-span6"><input type="text" name="hostname" value={this.state.hostname} onChange={this.handleChange} /><span className="add-on"><i className="icon-user"></i></span></label>
-								</div>
-							</div>
-							<div className="control">
-								<span className="control-label">操作系统：</span>
-								<div className="controls">
-									<label className="input-prepend labled inline-span6"><input type="text" name="os" value={this.state.os} onChange={this.handleChange} /><span className="add-on"><i className="icon-user"></i></span></label>
 								</div>
 							</div>
 							<div className="control">
@@ -360,29 +325,28 @@ class TermFormUI extends Component {
 }
 
 
-export const TermForm = connect(
+export const OuForm = connect(
 	(state) => {
 		return {
-			isFetching: state.termlist.isFetching,
-			info: state.termlist.info,
-			ouObjectList: state.common.ouObjectList,
-			typeObjectList: state.common.typeObjectList
+			isFetching: state.oulist.isFetching,
+			info: state.oulist.info,
+			ouObjectList: state.common.ouObjectList
 		}
 	},
 	(dispatch, ownProps) => {
 		return {
 			getInfo: (id) => {
-				dispatch(ActionGet(GET_TERM_INFO, '/api/term/view/' + id, 'termlist'))
+				dispatch(ActionGet(GET_OU_INFO, '/api/ou/view/' + id, 'oulist'))
 			},
 			submit: (formdata, callback) => {
-				let url = '/api/term/edit'
+				let url = '/api/ou/edit'
 
 				if (formdata.id !== '') {
 					url += '/' + formdata.id
 				}
 
-				dispatch(ActionPost(POST_TERM_INFO, url, formdata, 'termlist', callback))
+				dispatch(ActionPost(POST_OU_INFO, url, formdata, 'oulist', callback))
 			}
 		};
 	}
-)(TermFormUI)
+)(OuFormUI)

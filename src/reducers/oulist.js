@@ -2,16 +2,16 @@
 import {
     UPDATE_LIST_CONFIGS,
     CHANGE_LIST_CHECKBOX,
-    GET_TERM_LIST,
-    GET_TERM_INFO,
-    POST_TERM_INFO,
-    DELETE_TERM,
-    UPDATE_TERM_STATE
+    GET_OU_LIST,
+    GET_OU_INFO,
+    POST_OU_INFO,
+    DELETE_OU,
+    UPDATE_OU_STATE
 } from '../constants'
 
 
 //初始化状态
-const termlistInitialState = {
+const oulistInitialState = {
     isFetching: 0,
     error: 0,
     message: '',
@@ -23,10 +23,10 @@ const termlistInitialState = {
     ],
     list: [], //列表数据
     info: null, //单条管理员信息(用于查看和编辑)
-    count: 0, //列表总条数
+    count: 64, //列表总条数
     //列表配置
     configs:{
-        listPath: 'termlist',
+        listPath: 'oulist',
         page: 1, //当前页
         limit: 20, //单页显示条数
         searchMode: 0, //搜索模式
@@ -49,43 +49,15 @@ const termlistInitialState = {
             width: 200,
             resize: 1
         },{
-            key: 'type',
-            title: '类型',
-            order: true,
-            visibility: false,
-            width: 120,
-            resize: 1
-        },{
             key: 'ou_id',
-            title: '部门',
+            title: '上级部门',
             order: true,
             visibility: false,
             width: 200,
             resize: 1
         },{
-            key: 'hostname',
-            title: '主机名',
-            order: true,
-            visibility: true,
-            width: 200,
-            resize: 1
-        },{
-            key: 'os',
-            title: '操作系统',
-            order: true,
-            visibility: true,
-            width: 200,
-            resize: 1
-        },{
-            key: 'user_id',
-            title: '用户',
-            order: true,
-            visibility: true,
-            width: 200,
-            resize: 1
-        },{
-            key: 'state',
-            title: '状态',
+            key: 'path',
+            title: '全路径',
             order: true,
             visibility: false,
             width: 200,
@@ -101,9 +73,9 @@ const termlistInitialState = {
     }
 }
 
-export function termlist(state = termlistInitialState, action) {
+export function oulist(state = oulistInitialState, action) {
 
-    if (action.path !== "termlist") {
+    if (action.path !== "oulist") {
         return state
     }
 
@@ -111,7 +83,7 @@ export function termlist(state = termlistInitialState, action) {
 
     //根据不同的action type进行state的更新
     switch (action.type) {
-        case GET_TERM_LIST:
+        case GET_OU_LIST:
             action.payload.configs = {
                 ...state.configs,
                 ...action.payload.configs
@@ -126,11 +98,11 @@ export function termlist(state = termlistInitialState, action) {
         case CHANGE_LIST_CHECKBOX:
             let list = [...action.payload]
             return {...state, list:[...list]}
-        case GET_TERM_INFO:
+        case GET_OU_INFO:
             return {...state, info: action.payload.info}
-        case POST_TERM_INFO:
+        case POST_OU_INFO:
             return {...state, ...action.payload}
-        case DELETE_TERM:
+        case DELETE_OU:
             ids = action.payload.ids
             oldlist = state.list
             if (ids) {
@@ -143,7 +115,7 @@ export function termlist(state = termlistInitialState, action) {
                 }
             }
             return {...state, ...action.payload, list: [...oldlist]}
-        case UPDATE_TERM_STATE:
+        case UPDATE_OU_STATE:
             ids = action.payload.ids
             oldlist = state.list
             if (ids) {

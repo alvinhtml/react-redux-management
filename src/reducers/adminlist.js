@@ -67,9 +67,9 @@ const adminlistInitialState = {
             order: true,
             visibility: false,
             width: 120,
-            resize: 0
+            resize: 1
         },{
-            key: 'ouid',
+            key: 'ou_id',
             title: '部门',
             order: true,
             visibility: false,
@@ -88,7 +88,7 @@ const adminlistInitialState = {
             order: false,
             visibility: true,
             width: 200,
-            resize: 0
+            resize: 1
         }]
     }
 }

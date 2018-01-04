@@ -154,26 +154,41 @@ export class Searcher extends Component {
 	constructor(props) {
 		super(props)
 
-		this.searchValue = undefined
-
 		//ES6 类中函数必须手动绑定
+		this.handleChange = this.handleChange.bind(this)
+		this.clearEvent = this.clearEvent.bind(this)
 		this.inputEnterEvent = this.inputEnterEvent.bind(this)
 		this.searchSubmitEvent = this.searchSubmitEvent.bind(this)
-		this.openTaggleEvent = this.openTaggleEvent.bind(this)
 
 		this.state = {
 			opened: false,
-			starch: ''
+			search: ''
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.searchValue.value = nextProps.configs.search
+		this.setState({
+			search: nextProps.configs.search || ''
+		})
 	}
 
-	openTaggleEvent() {
+	handleChange(event) {
 		this.setState({
-			opened: !this.state.opened
+			search: event.target.value
+		})
+	}
+
+	clearEvent(event) {
+		this.props.updateConfigs({
+			...this.props.configs,
+			search: ''
+		}, true)
+		this.props.getList({
+			search: ''
+		})
+		this.setState({
+			opened: false,
+			search: ''
 		})
 	}
 
@@ -186,24 +201,95 @@ export class Searcher extends Component {
     searchSubmitEvent(event) {
 		this.props.updateConfigs({
 			...this.props.configs,
-			search: this.searchValue.value
+			search: this.state.search
 		}, true)
 		this.props.getList({
-			search: this.searchValue.value
+			search: this.state.search
 		})
 		this.setState({
 			opened: false,
-			search: this.searchValue.value
+			search: this.state.search
+		})
+    }
+
+	render() {
+		var clearButton = this.state.search ? <span title="清除搜索条件" className="animates rotate" onClick={this.clearEvent}>×</span> : ''
+		return (
+			<div className="tools olist-search">
+				<input type="text" className="form-control" name='search' placeholder="请输入搜索条件" value={this.state.search} onChange={this.handleChange} onKeyPress={this.inputEnterEvent} />
+				<div className="search-clear">{clearButton}</div>
+				<span className="button blue" onClick={this.searchSubmitEvent} type="button"><i className="icon-magnifier"></i></span>
+			</div>
+        )
+	}
+}
+
+/**
+ * 列表搜索组件
+ */
+export class TermSearcher extends Component {
+
+	constructor(props) {
+		super(props)
+
+		//ES6 类中函数必须手动绑定
+		this.inputEnterEvent = this.inputEnterEvent.bind(this)
+		this.searchSubmitEvent = this.searchSubmitEvent.bind(this)
+		this.openTaggleEvent = this.openTaggleEvent.bind(this)
+		this.handleChange = this.handleChange.bind(this)
+
+		this.state = {
+			opened: false,
+			starch: ''
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		// this.setState({
+		// 	search: nextProps.configs.search
+		// })
+	}
+
+	openTaggleEvent() {
+		this.setState({
+			opened: !this.state.opened
+		})
+	}
+
+	handleChange(e) {
+		console.log(e.target.value)
+		this.setState({
+			search: e.target.value
+		})
+	}
+
+    inputEnterEvent(event) {
+        if(event.charCode === 13){
+			this.searchSubmitEvent(event)
+        }
+    }
+
+    searchSubmitEvent(event) {
+		console.log("search", this.state)
+		this.props.updateConfigs({
+			...this.props.configs,
+			search: this.state.value
+		}, true)
+		this.props.getList({
+			search: this.state.value
+		})
+		this.setState({
+			opened: false,
+			search: this.state.value
 		})
     }
 
 	render() {
 
-		const search = this.props.configs.search
 
 		return (
 			<div className="tools olist-search">
-				<input type="text" className="form-control" ref={n=>this.searchValue=n} placeholder="搜索" defaultValue={search} onKeyPress={this.inputEnterEvent} />
+				<input type="text" className="form-control" onChange={this.handleChange} placeholder="搜索" value={this.state.search} onKeyPress={this.inputEnterEvent} />
 				<div className="search-toggle" onClick={this.openTaggleEvent}><i className="fa fa-angle-down"></i></div>
 				<span className="button blue" onClick={this.searchSubmitEvent} type="button"><i className="icon-magnifier"></i></span>
 				<div className="search-where ilinks" style={{display : this.state.opened ? "block" : "none"}}>

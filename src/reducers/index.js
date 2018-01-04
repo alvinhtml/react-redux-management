@@ -7,9 +7,9 @@ import { routerReducer } from 'react-router-redux'
 //引入reducer
 import {common} from './common'
 import {header} from './header'
-import {list} from './list'
 import {adminlist} from './adminlist'
 import {termlist} from './termlist'
+import {oulist} from './oulist'
 
 
 
@@ -17,11 +17,11 @@ import {termlist} from './termlist'
 export default combineReducers({
 
 	/* your reducers */
-	list,
 	common, //登录相关
 	header, //头部相关
 	adminlist, //管理员列表
 	termlist, //终端列表
+	oulist, //部门列表
 
     routing: routerReducer
 })
