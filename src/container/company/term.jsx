@@ -14,7 +14,7 @@ import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
 //引入组件
-import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, FetchButton} from '../../components/common'
+import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, Arraylist, FetchButton} from '../../components/common'
 
 //引入action类型常量名
 import {
@@ -68,9 +68,17 @@ class TermListUI extends Component {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">在线</span> : <span className="state-red">离线</span>
 			case 'ou_id':
-				return ouObjectList[value[key]].name
+				for (let v of ouObjectList) {
+					if (v.id == value[key]) {
+						return v.name
+					}
+				}
 			case 'type':
 				return typeObjectList[value[key]].name
+			case 'ip':
+				return <Arraylist list={value[key]} />
+			case 'mac':
+				return <Arraylist list={value[key]} />
 			default:
 				return value[key]
 		}

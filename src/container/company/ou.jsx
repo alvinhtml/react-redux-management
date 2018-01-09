@@ -56,6 +56,7 @@ class OuListUI extends Component {
 	}
 
 	componentWillMount() {
+		console.log("getlist:ou");
         this.props.getList({
 			page: 1
 		})
@@ -148,6 +149,7 @@ export const OuList = connect(
 
 		return {
 			getList: (where) => {
+				console.log("getlist:ou where", where)
 				dispatch(ActionGet(GET_OU_LIST, '/api/ou/list' ,where, 'oulist'))
 			},
 			//更新配置

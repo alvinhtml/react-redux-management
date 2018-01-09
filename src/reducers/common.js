@@ -19,22 +19,22 @@ const commonInitialState = {
     ouObjectList: [{
         id: 1,
         name: '根部门',
-        ouid: null,
+        ou_id: null,
         path: '/根部门'
     }, {
         id: 2,
         name: '技术部',
-        ouid: 1,
+        ou_id: 1,
         path: '/根部门/技术部'
     }, {
         id: 3,
         name: '销售部',
-        ouid: 1,
+        ou_id: 1,
         path: '/根部门/销售部'
     }, {
         id: 6,
         name: '研发部',
-        ouid: 1,
+        ou_id: 1,
         path: '/根部门/技术部/研发部'
     }],
     adminTypeObjectList: [{

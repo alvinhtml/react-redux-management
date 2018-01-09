@@ -63,6 +63,20 @@ const termlistInitialState = {
             width: 200,
             resize: 1
         },{
+            key: 'mac',
+            title: 'mac',
+            order: true,
+            visibility: true,
+            width: 200,
+            resize: 1
+        },{
+            key: 'ip',
+            title: 'ip',
+            order: true,
+            visibility: true,
+            width: 200,
+            resize: 1
+        },{
             key: 'hostname',
             title: '主机名',
             order: true,

@@ -350,9 +350,9 @@ export class Configer extends Component {
 	}
 
 	componentWillMount() {
-        this.props.getList({
-			page: 1
-		})
+        // this.props.getList({
+		// 	page: 1
+		// })
 	}
 
 	handleClick(event) {
@@ -659,6 +659,7 @@ export class Tbodyer extends Component {
 		const lines = (line, key) => {
 
 			let columns = configs.column.map((v, i) => {
+
 				return (
 					<td
 						key={v.key}
@@ -705,6 +706,40 @@ export class Tbodyer extends Component {
 			<tbody id="list_body" className="olist-body">
 				{lists}
 			</tbody>
+        )
+	}
+}
+
+
+
+export class Arraylist extends Component {
+
+	render() {
+
+		const {list} = this.props
+
+		if (!list instanceof Array) {
+			return (
+				<span>
+					{newlist}
+				</span>
+	        )
+		}
+
+		let newlist = []
+
+		for (let i = 0; i < list.length; i++) {
+			if (i != 0) {
+				newlist.push(<br key={i}/>)
+			}
+			newlist.push(list[i])
+		}
+
+
+		return (
+			<span>
+				{newlist}
+			</span>
         )
 	}
 }

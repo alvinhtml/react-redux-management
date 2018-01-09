@@ -68,7 +68,11 @@ class AdminListUI extends Component {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
 			case 'ou_id':
-				return ouObjectList[value[key]].name
+				for (let v of ouObjectList) {
+					if (v.id == value[key]) {
+						return v.name
+					}
+				}
 			case 'type':
 				return adminTypeObjectList[value[key]].name
 			default:
