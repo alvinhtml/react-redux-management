@@ -24,8 +24,6 @@ class HeaderUI extends Component {
 
 	render () {
 
-		console.log(this.props);
-
 		const {reminds, messages, tasks, adminActions, adminname, adminemail, avatar, logined} = this.props
 		const {remindClickEvent, messagesClickEvent, tasksClickEvent, adminActionsClickEvent} = this.props
 			//console.log("8.1", common);

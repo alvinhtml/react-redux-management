@@ -67,12 +67,6 @@ class TermListUI extends Component {
 		switch(key) {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">在线</span> : <span className="state-red">离线</span>
-			case 'ou_id':
-				for (let v of ouObjectList) {
-					if (v.id == value[key]) {
-						return v.name
-					}
-				}
 			case 'type':
 				return typeObjectList[value[key]].name
 			case 'ip':

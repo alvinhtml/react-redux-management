@@ -10,6 +10,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入弹出提示组件
 import {Popup} from '../../components/popup'
+import {OuSelect} from '../../components/select'
 import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
@@ -64,7 +65,6 @@ class OuListUI extends Component {
 
 	//值修饰器
 	decorater(key, value) {
-		const {ouObjectList} = this.props
 		switch(key) {
 			default:
 				return value[key]
@@ -85,27 +85,6 @@ class OuListUI extends Component {
 	                <div className="page-bar-left crumbs-box">
 						<div className="crumbs-first"><b>部门列表</b> / 首页</div>
 						<div className="crumbs-arrow bg-orange"><i className="fa fa-angle-right"></i></div>
-						<Crumbs>技术部
-							<div className="crumbs-main" style={{width: "280px"}}><div className="title"><i className="fa fa-cubes"></i> 部门路径</div><span>根部门/画方科技/技术部</span></div>
-						</Crumbs>
-						<Crumbs>用户设备 & 交换机 ...
-							<div className="crumbs-main">
-								<div className="title"><i className="icon-screen-desktop"></i> 部门类型</div>
-								<span>用户设备</span>
-								<span>交换机</span>
-								<span>网络打印机</span>
-								<span>路由器</span>
-								<span>交换机</span>
-								<span>防火墙</span>
-								<span>访问控制认证网关</span>
-								<span>安全加密设备</span>
-								<span>网络扫描仪</span>
-								<span>网络录像机</span>
-							</div>
-						</Crumbs>
-						<Crumbs>在线</Crumbs>
-						<Crumbs>告警</Crumbs>
-						<Crumbs>客户端在线</Crumbs>
 	                </div>
 	                <div className="page-bar-right"><i className="icon-calendar"></i> Wed Aug 10 2016 10:51:20 GMT+0800</div>
 	            </div>
@@ -249,38 +228,32 @@ class OuFormUI extends Component {
 		const forms = document.forms.adminform
 		const ouObjectList = this.props.ouObjectList
 		const ou_id = Query(forms.ou_id).val()
-		let path = ''
-
-		for (let i = 0; i < ouObjectList.length; i++) {
-			if (ouObjectList[i].id == ou_id) {
-				path = (ouObjectList[i].path + '/' + Validator(forms.name)).replace("//", '/')
-			}
-		}
+		// let path = ''
+        //
+		// for (let i = 0; i < ouObjectList.length; i++) {
+		// 	if (ouObjectList[i].id == ou_id) {
+		// 		path = (ouObjectList[i].path + '/' + Validator(forms.name)).replace("//", '/')
+		// 	}
+		// }
 
 
 		const formdata = {
 			id: forms.id.value,
 			name: Validator(forms.name),
 			ou_id: ou_id,
-			path: path,
+			// path: path,
 			desp: Validator(forms.desp),
 		}
 
 		console.log(formdata)
-		this.props.submit(formdata, (data) => {
-			this.props.history.push('/ou/list')
-		})
+		// this.props.submit(formdata, (data) => {
+		// 	this.props.history.push('/ou/list')
+		// })
 	}
 
 	render() {
 
 		const {isFetching} = this.props
-
-		const {ouObjectList} = this.props
-
-		let ouOptions = ouObjectList.map((v, i) => {
-			return <option key={i} value={v.id}>{v.name}</option>
-		})
 
 		return (
 			<div className="main-box">
@@ -302,9 +275,7 @@ class OuFormUI extends Component {
 							<div className="control">
 								<span className="control-label">上级部门：</span>
 								<div className="controls">
-									<select name="ou_id" value={this.state.ou_id} onChange={this.handleChange} className="inline-span4">
-										{ouOptions}
-									</select>
+									<OuSelect name="ou_id" value={this.state.ou_id} parentid='all' search="" className="inline-span4" />
 								</div>
 							</div>
 							<div className="control">

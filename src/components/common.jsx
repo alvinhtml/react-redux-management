@@ -244,12 +244,6 @@ export class TermSearcher extends Component {
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
-		// this.setState({
-		// 	search: nextProps.configs.search
-		// })
-	}
-
 	openTaggleEvent() {
 		this.setState({
 			opened: !this.state.opened
@@ -445,6 +439,7 @@ export class Theader extends Component {
 
 	onOrderByEvent(e) {
 		e.stopPropagation()
+		e.nativeEvent.stopImmediatePropagation()
 		let order = this.props.configs.order
 		let key = e.currentTarget.getAttribute("data-key")
 
@@ -483,6 +478,7 @@ export class Theader extends Component {
 	//resize 按下
 	onMousedown(e) {
 		e.stopPropagation()
+		e.nativeEvent.stopImmediatePropagation()
 		resize.resizeing = true
 		resize.configs = this.props.configs
 		resize.event = e
@@ -496,6 +492,7 @@ export class Theader extends Component {
 	onMouseDownTh(e) {
 
 		e.stopPropagation()
+		e.nativeEvent.stopImmediatePropagation()
 
 		let configs = this.props.configs
 

@@ -45,6 +45,7 @@ document.getElementById('webApplication'))
 import Query from './tools/query.js'
 
 
+
 //定义两个全局变量用来存放列表拖动时的信息
 const resize = {
     resizeing: false
@@ -223,16 +224,11 @@ document.addEventListener('mouseup', (e) => {
             })
         },300)
 
-
-
         remove.moving = false
     }
 
-
-
-
-
-
-
+    //下拉菜单收起
+    // let ise = Query(".iselect.open").removeClass('open');
+    // console.log(ise);
 
 })

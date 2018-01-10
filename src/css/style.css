@@ -65,6 +65,56 @@ a:hover { color: #50d2fa; }
 .web-application { }
 
 
+.iselect {
+	font-size: 1em;
+	background-color: @white;
+	border: 1px solid #eee;
+	outline: none;
+	color: #838fa1;
+	border-radius: 0.1428571em;
+	font-family: 'Microsoft YaHei', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+	transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+	-webkit-box-shadow: 0em 0em 0em 0em rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0em 0em 0em 0em rgba(0, 0, 0, 0.3) inset;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	box-sizing: border-box;
+	height: 2.57142857em;
+	line-height: 2.42857142em;
+    display: inline-block;
+    position: relative;
+    min-width: 31.6239%;
+}
+
+.iselect:hover, .iselect:hover ul, .iselect.open, .iselect.open ul { border-color: #9ca8b0; }
+
+
+.iselect-value { position: absolute; padding-left: 0.5em; left: 0; height:2.42857142em; right:1.5em; overflow: hidden; cursor: default; }
+.iselect-handle { position: absolute; height:2.42857142em; width: 1.5em; right:0; overflow: hidden; cursor: default;  }
+.iselect-handle::before { content: ""; position: absolute; top:0.75em; right: 0.35714268em; width: 0px; height: 0; border: 0.25em solid #fff; border-bottom: 0.42857143em solid #838fa1; border-top: 0; opacity: 0.8;}
+.iselect-handle::after { content: ""; position: absolute; top:1.35714268em; right: 0.35714268em; width: 0px; height: 0; border: 0.25em solid #fff; border-top: 0.42857143em solid #838fa1; border-bottom: 0; opacity: 0.8;}
+
+
+.iselect-search {
+    display: none;
+    position: absolute; width: 100%; top: 2.2857143em; left: -1px; z-index: 2;
+    padding: 1em; box-sizing: border-box;
+}
+.iselect-search label { display: block; width: auto; font-size: 12px;}
+.iselect ul {
+    display: none;
+    position: absolute; width: 100%; top: 2.2857143em; left: -1px;
+    background-color: #fff;
+    transition: background-color 0.3s ease-out, box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 1px solid #eee; border-top: 0; padding-bottom: 0.5em; padding-top: 4.2857143em;;
+    border-bottom-left-radius: 0.1428571em;
+    border-bottom-right-radius: 0.1428571em;
+}
+.iselect ul li { box-sizing: border-box; padding: 0 1em; cursor: default; }
+.iselect ul li:hover { background-color: rgba(0,0,0,.05); transition: all 0.3s ease-out;}
+.iselect.open ul { display: block; }
+.iselect.open .iselect-search { display: block; }
+
+
 /*==================================
               Login
  =================================*/
@@ -127,7 +177,7 @@ a:hover { color: #50d2fa; }
               Header
  =================================*/
 
-.header { position: fixed; top: 0; left: 0; width: 100%; height: 50px; background-color: #2b3643; z-index: 3;}
+.header { position: fixed; top: 0; left: 0; width: 100%; height: 50px; background-color: #2b3643; z-index: 9;}
 
 /* header-> left */
 .logo-box { width: 235px; height: 50px; padding: 0 20px; box-sizing: border-box; float: left; }

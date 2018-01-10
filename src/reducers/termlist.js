@@ -56,7 +56,7 @@ const termlistInitialState = {
             width: 120,
             resize: 1
         },{
-            key: 'ou_id',
+            key: 'ou',
             title: '部门',
             order: true,
             visibility: false,
@@ -91,7 +91,7 @@ const termlistInitialState = {
             width: 200,
             resize: 1
         },{
-            key: 'user_id',
+            key: 'user',
             title: '用户',
             order: true,
             visibility: true,

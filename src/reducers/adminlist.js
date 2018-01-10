@@ -69,7 +69,7 @@ const adminlistInitialState = {
             width: 120,
             resize: 1
         },{
-            key: 'ou_id',
+            key: 'ou',
             title: '部门',
             order: true,
             visibility: false,

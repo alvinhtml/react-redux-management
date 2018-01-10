@@ -2,7 +2,8 @@
 import {
     LOGIN,
     LOGOUT,
-    GET_AUTH_INFO
+    GET_AUTH_INFO,
+    GET_OU_IN_COMPONENT
 } from '../constants'
 
 
@@ -19,23 +20,15 @@ const commonInitialState = {
     ouObjectList: [{
         id: 1,
         name: '根部门',
-        ou_id: null,
         path: '/根部门'
     }, {
         id: 2,
         name: '技术部',
-        ou_id: 1,
         path: '/根部门/技术部'
     }, {
         id: 3,
         name: '销售部',
-        ou_id: 1,
         path: '/根部门/销售部'
-    }, {
-        id: 6,
-        name: '研发部',
-        ou_id: 1,
-        path: '/根部门/技术部/研发部'
     }],
     adminTypeObjectList: [{
         id: 0,
@@ -71,6 +64,9 @@ const commonInitialState = {
     }, {
         id: 6,
         name: '路由器'
+    }, {
+        id: 7,
+        name: '虚拟机'
     }]
 }
 
@@ -87,6 +83,8 @@ export function common(state = commonInitialState, action) {
         case LOGOUT:
             return {...state, ...action.payload}
         case GET_AUTH_INFO:
+            return {...state, ...action.payload}
+        case GET_OU_IN_COMPONENT:
             return {...state, ...action.payload}
         default:
             return { ...state }

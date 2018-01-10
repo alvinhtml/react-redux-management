@@ -49,7 +49,7 @@ const oulistInitialState = {
             width: 200,
             resize: 1
         },{
-            key: 'ou_id',
+            key: 'ou',
             title: '上级部门',
             order: true,
             visibility: false,
