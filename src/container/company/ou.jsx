@@ -120,8 +120,7 @@ class OuListUI extends Component {
 export const OuList = connect(
 	(state) => {
 		return {
-			...state.oulist,
-			ouObjectList: state.common.ouObjectList
+			...state.oulist
 		}
 	},
 	(dispatch, ownProps) => {
@@ -226,29 +225,19 @@ class OuFormUI extends Component {
 
 	submitEvent(e) {
 		const forms = document.forms.adminform
-		const ouObjectList = this.props.ouObjectList
 		const ou_id = Query(forms.ou_id).val()
-		// let path = ''
-        //
-		// for (let i = 0; i < ouObjectList.length; i++) {
-		// 	if (ouObjectList[i].id == ou_id) {
-		// 		path = (ouObjectList[i].path + '/' + Validator(forms.name)).replace("//", '/')
-		// 	}
-		// }
-
 
 		const formdata = {
 			id: forms.id.value,
 			name: Validator(forms.name),
 			ou_id: ou_id,
-			// path: path,
 			desp: Validator(forms.desp),
 		}
 
 		console.log(formdata)
-		// this.props.submit(formdata, (data) => {
-		// 	this.props.history.push('/ou/list')
-		// })
+		this.props.submit(formdata, (data) => {
+			this.props.history.push('/ou/list')
+		})
 	}
 
 	render() {
@@ -275,7 +264,7 @@ class OuFormUI extends Component {
 							<div className="control">
 								<span className="control-label">上级部门：</span>
 								<div className="controls">
-									<OuSelect name="ou_id" value={this.state.ou_id} parentid='all' search="" className="inline-span4" />
+									<OuSelect name="ou_id" value={this.state.ou_id} parent='all' search="" className="inline-span4" />
 								</div>
 							</div>
 							<div className="control">
@@ -286,7 +275,7 @@ class OuFormUI extends Component {
 							</div>
 							<div className="control">
 								<div className="controls">
-									<FetchButton isFetching={isFetching} submitEvent={this.submitEvent} className="button green">提-交</FetchButton>
+									<FetchButton isFetching={isFetching} submitEvent={this.submitEvent} className="button green">提交</FetchButton>
 								</div>
 							</div>
 						</section>
@@ -302,8 +291,7 @@ export const OuForm = connect(
 	(state) => {
 		return {
 			isFetching: state.oulist.isFetching,
-			info: state.oulist.info,
-			ouObjectList: state.common.ouObjectList
+			info: state.oulist.info
 		}
 	},
 	(dispatch, ownProps) => {

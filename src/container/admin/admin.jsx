@@ -10,6 +10,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入弹出提示组件
 import {Popup} from '../../components/popup'
+import {OuSelect} from '../../components/select'
 import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
@@ -63,7 +64,7 @@ class AdminListUI extends Component {
 
 	//值修饰器
 	decorater(key, value) {
-		const {ouObjectList, adminTypeObjectList} = this.props
+		const {adminTypeObjectList} = this.props
 		switch(key) {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">启用</span> : <span className="state-red">停用</span>
@@ -145,7 +146,6 @@ export const AdminList = connect(
 	(state) => {
 		return {
 			...state.adminlist,
-			ouObjectList: state.common.ouObjectList,
 			adminTypeObjectList: state.common.adminTypeObjectList
 		}
 	},
@@ -277,11 +277,7 @@ class AdminFormUI extends Component {
 
 		const {isFetching} = this.props
 
-		const {ouObjectList, adminTypeObjectList} = this.props
-
-		let ouOptions = ouObjectList.map((v, i) => {
-			return <option key={i} value={v.id}>{v.name}</option>
-		})
+		const {adminTypeObjectList} = this.props
 
 		let typeOptions = adminTypeObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
@@ -328,9 +324,7 @@ class AdminFormUI extends Component {
 							<div className="control">
 								<span className="control-label">部门：</span>
 								<div className="controls">
-									<select name="ou_id" value={this.state.ou_id} onChange={this.handleChange} className="inline-span4">
-										{ouOptions}
-									</select>
+									<OuSelect name="ou_id" value={this.state.ou_id} parent='all' search="" className="inline-span4" />
 								</div>
 							</div>
 							<div className="control">
@@ -366,7 +360,6 @@ export const AdminForm = connect(
 		return {
 			isFetching: state.adminlist.isFetching,
 			info: state.adminlist.info,
-			ouObjectList: state.common.ouObjectList,
 			adminTypeObjectList: state.common.adminTypeObjectList
 		}
 	},

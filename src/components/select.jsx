@@ -21,27 +21,33 @@ class OuSelectUI extends Component {
 
 		this.state = {
 			opened: false,
+			search: '',
 			value: '',
 			text: '请选择'
 		}
 
+		this.timeout;
+
 		//ES6 类中函数必须手动绑定
 		this.handleClick = this.handleClick.bind(this)
 		this.selectEvent = this.selectEvent.bind(this)
+		this.mouseupCallback = this.mouseupCallback.bind(this)
+		this.searchEvent = this.searchEvent.bind(this)
 
-		document.addEventListener('mouseup', (e) => {
-			this.setState({
-				opened: false
-			})
-		})
+		document.addEventListener('mouseup', this.mouseupCallback)
 	}
 
 	componentWillMount() {
-        this.props.getList(this.props.parentid)
+
+		document.addEventListener('mouseup', this.mouseupCallback)
+
+        this.props.getList({
+			ou_id: this.props.parent
+		})
 
 		let ouObjectList = this.props.ouObjectList
 		for (let v of ouObjectList) {
-			if (this.props.value == v.id && this.state.value === '') {
+			if (this.props.value == v.id) {
 				this.setState({
 					value: v.id,
 					text: v.name
@@ -50,6 +56,10 @@ class OuSelectUI extends Component {
 			}
 		}
     }
+
+	componentWillUnmount() {
+		document.removeEventListener('mouseup', this.mouseupCallback)
+	}
 
 	componentWillReceiveProps(nextProps) {
 		let ouObjectList = nextProps.ouObjectList
@@ -70,6 +80,12 @@ class OuSelectUI extends Component {
 		})
 	}
 
+	mouseupCallback(e) {
+		this.setState({
+			opened: false
+		})
+	}
+
 	mouseupEvent(event) {
 		event.nativeEvent.stopImmediatePropagation()
 		event.stopPropagation()
@@ -83,8 +99,25 @@ class OuSelectUI extends Component {
 		})
 	}
 
-	render() {
+	searchEvent(event) {
 
+		const value = event.target.value;
+
+		this.setState({
+			search: value
+		})
+
+		clearTimeout(this.timeout)
+
+		this.timeout = setTimeout(() => {
+			this.props.getList({
+				ou_id: this.props.parent,
+				search: value
+			})
+		}, 800)
+	}
+
+	render() {
 		const {name, ouObjectList, className, value} = this.props
 
 		let options = ouObjectList.map((v, i) => {
@@ -97,7 +130,7 @@ class OuSelectUI extends Component {
 				<div className="iselect-handle" onClick={this.handleClick}></div>
 				<div className="iselect-value" onClick={this.handleClick}>{this.state.text}</div>
 				<div className="iselect-search">
-					<label className="input-append"><input name={"iselect" + name} type="text" defaultValue="" /><span className="add-on"><i className="icon-magnifier"></i></span></label>
+					<label className="input-append"><input name={"iselect" + name} onChange={this.searchEvent} type="text" value={this.state.search} /><span className="add-on"><i className="icon-magnifier"></i></span></label>
 				</div>
 				<ul>{options}</ul>
 			</div>
@@ -112,8 +145,8 @@ export const OuSelect = connect(
 	},
 	(dispatch, ownProps) => {
 		return {
-			getList: (ouid, search) => {
-				dispatch(ActionGet(GET_OU_IN_COMPONENT, '/api/ou/component', 'common'))
+			getList: (params) => {
+				dispatch(ActionGet(GET_OU_IN_COMPONENT, '/api/ou/component', params, 'common'))
 			}
 		};
 	}

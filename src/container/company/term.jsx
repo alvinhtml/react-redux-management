@@ -10,6 +10,7 @@ import {Dropmenu, Droptool} from '../../components/dropdown'
 
 //引入弹出提示组件
 import {Popup} from '../../components/popup'
+import {OuSelect} from '../../components/select'
 import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
@@ -63,7 +64,7 @@ class TermListUI extends Component {
 
 	//值修饰器
 	decorater(key, value) {
-		const {ouObjectList, typeObjectList} = this.props
+		const {typeObjectList} = this.props
 		switch(key) {
 			case "state":
 			 	return value[key] == 0 ? <span className="state-green">在线</span> : <span className="state-red">离线</span>
@@ -149,7 +150,6 @@ export const TermList = connect(
 	(state) => {
 		return {
 			...state.termlist,
-			ouObjectList: state.common.ouObjectList,
 			typeObjectList: state.common.typeObjectList
 		}
 	},
@@ -278,11 +278,7 @@ class TermFormUI extends Component {
 
 		const {isFetching} = this.props
 
-		const {ouObjectList, typeObjectList} = this.props
-
-		let ouOptions = ouObjectList.map((v, i) => {
-			return <option key={i} value={v.id}>{v.name}</option>
-		})
+		const {typeObjectList} = this.props
 
 		let typeOptions = typeObjectList.map((v, i) => {
 			return <option key={i} value={v.id}>{v.name}</option>
@@ -317,9 +313,7 @@ class TermFormUI extends Component {
 							<div className="control">
 								<span className="control-label">部门：</span>
 								<div className="controls">
-									<select name="ou_id" value={this.state.ou_id} onChange={this.handleChange} className="inline-span4">
-										{ouOptions}
-									</select>
+									<OuSelect name="ou_id" value={this.state.ou_id} parent='all' search="" className="inline-span4" />
 								</div>
 							</div>
 							<div className="control">
@@ -350,7 +344,7 @@ class TermFormUI extends Component {
 							</div>
 							<div className="control">
 								<div className="controls">
-									<FetchButton isFetching={isFetching} submitEvent={this.submitEvent} className="button green">提-交</FetchButton>
+									<FetchButton isFetching={isFetching} submitEvent={this.submitEvent} className="button green">提交</FetchButton>
 								</div>
 							</div>
 						</section>
@@ -367,7 +361,6 @@ export const TermForm = connect(
 		return {
 			isFetching: state.termlist.isFetching,
 			info: state.termlist.info,
-			ouObjectList: state.common.ouObjectList,
 			typeObjectList: state.common.typeObjectList
 		}
 	},

@@ -42,7 +42,7 @@ class SidebarUI extends Component {
 	                <ul className="navigate">
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-home"></i><span className="text">首页</span></Link></li>
 	                    <li className="nav-item"><Link to="/ou" className="nav-link"><i className="icon-organization"></i><span className="text">部门列表</span><span className="arrow"></span></Link></li>
-						<li className="nav-item"><Link to="/term" className="nav-link"><i className="icon-support"></i><span className="text">终端列表</span><span className="arrow"></span></Link></li>
+						<li className="nav-item"><Link to="/term" className="nav-link"><i className="icon-screen-desktop"></i><span className="text">终端列表</span><span className="arrow"></span></Link></li>
 						<li className="nav-item"><Link to="/admin" className="nav-link"><i className="icon-user"></i><span className="text">管理员列表</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item open"><Link to="/home" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图</span><span className="arrow"></span></Link>
 	                        <ul className="sub-nav">
