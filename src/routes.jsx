@@ -8,6 +8,8 @@ import {Login} from './container/admin/login'
 import {Home} from './container/home/home'
 import {AdminList, AdminForm} from './container/admin/admin'
 import {TermList, TermForm} from './container/company/term'
+import {TermView} from './container/company/termview'
+import {TermView2} from './container/company/termview2'
 import {OuList, OuForm} from './container/company/ou'
 
 import {Header} from './container/common/header'
@@ -51,6 +53,8 @@ class Manage extends Component {
                     <Route path="/admin/form/:id" component={AdminForm}/>
                     <Route path="/admin/form" component={AdminForm}/>
                     <Route path="/admin" component={AdminList}/>
+					<Route path="/termview" component={TermView}/>
+					<Route path="/termview2" component={TermView2}/>
 					<Route path="/term/form/:id" component={TermForm}/>
                     <Route path="/term/form" component={TermForm}/>
                     <Route path="/term" component={TermList}/>

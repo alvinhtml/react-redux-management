@@ -44,10 +44,11 @@ class SidebarUI extends Component {
 	                    <li className="nav-item"><Link to="/ou" className="nav-link"><i className="icon-organization"></i><span className="text">部门列表</span><span className="arrow"></span></Link></li>
 						<li className="nav-item"><Link to="/term" className="nav-link"><i className="icon-screen-desktop"></i><span className="text">终端列表</span><span className="arrow"></span></Link></li>
 						<li className="nav-item"><Link to="/admin" className="nav-link"><i className="icon-user"></i><span className="text">管理员列表</span><span className="arrow"></span></Link></li>
-	                    <li className="nav-item open"><Link to="/home" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图</span><span className="arrow"></span></Link>
+						<li className="nav-item"><Link to="/termview2" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图1</span><span className="arrow"></span></Link></li>
+	                    <li className="nav-item open"><Link to="/termview" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图2</span><span className="arrow"></span></Link>
 	                        <ul className="sub-nav">
-	                            <li className="nav-item"><Link to="/home" className="nav-link">终端统计视图</Link></li>
-	                            <li className="nav-item"><Link to="/home" className="nav-link">VLAN视图</Link></li>
+	                            <li className="nav-item"><Link to="/termview" className="nav-link">终端视图</Link></li>
+	                            <li className="nav-item"><Link to="/termview2" className="nav-link">终端视图2</Link></li>
 	                            <li className="nav-item"><Link to="/home" className="nav-link">网终拓扑图</Link></li>
 	                            <li className="nav-item"><Link to="/home" className="nav-link">物理位置</Link></li>
 	                        </ul>
