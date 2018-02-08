@@ -54,43 +54,53 @@ class TermViewUI extends Component {
 				<div className="row">
 					<div className="col-grid12 term-view-strong">
 						<ul className="lf-box">
-							<li className="view-number"> 终端总数<br/><strong className="color-blue">16821</strong></li>
-							<li className="view-number active"> 在线终端<br/><strong className="color-green">12464</strong></li>
-							<li className="view-number"> 告警终端<br/><strong className="color-red">643</strong></li>
-							<li className="view-number"> 合规终端<br/><strong className="color-teal">643</strong></li>
+							<li className="view-number">
+                                <a href="/">终端总数<br/> <span className="chunk-num">1</span> <span className="chunk-num">6</span> <span className="chunk-num">8</span> <span className="chunk-num">2</span> <span className="chunk-num">1</span></a>
+                            </li>
+                            <li className="view-number">
+                                <a href="/">在线终端<br/> <span className="chunk-num">9</span> <span className="chunk-num">8</span> <span className="chunk-num">3</span> <span className="chunk-num">1</span></a>
+                            </li>
+                            <li className="view-number">
+                                <a href="/">合规终端<br/> <span className="chunk-num">4</span> <span className="chunk-num">2</span> <span className="chunk-num">5</span></a>
+                            </li>
+                            <li className="view-number">
+                                <a href="/">告警终端<br/> <span className="chunk-num">7</span> <span className="chunk-num">3</span></a>
+                            </li>
 						</ul>
 						<div className="rf-box">
 							<div className="term-strong-box active">
 								<div className="row term-circle-row">
 									<div className="col-grid12 text-center">
 										<svg width="220" height="220">
-											<circle cx="50%" cy="50%" r="46%" className="view-circle-border"></circle>
+											<circle cx="50%" cy="50%" r="28%" className="view-circle-border"></circle>
+                                            <circle cx="50%" cy="50%" r="46%" className="view-circle-border2"></circle>
 											<circle cx="50%" cy="50%" r="32%" className="view-circle"></circle>
-											<circle cx="50%" cy="50%" r="20%" className="view-circle2" style={{fill:'#1bbc9b'}}></circle>
+											<circle cx="50%" cy="50%" r="20%" className="view-circle2"></circle>
 											<foreignObject x="0" y="50%" width="100%" height="30px" className="view-circle-text">
-									            <div>98<span>%</span></div>
+									            <div className="color-green"> &nbsp; 98<span>%</span></div>
 									        </foreignObject>
-                                            <text x="50%" y="60%" className="view-circle-textlittle">合格率</text>
+                                            <text x="50%" y="60%" className="view-circle-textlittle">合格率 </text>
 										</svg>
 									</div>
 									<div className="col-grid12 text-center">
 										<svg width="220" height="220">
-											<circle cx="50%" cy="50%" r="46%" className="view-circle-border"></circle>
+                                            <circle cx="50%" cy="50%" r="28%" className="view-circle-border"></circle>
+                                            <circle cx="50%" cy="50%" r="46%" className="view-circle-border2"></circle>
 											<circle cx="50%" cy="50%" r="32%" className="view-circle"></circle>
-											<circle cx="50%" cy="50%" r="20%" className="view-circle2" style={{fill:'#fa5a64'}}></circle>
+											<circle cx="50%" cy="50%" r="20%" className="view-circle2"></circle>
 											<foreignObject x="0" y="50%" width="100%" height="30px" className="view-circle-text">
-									            <div>98<span>%</span></div>
+									            <div className="color-red"> &nbsp; 3<span>%</span></div>
 									        </foreignObject>
-                                            <text x="50%" y="60%" className="view-circle-textlittle">告警率</text>
+                                            <text x="50%" y="60%" className="view-circle-textlittle">告警率 </text>
 										</svg>
 									</div>
 								</div>
 								<div className="row">
 									<div className="col-span6 view-number">
-										在线终端<br/><strong className="color-green">12464</strong>
+                                        <a href="">在线终端 <span className="chunk-num">9</span> <span className="chunk-num">2</span> <span className="chunk-num">4</span> <span className="chunk-num">3</span> </a>
 									</div>
 									<div className="col-span6 view-number">
-										离线终端<br/><strong className="color-gray">2956</strong>
+										<a href="">离线终端 <span className="chunk-num">6</span> <span className="chunk-num">1</span> <span className="chunk-num">4</span> <span className="chunk-num">3</span> </a>
 									</div>
 								</div>
 							</div>
@@ -98,108 +108,67 @@ class TermViewUI extends Component {
 							<div className="term-strong-box"></div>
 						</div>
 					</div>
-					<div className="col-grid12">
-						<ul className="view-where-line clear">
-		                    <li className="animates important bg-red" data-value="unreg">
-		                        <span>未注册</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="reged">
-		                        <span>已注册</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates important bg-teal" data-value="auditing">
-		                        <span>待审核</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="audited">
-		                        <span>已审核</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates important bg-green" data-value="install">
-		                        <span>已安装</span>
-		                        <em className="color-green">1</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="uninstall">
-		                        <span>未安装</span>
-		                        <em className="color-green">49</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="online">
-		                        <span>客户端在线</span>
-		                        <em>1</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="offline">
-		                        <span>客户端离线</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates important bg-green" data-value="yes">
-		                        <span>可信</span>
-		                        <em>387</em>
-		                    </li>
-		                    <li className="animates important bg-yellow" data-value="expire">
-		                        <span>可信过期</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="no">
-		                        <span>普通</span>
-		                        <em className="color-green">50</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="yes">
-		                        <span>无效</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="no">
-		                        <span>普通</span>
-		                        <em className="color-green">50</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="no">
-		                        <span>物理机</span>
-		                        <em className="color-green">40</em>
-		                    </li>
-		                    <li className="animates important bg-orange" data-value="yes">
-		                        <span>虚拟机</span>
-		                        <em>10</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="yes">
-		                        <span>有责任人</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="no">
-		                        <span>无责任人</span>
-		                        <em className="color-green">50</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="no">
-		                        <span>未抓取</span>
-		                        <em className="color-green">50</em>
-		                    </li>
-		                    <li className="animates important bg-olive" data-value="yes">
-		                        <span>已抓取</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="exist">
-		                        <span>有指纹</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="noexist">
-		                        <span>无指纹</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="normal">
-		                        <span>指纹正常</span>
-		                        <em className="color-green">0</em>
-		                    </li>
-		                    <li className="animates important bg-red" data-value="warning">
-		                        <span>指纹违规</span>
-		                        <em>3</em>
-		                    </li>
-		                    <li className="animates default-bg" data-value="init">
-		                        <span>未检查</span>
-		                        <em className="color-green">50</em>
-		                    </li>
-		                </ul>
+					<div className="col-grid6 view-where-line">
+                        <dl className="clear">
+                            <dt>需要安装客户端终端<span>721</span></dt>
+                            <dd><a href="/">已安装<span>235</span></a></dd>
+                            <dd><a href="/">未安装<span className="badge red">34</span></a></dd>
+                            <dd><a href="/">客户端在线<span className="badge green">345</span></a></dd>
+                            <dd><a href="/">客户端离线<span>33</span></a></dd>
+                        </dl>
+                        <dl className="clear" style={{display:'none'}}>
+                            <dd><a href="/">无效终端<span className="badge blue">2465</span></a></dd>
+                            <dd><a href="/">普通终端<span className="badge blue">23</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要注册终端<span>3266</span></dt>
+                            <dd><a href="/">未注册<span>345</span></a></dd>
+                            <dd><a href="/">已注册<span className="badge green">469</span></a></dd>
+                            <dd><a href="/">待审核<span className="badge yellow">178</span></a></dd>
+                            <dd><a href="/">已审核<span>22</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>可信终端<span className="badge green">13561</span></dt>
+                            <dd><a href="/">可信过期<span>71</span></a></dd>
+                            <dd><a href="/">普通终端<span>241</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dd><a href="/">IP已绑定<span className="badge teal">265</span></a></dd>
+                            <dd><a href="/">IP未绑定<span>23</span></a></dd>
+                        </dl>
+					</div>
+					<div className="col-grid6 view-where-line">
+                        <dl className="clear" style={{display:'none'}}>
+                            <dd><a href="/">告警终端<span className="badge red">65</span></a></dd>
+                            <dd><a href="/">正常终端<span className="badge green">12432</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dd><a href="/">物理机<span>23677</span></a></dd>
+                            <dd><a href="/">虚拟机<span className="badge yellow">23</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要抓取指纹终端<span>3266</span></dt>
+                            <dd><a href="/">未抓取<span>345</span></a></dd>
+                            <dd><a href="/">已抓取<span>469</span></a></dd>
+                            <dd><a href="/">有指纹<span className="badge green">178</span></a></dd>
+                            <dd><a href="/">无指纹<span>22</span></a></dd>
+                            <dd><a href="/">指纹正常<span>178</span></a></dd>
+                            <dd><a href="/">指纹违规<span className="badge red">22</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dd><a href="/">有责任人<span>15673</span></a></dd>
+                            <dd><a href="/">无责任人<span>234</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要检查规范终端<span>3638</span></dt>
+                            <dd><a href="/">未检查<span>15673</span></a></dd>
+                            <dd><a href="/">成功<span>234</span></a></dd>
+                            <dd><a href="/">失败<span className="badge yellow">15673</span></a></dd>
+                            <dd><a href="/">告警<span className="badge red">234</span></a></dd>
+                        </dl>
 					</div>
 				</div>
-                <div className="row" style={{paddingTop:"14px"}}>
+                <div className="row" style={{paddingTop:"4px"}}>
                     <div className="col-grid6 term-view-largetype bg-blue">
                         <div><i className="icon-screen-desktop"></i></div>
                         <strong>17642</strong>
@@ -254,6 +223,9 @@ class TermViewUI extends Component {
 					</div>
 				</div>
 
+                <div className="row">
+
+                </div>
             </div>
         </div>)
     }
