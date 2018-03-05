@@ -562,6 +562,8 @@ table.moving th.row-last {
 .term-view-types h3 { font-size: 16px; margin: 10px; }
 .term-view-types .row { margin: 5px 10px;}
 
+.term-view-warning { width: 100%; height: 300px; padding-top: 30px; margin: 0 30px;}
+
 .view-where-line2 { height: 368px; position: relative; }
 .view-where-line2 li { width: 23.6%; box-sizing: border-box; color: #fff; line-height: 40px; margin-left:1.8%; float: left;  margin-bottom: 14px;}
 .view-where-line2 li.default-bg { background-color: #f4f6f9; color: #333; }
@@ -574,12 +576,12 @@ table.moving th.row-last {
 
 .view-where-line dl { background-color: #f4f6f9; border: 1px solid #f4f6f9;  margin-bottom: 10px; box-sizing: border-box; padding: 5px; }
 .view-where-line dl:hover { border: 1px solid #50d2fa; background-color: #fff; }
-.view-where-line dl dt { width: 100%; float: left; text-indent: 10px; line-height: 30px; }
-.view-where-line dl dd { width: 50%; float: left; text-indent: 10px; line-height: 30px; font-size: 12px; }
+.view-where-line dl dt { width: 100%; float: left; text-indent: 10px; line-height: 38px; font-weight: bold;}
+.view-where-line dl dd { width: 50%; float: left; text-indent: 10px; line-height: 38px; font-size: 14px; }
 .view-where-line dl dd a { color: #333; }
-.view-where-line dl span { display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 2px; padding: 2px 6px; border-radius: 0; line-height: 12px; text-indent: 0; font-size: 10px;}
+.view-where-line dl span { display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 2px; padding: 2px 6px; border-radius: 0; line-height: 20px; text-indent: 0; font-size: 14px;}
 .view-where-line dl span.badge { position: relative; }
-.view-where-line dl span.badge::before { display: block; content: ''; position: absolute; width: 6px; height: 6px; transform: rotate(45deg); top: 5px; left: -3px;}
+.view-where-line dl span.badge::before { display: block; content: ''; position: absolute; width: 6px; height: 6px; transform: rotate(45deg); top: 8px; left: -3px;}
 
 span.badge.red::before { background-color: #fa5a64; }
 span.badge.yellow::before { background-color: #f1c40f; }
@@ -615,6 +617,8 @@ span.badge.teal::before { background-color: #32c5d2; }
 }
 
 .term-circle-row { height: 220px; padding-top: 40px; }
+
+/* ------------------- */
 .view-circle-border {
 	fill: none;
 	stroke: rgba(255,255,255,0.6);
@@ -629,7 +633,7 @@ span.badge.teal::before { background-color: #32c5d2; }
 	stroke-width: 6%;
 	stroke-dasharray: 1,6;
 	transform-origin:50% 50%;
-	animation: circle-rotate3 10s infinite linear;
+	animation: circle-rotate2 10s infinite linear;
 }
 .view-circle {
 	fill: none;
@@ -637,7 +641,7 @@ span.badge.teal::before { background-color: #32c5d2; }
 	stroke-width: 16%;
 	stroke-dasharray: 58,30;
 	transform-origin:50% 50%;
-	animation: circle-rotate2 5s infinite linear;
+	animation: circle-rotate3 5s infinite linear;
 }
 .view-circle2 {
 	fill: rgba(255,255,255,1);
@@ -674,24 +678,58 @@ span.badge.teal::before { background-color: #32c5d2; }
      }
  }
 
- @keyframes circle-rotate2 {
-      from {
-          transform: rotate(0deg);
-      }
-      to {
-          transform: rotate(-360deg);
-      }
-  }
+@keyframes circle-rotate2 {
+	from {
+	  transform: rotate(0deg);
+	}
+	to {
+	  transform: rotate(-360deg);
+	}
+}
 
-  @keyframes circle-rotate3 {
-       from {
-           transform: rotate(0deg);
-       }
-       to {
-           transform: rotate(360deg);
-       }
-   }
+@keyframes circle-rotate3 {
+	from {
+	   transform: rotate(0deg);
+	}
+	to {
+	   transform: rotate(360deg);
+	}
+}
+/* ------------------- */
 
+.vc-radar {
+	stroke-width: 0;
+	transform-origin:50% 50%;
+	animation: circle-rotate 3s infinite linear;
+}
+.vc-radar2 {
+	fill: none;
+	stroke-width: 20%;
+	width: 0;
+	height: 0;
+	stroke-dasharray: 100,100;
+	transform-origin:50% 50%;
+	animation: circle-rotate 3s infinite linear;
+}
+
+.vc-border1 {
+	fill: none;
+	stroke: rgba(255,255,255,0.6);
+	stroke-width: 6%;
+	stroke-dasharray: 1,6;
+	transform-origin:50% 50%;
+}
+
+
+/*==================================
+            setting
+ =================================*/
+.setting-nav {box-sizing: border-box; padding: 24px; width:27%; margin: 3%; border: 1px solid #fff; text-align: center; float: left;}
+.setting-nav:hover {border: 1px solid #50d2fa; }
+.setting-nav-icon { font-size: 42px; color: #50d2fa; }
+.setting-nav h3 { font-weight: bold; font-size: 14px; margin-bottom: 5px;}
+.setting-nav-text { font-size: 14px; color: #888; }
+.setting-nav-text span { padding: 6px; display: inline-block; vertical-align: middle;}
 
 
 

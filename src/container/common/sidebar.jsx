@@ -56,7 +56,7 @@ class SidebarUI extends Component {
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-support"></i><span className="text">入网策略</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-credit-card"></i><span className="text">资产报告</span><span className="arrow"></span></Link></li>
 	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-equalizer"></i><span className="text">入网设置</span><span className="arrow"></span></Link></li>
-	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-settings"></i><span className="text">系统设置</span><span className="arrow"></span></Link></li>
+	                    <li className="nav-item"><Link to="/setting" className="nav-link"><i className="icon-settings"></i><span className="text">系统设置</span><span className="arrow"></span></Link></li>
 	                </ul>
 	            </nav>
 	        </div>

@@ -4,7 +4,7 @@ const path = require('path')
 
 module.exports = {
     entry: {
-        init: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'react-router-redux', 'redux-thunk', 'isomorphic-fetch'],
+        init: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'react-router-redux', 'redux-thunk', 'isomorphic-fetch', 'echarts'],
         bundle: './src/index.jsx',
     },
     output: {

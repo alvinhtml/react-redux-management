@@ -10,6 +10,7 @@ import {AdminList, AdminForm} from './container/admin/admin'
 import {TermList, TermForm} from './container/company/term'
 import {TermView} from './container/company/termview'
 import {TermView2} from './container/company/termview2'
+import {Setting} from './container/company/setting'
 import {OuList, OuForm} from './container/company/ou'
 
 import {Header} from './container/common/header'
@@ -61,6 +62,7 @@ class Manage extends Component {
 					<Route path="/ou/form/:id" component={OuForm}/>
                     <Route path="/ou/form" component={OuForm}/>
                     <Route path="/ou" component={OuList}/>
+                    <Route path="/setting" component={Setting}/>
                 </Switch>
             </div>
         )

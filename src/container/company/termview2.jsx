@@ -13,6 +13,10 @@ import {OuSelect} from '../../components/select'
 import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
+// echarts
+import echarts from 'echarts'
+
+
 //引入组件
 //import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, Arraylist, FetchButton} from '../../components/common'
 
@@ -36,7 +40,88 @@ class TermView2UI extends Component {
         super(props)
     }
 
-    componentWillMount() {}
+    componentWillMount() {
+
+    }
+    componentDidMount() {
+        //告警事件统计
+        const warningChart = echarts.init(document.getElementById('warningChart'));
+        let warningOption = {
+            color: ['#ffffff'],
+            textStyle: {
+                color: '#ffffff',
+                fontSize: 14
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                // show: true,
+                top: 0,
+                left: 0,
+                right: '70',
+                bottom: 0,
+                containLabel: true
+            },
+            xAxis: {
+                show: true,
+                type: 'value',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color:'#fff',
+                    }
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        type: 'dashed',
+                        color: '#ffffff'
+                    },
+                },
+                nameTextStyle: {
+                    fontSize: 14
+                }
+            },
+            yAxis: {
+                type: 'category',
+                data: ['无效终端', '终端规范检查失败', 'IP-MAC绑定与规定不符', 'NETBIOS名与规定不符', '主机名与规定不符', '客户端主动退网'],
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color:'#fff',
+                    }
+                },
+                axisTick: {
+                    show: true
+                },
+                splitLine: {
+                    show: false
+                },
+                nameTextStyle: {
+                    fontSize: 14
+                }
+            },
+            series : [
+                {
+                    name:'告警数量',
+                    type:'bar',
+                    barWidth: '20%',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right'
+                        }
+                    },
+                    data:[138, 52, 200, 334, 390, 330]
+                }
+            ]
+        }
+        warningChart.setOption(warningOption)
+    }
 
     render() {
         const {} = this.props
@@ -64,22 +149,22 @@ class TermView2UI extends Component {
 								<div className="row term-circle-row">
 									<div className="col-grid12 text-center">
 										<svg width="220" height="220">
-											<circle cx="50%" cy="50%" r="46%" className="view-circle-border"></circle>
+                                            <circle cx="50%" cy="50%" r="46%" className="view-circle-border2"></circle>
 											<circle cx="50%" cy="50%" r="32%" className="view-circle"></circle>
 											<circle cx="50%" cy="50%" r="20%" className="view-circle2"></circle>
 											<foreignObject x="0" y="50%" width="100%" height="30px" className="view-circle-text">
-									            <div>98<span>%</span></div>
+									            <div className="color-green"> &nbsp; 98<span>%</span></div>
 									        </foreignObject>
-                                            <text x="50%" y="60%" className="view-circle-textlittle">合格率</text>
+                                            <text x="50%" y="60%" className="view-circle-textlittle">合格率 </text>
 										</svg>
 									</div>
 									<div className="col-grid12 text-center">
 										<svg width="220" height="220">
-											<circle cx="50%" cy="50%" r="46%" className="view-circle-border"></circle>
+											<circle cx="50%" cy="50%" r="46%" className="view-circle-border2"></circle>
 											<circle cx="50%" cy="50%" r="32%" className="view-circle"></circle>
 											<circle cx="50%" cy="50%" r="20%" className="view-circle2"></circle>
 											<foreignObject x="0" y="50%" width="100%" height="30px" className="view-circle-text">
-									            <div>98<span>%</span></div>
+									            <div>7<span>%</span></div>
 									        </foreignObject>
                                             <text x="50%" y="60%" className="view-circle-textlittle">告警率</text>
 										</svg>
@@ -98,103 +183,79 @@ class TermView2UI extends Component {
 							<div className="term-strong-box"></div>
 						</div>
 					</div>
-					<div className="col-grid12">
-						<ul className="view-where-line2 clear">
-		                    <li className="animates important bg-red lf b4" data-value="unreg">
-		                        <span>未注册</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates b2 bg-blue" data-value="reged">
-		                        <span>已注册</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates important bg-teal" data-value="auditing">
-		                        <span>待审核</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-orange" data-value="audited">
-		                        <span>已审核</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates important bg-green lf" data-value="install">
-		                        <span>已安装</span>
-		                        <em>1</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="uninstall">
-		                        <span>未安装</span>
-		                        <em>49</em>
-		                    </li>
-		                    <li className="animates bg-yellow" data-value="online">
-		                        <span>客户端在线</span>
-		                        <em>1</em>
-		                    </li>
-		                    <li className="animates bg-olive" data-value="offline">
-		                        <span>客户端离线</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates important bg-green lf b2" data-value="yes">
-		                        <span>可信</span>
-		                        <em>387</em>
-		                    </li>
-		                    <li className="animates important bg-yellow" data-value="expire">
-		                        <span>可信过期</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="no">
-		                        <span>普通</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="yes">
-		                        <span>无效</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="no">
-		                        <span>普通</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="no">
-		                        <span>物理机</span>
-		                        <em>40</em>
-		                    </li>
-		                    <li className="animates important bg-orange" data-value="yes">
-		                        <span>虚拟机</span>
-		                        <em>10</em>
-		                    </li>
-		                    <li className="animates bg-blue lf" data-value="yes">
-		                        <span>有责任人</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="no">
-		                        <span>无责任人</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="no">
-		                        <span>未抓取</span>
-		                        <em>50</em>
-		                    </li>
-		                    <li className="animates important bg-olive" data-value="yes">
-		                        <span>已抓取</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue lf" data-value="exist">
-		                        <span>有指纹</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="noexist">
-		                        <span>无指纹</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates bg-blue" data-value="normal">
-		                        <span>指纹正常</span>
-		                        <em>0</em>
-		                    </li>
-		                    <li className="animates important bg-red" data-value="warning">
-		                        <span>指纹违规</span>
-		                        <em>3</em>
-		                    </li>
-		                </ul>
+					<div className="col-grid12 bg-red" style={{height:'365px'}}>
+                        <div id="warningChart" className="term-view-warning"></div>
 					</div>
 				</div>
+                <div className="row" style={{paddingTop:"14px"}}>
+                    <div className="col-grid8 view-where-line">
+                        <dl className="clear">
+                            <dt>需要安装客户端终端<span>721</span></dt>
+                            <dd><a href="/">已安装<span>235</span></a></dd>
+                            <dd><a href="/">未安装<span className="badge red">34</span></a></dd>
+                            <dd><a href="/">客户端在线<span className="badge green">345</span></a></dd>
+                            <dd><a href="/">客户端离线<span>33</span></a></dd>
+                        </dl>
+                        <dl className="clear" style={{display:'none'}}>
+                            <dd><a href="/">无效终端<span className="badge blue">2465</span></a></dd>
+                            <dd><a href="/">普通终端<span className="badge blue">23</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要注册终端<span>3266</span></dt>
+                            <dd><a href="/">未注册<span>345</span></a></dd>
+                            <dd><a href="/">已注册<span className="badge green">469</span></a></dd>
+                            <dd><a href="/">待审核<span className="badge yellow">178</span></a></dd>
+                            <dd><a href="/">已审核<span>22</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>IP绑定</dt>
+                            <dd><a href="/">IP已绑定<span className="badge teal">265</span></a></dd>
+                            <dd><a href="/">IP未绑定<span>23</span></a></dd>
+                        </dl>
+
+					</div>
+                    <div className="col-grid8 view-where-line">
+                        <dl className="clear">
+                            <dt>终端责任人</dt>
+                            <dd><a href="/">有责任人<span>15673</span></a></dd>
+                            <dd><a href="/">无责任人<span>234</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要抓取指纹终端<span>3266</span></dt>
+                            <dd><a href="/">未抓取<span>345</span></a></dd>
+                            <dd><a href="/">已抓取<span>469</span></a></dd>
+                            <dd><a href="/">有指纹<span className="badge green">178</span></a></dd>
+                            <dd><a href="/">无指纹<span>22</span></a></dd>
+                            <dd><a href="/">指纹正常<span>178</span></a></dd>
+                            <dd><a href="/">指纹违规<span className="badge red">22</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>MAC绑定</dt>
+                            <dd><a href="/">MAC已绑定<span className="badge teal">4673</span></a></dd>
+                            <dd><a href="/">MAC未绑定<span>345</span></a></dd>
+                        </dl>
+                    </div>
+					<div className="col-grid8 view-where-line">
+                        <dl className="clear">
+                            <dt>物理机与虚拟机</dt>
+                            <dd><a href="/">物理机<span>23677</span></a></dd>
+                            <dd><a href="/">虚拟机<span className="badge yellow">23</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>可信终端</dt>
+                            <dd><a href="/">可信终端<span className="badge green">2359</span></a></dd>
+                            <dd><a href="/">普通终端<span>241</span></a></dd>
+                            <dd><a href="/">可信过期<span>71</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>需要检查规范终端<span>3638</span></dt>
+                            <dd><a href="/">未检查<span>15673</span></a></dd>
+                            <dd><a href="/">成功<span>234</span></a></dd>
+                            <dd><a href="/">失败<span className="badge yellow">15673</span></a></dd>
+                            <dd><a href="/">告警<span className="badge red">234</span></a></dd>
+                        </dl>
+					</div>
+                </div>
                 <div className="row" style={{paddingTop:"14px"}}>
 					<div className="col-grid6 term-view-largetype2">
                         <div className="bg-blue"><i className="icon-screen-desktop"></i></div>
