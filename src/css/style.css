@@ -96,7 +96,7 @@ a:hover { color: #50d2fa; }
 
 .iselect-search {
     display: none;
-    position: absolute; width: 100%; top: 2.2857143em; left: -1px; z-index: 2;
+    position: absolute; width: 100%; top: 2.2857143em; left: -1px; z-index: 4;
     padding: 1em; box-sizing: border-box;
 }
 .iselect-search label { display: block; width: auto; font-size: 12px;}
@@ -108,6 +108,7 @@ a:hover { color: #50d2fa; }
     border: 1px solid #eee; border-top: 0; padding-bottom: 0.5em; padding-top: 4.2857143em;;
     border-bottom-left-radius: 0.1428571em;
     border-bottom-right-radius: 0.1428571em;
+	z-index: 3;
 }
 .iselect ul li { box-sizing: border-box; padding: 0 1em; cursor: default; }
 .iselect ul li:hover { background-color: rgba(0,0,0,.05); transition: all 0.3s ease-out;}
@@ -562,7 +563,7 @@ table.moving th.row-last {
 .term-view-types h3 { font-size: 16px; margin: 10px; }
 .term-view-types .row { margin: 5px 10px;}
 
-.term-view-warning { width: 100%; height: 300px; padding-top: 30px; margin: 0 30px;}
+.term-view-warning { width: 90%; height: 300px; padding-top: 30px; margin: 0 5%;}
 
 .view-where-line2 { height: 368px; position: relative; }
 .view-where-line2 li { width: 23.6%; box-sizing: border-box; color: #fff; line-height: 40px; margin-left:1.8%; float: left;  margin-bottom: 14px;}
@@ -574,21 +575,20 @@ table.moving th.row-last {
 .view-where-line2 li.b2 { line-height: 94px; }
 .view-where-line2 li.b1 {  }
 
-.view-where-line dl { background-color: #f4f6f9; border: 1px solid #f4f6f9;  margin-bottom: 10px; box-sizing: border-box; padding: 5px; }
+.view-where-line dl {background-color: #f4f6f9; border: 1px solid #f4f6f9;  margin-bottom: 10px; box-sizing: border-box; padding: 5px; }
 .view-where-line dl:hover { border: 1px solid #50d2fa; background-color: #fff; }
-.view-where-line dl dt { width: 100%; float: left; text-indent: 10px; line-height: 38px; font-weight: bold;}
-.view-where-line dl dd { width: 50%; float: left; text-indent: 10px; line-height: 38px; font-size: 14px; }
+.view-where-line dl dt { position: relative; width: 100%; float: left; text-indent: 10px; line-height: 38px; font-size: 14px; color: #999;}
+.view-where-line dl dd { width: 50%; float: left; text-align: center; line-height: 38px; font-size: 14px; }
 .view-where-line dl dd a { color: #333; }
-.view-where-line dl span { display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 2px; padding: 2px 6px; border-radius: 0; line-height: 20px; text-indent: 0; font-size: 14px;}
-.view-where-line dl span.badge { position: relative; }
-.view-where-line dl span.badge::before { display: block; content: ''; position: absolute; width: 6px; height: 6px; transform: rotate(45deg); top: 8px; left: -3px;}
+.view-where-line dl span { display: inline-block; vertical-align: middle; margin-left: 10px; margin-bottom: 2px; padding: 2px 6px; border-radius: 0; line-height: 20px; text-indent: 0; font-size: 18px; font-family: Georgia, serif;}
 
-span.badge.red::before { background-color: #fa5a64; }
-span.badge.yellow::before { background-color: #f1c40f; }
-span.badge.blue::before { background-color: #50d2fa; }
-span.badge.green::before { background-color: #1bbc9b; }
-span.badge.teal::before { background-color: #32c5d2; }
-
+.view-where-line dl.extends-left dt::after, .view-where-line dl.extends-right dt::after { position: absolute; content: ''; display: block; width: 10px; height: 10px; background: #f4f6f9; transform: rotate(45deg); top: -11px; border-top: 1px solid #f4f6f9; border-left:1px solid #f4f6f9;}
+.view-where-line dl.extends-left dt::after { left: 23%;}
+.view-where-line dl.extends-right dt::after { left: 73%;}
+.view-where-line dl.extends-left:hover dt::after,
+.view-where-line dl.extends-right:hover dt::after {
+	background-color: #fff; border-top: 1px solid #50d2fa; border-left:1px solid #50d2fa;
+}
 
 
 .term-view-types {  }
@@ -729,7 +729,7 @@ span.badge.teal::before { background-color: #32c5d2; }
 .setting-nav-icon { font-size: 42px; color: #50d2fa; }
 .setting-nav h3 { font-weight: bold; font-size: 14px; margin-bottom: 5px;}
 .setting-nav-text { font-size: 14px; color: #888; }
-.setting-nav-text span { padding: 6px; display: inline-block; vertical-align: middle;}
+.setting-nav-text span { padding:0 6px; display: inline-block; vertical-align: middle; }
 
 
 

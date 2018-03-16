@@ -190,69 +190,84 @@ class TermView2UI extends Component {
                 <div className="row" style={{paddingTop:"14px"}}>
                     <div className="col-grid8 view-where-line">
                         <dl className="clear">
-                            <dt>需要安装客户端终端<span>721</span></dt>
+                            <dt>客户端安装率统计<Popup content="需要安装客户端的终端数量"><span>721</span></Popup></dt>
                             <dd><a href="/">已安装<span>235</span></a></dd>
-                            <dd><a href="/">未安装<span className="badge red">34</span></a></dd>
-                            <dd><a href="/">客户端在线<span className="badge green">345</span></a></dd>
+                            <dd><a href="/">未安装<span className="color-red">34</span></a></dd>
+                        </dl>
+                        <dl className="clear extends-left">
+                            <dt>客户端在线率统计<span>721</span></dt>
+                            <dd><a href="/">客户端在线<span className="color-green">345</span></a></dd>
                             <dd><a href="/">客户端离线<span>33</span></a></dd>
                         </dl>
-                        <dl className="clear" style={{display:'none'}}>
-                            <dd><a href="/">无效终端<span className="badge blue">2465</span></a></dd>
-                            <dd><a href="/">普通终端<span className="badge blue">23</span></a></dd>
+                        <dl className="clear">
+                            <dt>无效终端统计</dt>
+                            <dd><a href="/">无效终端<span className="color-blue">2465</span></a></dd>
+                            <dd><a href="/">普通终端<span className="color-blue">23</span></a></dd>
                         </dl>
                         <dl className="clear">
-                            <dt>需要注册终端<span>3266</span></dt>
+                            <dt>终端注册统计<span>3266</span></dt>
                             <dd><a href="/">未注册<span>345</span></a></dd>
-                            <dd><a href="/">已注册<span className="badge green">469</span></a></dd>
-                            <dd><a href="/">待审核<span className="badge yellow">178</span></a></dd>
+                            <dd><a href="/">已注册<span className="color-green">469</span></a></dd>
+                        </dl>
+                        <dl className="clear extends-right">
+                            <dt>终端审核统计</dt>
+                            <dd><a href="/">待审核<span className="color-yellow">178</span></a></dd>
                             <dd><a href="/">已审核<span>22</span></a></dd>
                         </dl>
-                        <dl className="clear">
-                            <dt>IP绑定</dt>
-                            <dd><a href="/">IP已绑定<span className="badge teal">265</span></a></dd>
-                            <dd><a href="/">IP未绑定<span>23</span></a></dd>
-                        </dl>
-
 					</div>
                     <div className="col-grid8 view-where-line">
                         <dl className="clear">
-                            <dt>终端责任人</dt>
-                            <dd><a href="/">有责任人<span>15673</span></a></dd>
-                            <dd><a href="/">无责任人<span>234</span></a></dd>
+                            <dt>可信终端<span className="color-green">13561</span></dt>
+                            <dd><a href="/">可信过期<span>71</span></a></dd>
+                            <dd><a href="/">普通终端<span>241</span></a></dd>
+                        </dl>
+
+                        <dl className="clear">
+                            <dt>虚拟机统计</dt>
+                            <dd><a href="/">物理机<span>23677</span></a></dd>
+                            <dd><a href="/">虚拟机<span className="color-yellow">23</span></a></dd>
                         </dl>
                         <dl className="clear">
-                            <dt>需要抓取指纹终端<span>3266</span></dt>
+                            <dt>终端指纹抓取率统计</dt>
                             <dd><a href="/">未抓取<span>345</span></a></dd>
                             <dd><a href="/">已抓取<span>469</span></a></dd>
-                            <dd><a href="/">有指纹<span className="badge green">178</span></a></dd>
-                            <dd><a href="/">无指纹<span>22</span></a></dd>
-                            <dd><a href="/">指纹正常<span>178</span></a></dd>
-                            <dd><a href="/">指纹违规<span className="badge red">22</span></a></dd>
                         </dl>
-                        <dl className="clear">
-                            <dt>MAC绑定</dt>
-                            <dd><a href="/">MAC已绑定<span className="badge teal">4673</span></a></dd>
-                            <dd><a href="/">MAC未绑定<span>345</span></a></dd>
+                        <dl className="clear extends-right">
+                            <dt>有无指纹统计</dt>
+                            <dd><a href="/">有指纹<span className="color-green">178</span></a></dd>
+                            <dd><a href="/">无指纹<span>22</span></a></dd>
+                        </dl>
+                        <dl className="clear extends-left">
+                            <dt>指纹状态统计</dt>
+                            <dd><a href="/">指纹正常<span>178</span></a></dd>
+                            <dd><a href="/">指纹违规<span className="color-red">22</span></a></dd>
                         </dl>
                     </div>
 					<div className="col-grid8 view-where-line">
                         <dl className="clear">
-                            <dt>物理机与虚拟机</dt>
-                            <dd><a href="/">物理机<span>23677</span></a></dd>
-                            <dd><a href="/">虚拟机<span className="badge yellow">23</span></a></dd>
+                            <dt>IP绑定统计</dt>
+                            <dd><a href="/">IP已绑定<span className="color-teal">265</span></a></dd>
+                            <dd><a href="/">IP未绑定<span>23</span></a></dd>
                         </dl>
                         <dl className="clear">
-                            <dt>可信终端</dt>
-                            <dd><a href="/">可信终端<span className="badge green">2359</span></a></dd>
-                            <dd><a href="/">普通终端<span>241</span></a></dd>
-                            <dd><a href="/">可信过期<span>71</span></a></dd>
+                            <dt>MAC绑定统计</dt>
+                            <dd><a href="/">MAC已绑定<span className="color-teal">265</span></a></dd>
+                            <dd><a href="/">MAC未绑定<span>23</span></a></dd>
                         </dl>
                         <dl className="clear">
-                            <dt>需要检查规范终端<span>3638</span></dt>
+                            <dt>终端责任人统计</dt>
+                            <dd><a href="/">有责任人<span>15673</span></a></dd>
+                            <dd><a href="/">无责任人<span>234</span></a></dd>
+                        </dl>
+                        <dl className="clear">
+                            <dt>终端规范检查统计<span>3638</span></dt>
                             <dd><a href="/">未检查<span>15673</span></a></dd>
                             <dd><a href="/">成功<span>234</span></a></dd>
-                            <dd><a href="/">失败<span className="badge yellow">15673</span></a></dd>
-                            <dd><a href="/">告警<span className="badge red">234</span></a></dd>
+                        </dl>
+                        <dl className="clear extends-right">
+                            <dt>终端规范检查合格率统计<span>3638</span></dt>
+                            <dd><a href="/">失败<span className="color-yellow">15673</span></a></dd>
+                            <dd><a href="/">告警<span className="color-red">234</span></a></dd>
                         </dl>
 					</div>
                 </div>
