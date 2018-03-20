@@ -40,15 +40,18 @@ class SidebarUI extends Component {
 	            <nav>
 					<div className="sidebar-toggle" onClick={this.toggleEvent}><i className="icon-menu"></i></div>
 	                <ul className="navigate">
-	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-home"></i><span className="text">首页</span></Link></li>
+	                    <li className="nav-item"><Link to="/home" className="nav-link"><i className="icon-home"></i><span className="text">首页</span></Link>
+							<ul className="sub-nav">
+								<li className="nav-item"><Link to="/index" className="nav-link">首页 1</Link></li>
+	                        </ul>
+						</li>
 	                    <li className="nav-item"><Link to="/ou" className="nav-link"><i className="icon-organization"></i><span className="text">部门列表</span><span className="arrow"></span></Link></li>
 						<li className="nav-item"><Link to="/term" className="nav-link"><i className="icon-screen-desktop"></i><span className="text">终端列表</span><span className="arrow"></span></Link></li>
 						<li className="nav-item"><Link to="/admin" className="nav-link"><i className="icon-user"></i><span className="text">管理员列表</span><span className="arrow"></span></Link></li>
-						<li className="nav-item"><Link to="/termview2" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图1</span><span className="arrow"></span></Link></li>
-	                    <li className="nav-item open"><Link to="/termview" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图2</span><span className="arrow"></span></Link>
+	                    <li className="nav-item open"><Link to="/termview" className="nav-link"><i className="icon-pie-chart"></i><span className="text">统计视图</span><span className="arrow"></span></Link>
 	                        <ul className="sub-nav">
 	                            <li className="nav-item"><Link to="/termview" className="nav-link">终端视图</Link></li>
-	                            <li className="nav-item"><Link to="/termview2" className="nav-link">终端视图2</Link></li>
+	                            <li className="nav-item"><Link to="/index" className="nav-link">终端视图2</Link></li>
 	                            <li className="nav-item"><Link to="/home" className="nav-link">网终拓扑图</Link></li>
 	                            <li className="nav-item"><Link to="/home" className="nav-link">物理位置</Link></li>
 	                        </ul>
