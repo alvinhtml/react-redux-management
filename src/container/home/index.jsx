@@ -238,8 +238,28 @@ class IndexUI extends Component {
 				</div>
 
                 <div className="row home-row-block">
-                    <div className="home-block col-grid6">0</div>
-                    <div className="home-block col-grid6">1</div>
+                    <div className="home-block col-grid12">
+                        <div className="row">
+                            <div className="col-grid12">
+                                <ul className="sinfo-list">
+                                    <li><span className="label">型号：</span><span className="text"><em>NAM2000</em></span></li>
+                                    <li><span className="label">软件版本：</span><span className="text"><em>10.5.2046</em> <a href="/admin/setting/upgrade" title="升级"><i className="icon-wrench"></i></a></span></li>
+                                    <li><span className="label">发布时间：</span><span className="text"><em>--</em></span></li>
+                                    <li><span className="label">序列号：</span><span className="text"><em>NAM0020000000001</em></span></li>
+                                    <li><span className="label">特征码：</span><span className="text"><em>4d136a83</em></span></li>
+                                </ul>
+                            </div>
+                            <div className="col-grid12">
+                                <ul className="sinfo-list">
+                                    <li><span className="label">系统时间：</span><span className="text"><em id="systime" data-time="1522309310">2018-03-29 15:43:42</em>&nbsp; <a href="/admin/setting/time" title="修改时间"><i className="icon-wrench"></i></a></span></li>
+                                    <li><span className="label">运行时间：</span><span className="text" id="nettime"><em>34</em> 天 <em>01</em> 小时 <em>02</em> 分 </span>&nbsp; <a href="/admin/setting/reboot" title="重启"><i className="icon-wrench"></i></a></li>
+                                    <li><span className="label">接收/发送数据：</span><span className="text" id="getdata"><em> 0.650 KB</em> </span>/ <span className="text" id="postdata"><em> 1.670 KB</em> <a href="/admin/home/flowchart" title="流量趋势图"><i className="icon-link"></i></a></span></li>
+                                    <li><span className="label">双机热备状态：</span><span className="text" id=""><em>单机</em></span></li>
+                                    <li><span className="label">自身IP：</span><span className="text" id=""><em>192.168.1.129</em></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div className="home-block col-grid6">
                         <div className="t-r-w-box">
                             <span className="t-r-w-icon bg-red"><i className="icon-bell"></i></span>
@@ -272,6 +292,11 @@ class IndexUI extends Component {
 
                 <div className="row home-row-block">
                     <div className="col-grid6">
+                        <div className="license-box row">
+                            <div className="col-span4"><span className="license bg-green"><i className="fa fa-fax"></i></span></div>
+                            <div className="col-span4"><span className="license bg-yellow"><i className="fa fa-users"></i></span></div>
+                            <div className="col-span4"><span className="license bg-red"><i className="fa fa-desktop"></i></span></div>
+                        </div>
                         <ul className="net-resources">
                             <li>
                                 <div className="left-icon bg-green"><i className="fa fa-desktop"></i></div>

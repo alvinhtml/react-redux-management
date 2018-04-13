@@ -122,12 +122,13 @@ a:hover { color: #50d2fa; }
 
 .error-message { color: #fa5a64; font-size: 14px; }
 
-@keyframes move {  0% {
- background-position: 0 0px, 0px center;
-}
- 100% {
- background-position: 0 826px, 800px center;
-}
+@keyframes move {
+	0% {
+	 	background-position: 0 0px, 0px center;
+	}
+ 	100% {
+ 		background-position: 0 826px, 800px center;
+	}
 }
 
 
@@ -771,8 +772,8 @@ table.moving th.row-last {
 .t-l-block-6 li .left-icon {
     width: 60px;
     float: left;
-    line-height: 48px;
-    height: 48px;
+    line-height: 60px;
+    height: 60px;
     font-size: 28px;
 	text-align: center;
 }
@@ -780,8 +781,8 @@ table.moving th.row-last {
 .t-l-block-6 li .left-text {
 	width: 100px;
     float: left;
-    line-height: 48px;
-    height: 48px;
+    line-height: 60px;
+    height: 60px;
 	text-align: left;
 }
 .t-l-block-6 li .right-text {
@@ -891,19 +892,32 @@ table.moving th.row-last {
 .server-status-list li .s-switch::before { content: ''; display: block; width: 16px; height: 16px; border-radius: 8px; position: absolute; top: 1px; right: 1px; background-color: #fff; }
 .server-status-list li .s-switch.off::before,.server-status-list li .s-switch.error::before { right: auto; left: 1px;}
 
+
+.sinfo-list { padding: 20px 0; line-height: 42px;}
+.sinfo-list .label { width: 106px; display: inline-block;  vertical-align: middle; text-align: right;}
+.sinfo-list em { font-size: 16px; color: #00B5AD; font-style: normal; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.sinfo-list a { color: #bbb; display: none;}
+.sinfo-list li:hover a { color: #6ECFF5; display: inline;}
+.sinfo-list a.ha_peerip { color: #00B5AD; display: inline-block;}
+.sinfo-list li:hover a.ha_peerip { color: #6ECFF5; display: inline-block;}
+.license-circle { display: inline-block; }
+
+.license-box { background-color: #f4f6f9; padding: 12px 0; height: 56px; margin-bottom: 10px; text-align: center;}
+.license { display: inline-block; width: 56px; height: 56px; border-radius: 50%;  line-height: 56px; font-size: 24px; color: #fff; }
+
 /*==================================
             Animate
  =================================*/
-.animate-in-out {
-    -webkit-transform: all 0.3 ease-in-out;
-    -ms-transform: all 0.3 ease-in-out;
-    transform: all 0.3 ease-in-out;
-}
-.animate-in-out:hover {
-    -webkit-transform: all 0.3 ease-in-out;
-    -ms-transform: all 0.3 ease-in-out;
-    transform: all 0.3 ease-in-out;
-}
+ .animate-in-out {
+     -webkit-transition: all 0.3s ease-in-out;
+     -ms-transition: all 0.3s ease-in-out;
+     transition: all 0.3s ease-in-out;
+ }
+ .animate-in-out:hover {
+     -webkit-transition: all 0.3s ease-in-out;
+     -ms-transition: all 0.3s ease-in-out;
+     transition: all 0.3s ease-in-out;
+ }
 
 .ilink, .ilinks a { position: relative; }
 .ilink::before, .ilinks a::before {
