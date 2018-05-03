@@ -1,6 +1,7 @@
 //引入action类型常量名
 import {
     UPDATE_LIST_CONFIGS,
+    UPDATE_LIST_FILTRATE,
     CHANGE_LIST_CHECKBOX,
     GET_TERM_LIST,
     GET_TERM_INFO,
@@ -24,6 +25,66 @@ const termlistInitialState = {
     list: [], //列表数据
     info: null, //单条管理员信息(用于查看和编辑)
     count: 0, //列表总条数
+    filtrate: {}, //筛选条件 {os: 'window 10'}
+    filtrateData: {
+        online: [{
+            text: '全部',
+            value: 'all',
+            total: 0,
+            color: 'blue'
+        },{
+            text: '在线',
+            value: 'online',
+            total: 0,
+            color: 'blue'
+        },{
+            text: '离线',
+            value: 'unonline',
+            total: 0,
+            color: 'blue'
+        }],
+        os: [{
+            text: '全部',
+            value: 'all',
+            total: 0,
+            color: 'blue'
+        },{
+            text: 'window xp',
+            value: 'window xp',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'window 7',
+            value: 'window 7',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'window 8',
+            value: 'window 8',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'window 10',
+            value: 'window 10',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'mac os',
+            value: 'mac os',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'ios',
+            value: 'ios',
+            total: 99,
+            color: 'blue'
+        },{
+            text: 'android',
+            value: 'android',
+            total: 99,
+            color: 'blue'
+        }]
+    }, //筛选条件下拉选项 {os: [{ text: 'window 10', value: 'window 10', total: 99, color: 'blue' }]}
     //列表配置
     configs:{
         listPath: 'termlist',
@@ -137,6 +198,9 @@ export function termlist(state = termlistInitialState, action) {
         case UPDATE_LIST_CONFIGS:
             let configs = {...state.configs, ...action.payload}
             return {...state, ...{configs}}
+        case UPDATE_LIST_FILTRATE:
+            let filtrate = {...state.filtrate, ...action.payload}
+            return {...state, ...{filtrate}}
         case CHANGE_LIST_CHECKBOX:
             let list = [...action.payload]
             return {...state, list:[...list]}

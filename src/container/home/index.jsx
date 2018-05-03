@@ -45,82 +45,82 @@ class IndexUI extends Component {
     }
     componentDidMount() {
         //告警事件统计
-        const warningChart = echarts.init(document.getElementById('warningChart'));
-        let warningOption = {
-            color: ['#ffffff'],
-            textStyle: {
-                color: '#ffffff',
-                fontSize: 14
-            },
-            tooltip : {
-                trigger: 'axis',
-                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            grid: {
-                // show: true,
-                top: 0,
-                left: 0,
-                right: '70',
-                bottom: 0,
-                containLabel: true
-            },
-            xAxis: {
-                show: true,
-                type: 'value',
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color:'#fff',
-                    }
-                },
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        type: 'dashed',
-                        color: '#ffffff'
-                    },
-                },
-                nameTextStyle: {
-                    fontSize: 14
-                }
-            },
-            yAxis: {
-                type: 'category',
-                data: ['无效终端', '终端规范检查失败', 'IP-MAC绑定与规定不符', 'NETBIOS名与规定不符', '主机名与规定不符', '客户端主动退网'],
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color:'#fff',
-                    }
-                },
-                axisTick: {
-                    show: true
-                },
-                splitLine: {
-                    show: false
-                },
-                nameTextStyle: {
-                    fontSize: 14
-                }
-            },
-            series : [
-                {
-                    name:'告警数量',
-                    type:'bar',
-                    barWidth: '20%',
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'right'
-                        }
-                    },
-                    data:[138, 52, 200, 334, 390, 330]
-                }
-            ]
-        }
-        warningChart.setOption(warningOption)
+        // const warningChart = echarts.init(document.getElementById('warningChart'));
+        // let warningOption = {
+        //     color: ['#ffffff'],
+        //     textStyle: {
+        //         color: '#ffffff',
+        //         fontSize: 14
+        //     },
+        //     tooltip : {
+        //         trigger: 'axis',
+        //         axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+        //             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        //         }
+        //     },
+        //     grid: {
+        //         // show: true,
+        //         top: 0,
+        //         left: 0,
+        //         right: '70',
+        //         bottom: 0,
+        //         containLabel: true
+        //     },
+        //     xAxis: {
+        //         show: true,
+        //         type: 'value',
+        //         axisLine: {
+        //             show: true,
+        //             lineStyle: {
+        //                 color:'#fff',
+        //             }
+        //         },
+        //         splitLine: {
+        //             show: true,
+        //             lineStyle: {
+        //                 type: 'dashed',
+        //                 color: '#ffffff'
+        //             },
+        //         },
+        //         nameTextStyle: {
+        //             fontSize: 14
+        //         }
+        //     },
+        //     yAxis: {
+        //         type: 'category',
+        //         data: ['无效终端', '终端规范检查失败', 'IP-MAC绑定与规定不符', 'NETBIOS名与规定不符', '主机名与规定不符', '客户端主动退网'],
+        //         axisLine: {
+        //             show: true,
+        //             lineStyle: {
+        //                 color:'#fff',
+        //             }
+        //         },
+        //         axisTick: {
+        //             show: true
+        //         },
+        //         splitLine: {
+        //             show: false
+        //         },
+        //         nameTextStyle: {
+        //             fontSize: 14
+        //         }
+        //     },
+        //     series : [
+        //         {
+        //             name:'告警数量',
+        //             type:'bar',
+        //             barWidth: '20%',
+        //             label: {
+        //                 normal: {
+        //                     show: true,
+        //                     position: 'right'
+        //                 }
+        //             },
+        //             data:[138, 52, 200, 334, 390, 330]
+        //         }
+        //     ]
+        // }
+        // warningChart.setOption(warningOption)
     }
 
     render() {
@@ -411,7 +411,19 @@ class IndexUI extends Component {
                 </div>
                 <div className="row home-row-block">
                     <div className="col-grid12 home-block">
-                        2
+                        <dl className="clear type_count_toggle" data-count="2174">
+                            <dt>用户设备 <span className="badge blue">2174</span></dt>
+                            <dd data-val="DEFAULT_TT_USER_PC" className=" type_count_toggle" data-count="2"><span className="icon-type-DEFAULT_TT_USER_PC">个人电脑</span><em className="badge red">2</em></dd>
+                            <dd data-val="DEFAULT_TT_USER_BYOD" className=" type_count_toggle" data-count="5"><span className="icon-type-DEFAULT_TT_USER_BYOD">移动终端</span><em className="badge red">5</em></dd>
+                        </dl>
+                        <dl className="clear type_count_toggle" data-count="239">
+                            <dt>网络设备 <span className="badge blue">239</span></dt>
+                            <dd data-val="DEFAULT_TT_NAS_ROUTER" className=" type_count_toggle" data-count="1"><span className="icon-type-DEFAULT_TT_NAS_ROUTER">路由器</span><em className="badge red">137</em></dd>
+                        </dl>
+                        <dl className="clear type_count_toggle" data-count="72">
+                            <dt>其它设备 <span className="badge blue">72</span></dt>
+                            <dd data-val="DEFAULT_TT_UNKNOWN" className=" type_count_toggle" data-count="43"><span className="icon-type-DEFAULT_TT_UNKNOWN">未知终端</span><em className="badge red">43</em></dd>
+                        </dl>
                     </div>
                     <div className="col-grid12 home-block">
                         <div className="row">
@@ -419,7 +431,6 @@ class IndexUI extends Component {
                                 <span className="t-r-w-icon bg-yellow"><i className="icon-envelope"></i></span>
                                 <span className="t-r-w-total">6</span>
                             </div>
-
                         </div>
                         <div className="row">
                             <ul className="t-r-w-list col-span6">

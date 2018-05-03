@@ -15,12 +15,13 @@ import {Alert, Confirm} from '../../components/modal'
 import {Radios, Radio} from '../../components/radios'
 
 //引入组件
-import {Crumbs, PageList, Searcher, Configer, Theader, Tbodyer, Arraylist, FetchButton} from '../../components/common'
+import {Crumbs, PageList, TermSearcher, Filtrate, Configer, Theader, Tbodyer, Arraylist, FetchButton} from '../../components/common'
 
 //引入action类型常量名
 import {
 	GET_TERM_LIST,
 	UPDATE_LIST_CONFIGS,
+	UPDATE_LIST_FILTRATE,
 	CHANGE_LIST_CHECKBOX,
 	GET_TERM_INFO,
 	POST_TERM_INFO,
@@ -80,7 +81,7 @@ class TermListUI extends Component {
 	}
 
 	render() {
-		const {tools, actions, list, count, configs} = this.props
+		const {tools, actions, list, count, configs, filtrate, filtrateData} = this.props
 		const {
 			toolsClickEvent,
 			getList,
@@ -123,7 +124,11 @@ class TermListUI extends Component {
                             <Droptool icon="icon-wrench" bgColor="bg-red">
 								<Dropmenu options={tools} clickEvent={toolsClickEvent} />
                             </Droptool>
-                            <Searcher getList={getList} updateConfigs={updateConfigs} configs={configs}></Searcher>
+                            <TermSearcher getList={getList} filtrate={filtrate} updateConfigs={updateConfigs} configs={configs}></TermSearcher>
+							<div className="tools">
+								<Filtrate title="在线状态" getList={getList} filtrateData={filtrateData.online} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
+								<Filtrate title="操作系统" getList={getList} filtrateData={filtrateData.os} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
+							</div>
                         </div>
                         <div className="olist-header-r">
                             <Link data-content="刷新" to="/term/list"  className="tools bg-teal ititle"><i className="icon-refresh"></i></Link>
@@ -133,11 +138,11 @@ class TermListUI extends Component {
                     </div>
 					<div id="listTable" className="olist-main">
                         <table className="olist-table" id="olist_table">
-							<Theader getList={getList} updateConfigs={updateConfigs} list={list} configs={configs}  actions={true} checkEvent={checkEvent} />
+							<Theader getList={getList} filtrate={filtrate} updateConfigs={updateConfigs} list={list} configs={configs}  actions={true} checkEvent={checkEvent} />
                             <Tbodyer updateConfigs={updateConfigs} list={list} configs={configs} actions={this.actions} checkEvent={checkEvent} decorater={this.decorater} />
                         </table>
                     </div>
-					<PageList getList={getList} updateConfigs={updateConfigs} count={parseInt(count)} configs={configs} />
+					<PageList getList={getList} filtrate={filtrate} updateConfigs={updateConfigs} count={parseInt(count)} configs={configs} />
 				</div>
             </div>
 		)
@@ -158,6 +163,8 @@ export const TermList = connect(
 		return {
 			getList: (where) => {
 				dispatch(ActionGet(GET_TERM_LIST, '/api/term/list' ,where, 'termlist'))
+				//更新store配置
+				dispatch(ActionCreator(UPDATE_LIST_FILTRATE, where, 'termlist'))
 			},
 			//更新配置
 			updateConfigs: (configs, isPost) => {

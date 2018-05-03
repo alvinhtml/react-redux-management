@@ -21,6 +21,7 @@ export const LOGOUT = 'LOGOUT'
 
 //list config
 export const UPDATE_LIST_CONFIGS = 'UPDATE_LIST_CONFIGS'
+export const UPDATE_LIST_FILTRATE = 'UPDATE_LIST_FILTRATE'
 
 //list checkbox
 export const CHANGE_LIST_CHECKBOX = 'CHANGE_LIST_CHECKBOX'

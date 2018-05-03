@@ -52,6 +52,7 @@ export class PageList extends Component {
 		}, true)
 
 		let where = {
+			...this.props.filtrate,
 			page
 		}
 		if (this.props.configs.search != '') {
@@ -264,14 +265,19 @@ export class TermSearcher extends Component {
     }
 
     searchSubmitEvent(event) {
+
 		console.log("search", this.state)
+
 		this.props.updateConfigs({
 			...this.props.configs,
 			search: this.state.value
 		}, true)
+
 		this.props.getList({
+			...this.props.filtrate,
 			search: this.state.value
 		})
+
 		this.setState({
 			opened: false,
 			search: this.state.value
@@ -279,48 +285,90 @@ export class TermSearcher extends Component {
     }
 
 	render() {
-
-
 		return (
 			<div className="tools olist-search">
-				<input type="text" className="form-control" onChange={this.handleChange} placeholder="搜索" value={this.state.search} onKeyPress={this.inputEnterEvent} />
-				<div className="search-toggle" onClick={this.openTaggleEvent}><i className="fa fa-angle-down"></i></div>
+				<input type="text" className="search-input" onChange={this.handleChange} placeholder="搜索" value={this.state.search} onKeyPress={this.inputEnterEvent} />
 				<span className="button blue" onClick={this.searchSubmitEvent} type="button"><i className="icon-magnifier"></i></span>
-				<div className="search-where ilinks" style={{display : this.state.opened ? "block" : "none"}}>
-					<span className="search-close animates rotate" onClick={this.openTaggleEvent}>×</span>
-					<dl className="search-where-line clear">
-						<dt>搜索模式：</dt>
-						<dd className="animates active"><span>精确搜索</span></dd>
-						<dd className="animates"><span>模糊搜索</span></dd>
-					</dl>
-					<dl className="search-where-line clear">
-						<dt>在线状态：</dt>
-						<dd className="animates"><span>全部</span><em className="color-blue">225</em></dd>
-						<dd className="animates active"><span>在线</span><em className="color-green">235</em></dd>
-						<dd className="animates"><span>离线</span><em className="color-blue">44</em></dd>
-					</dl>
-					<dl className="search-where-line clear">
-						<dt>告诉状态：</dt>
-						<dd className="animates"><span>全部</span><em className="color-blue">436</em></dd>
-						<dd className="animates"><span>告警</span><em className="color-red">34</em></dd>
-						<dd className="animates active"><span>正常</span><em className="color-green">235</em></dd>
-					</dl>
-					<dl className="search-where-line clear">
-						<dt>客户端：</dt>
-						<dd className="animates active"><span>全部</span><em className="color-blue">7023</em></dd>
-						<dd className="animates"><span>已安装</span><em className="color-green">6087</em></dd>
-						<dd className="animates"><span>未安装</span><em className="color-blue">0</em></dd>
-						<dd className="animates"><span>客户端在线</span><em className="color-blue">2446</em></dd>
-						<dd className="animates"><span>客户端离线</span><em className="color-blue">17</em></dd>
-					</dl>
-					<div className="search-where-footer spaced">
-						<button onClick={this.searchSubmitEvent} className="button teal">含条件搜索</button><button onClick={this.searchSubmitEvent} className="button blue">不含条件搜索</button>
-					</div>
+				<span className="advanced-search-toggle" onClick={this.openTaggleEvent}>高级搜索</span>
+				<div className="advanced-search" style={{display : this.state.opened ? "block" : "none"}}>
+					<label><input type="text" className="advanced-search-input" defaultValue="" /><select name="" id="">
+						<option value="0">全部</option>
+						<option value="1">名称</option>
+						<option value="2">IP</option>
+						<option value="3">MAC</option>
+						<option value="4">操作系统版本</option>
+					</select></label>
+					<label><input type="radio" name="searchmode" /> 精确搜索</label>
+					<label><input type="radio" name="searchmode" /> 模糊搜索</label>
+					<button className="button blue">搜索</button>
+					<span className="search-close" onClick={this.openTaggleEvent}>关闭</span>
 				</div>
 			</div>
         )
 	}
 }
+
+
+/**
+ * 终端筛选
+ */
+export class Filtrate extends Component {
+ 	constructor(props) {
+ 		super(props)
+
+ 		//设置 initial state
+ 		this.state = {
+ 			opened: false,
+			text: '全部',
+			total: 0,
+			color: 'blue'
+ 		}
+
+ 		//ES6 类中函数必须手动绑定
+ 		this.handleClick = this.handleClick.bind(this)
+ 	}
+
+ 	handleClick(event) {
+ 		this.setState({
+ 			opened: !this.state.opened
+ 		})
+ 	}
+
+	clickEvent(value, text, total, color) {
+		this.setState({
+			opend: true,
+			text,
+			total,
+			color
+		})
+		this.props.getList({
+			page: 1,
+
+		})
+	}
+
+ 	render() {
+ 		const totalDom = this.state.text !== '全部' ? <span className={'badge ' + this.state.color}>{this.state.total}</span> : ''
+
+		const lists = this.props.filtrateData.map((v, i) => {
+			return <li key={i} data-value="online" onClick={() => this.clickEvent(v.value, v.text, v.total, v.color)}><a>{v.text} <span className="badge blue">{v.total}</span></a></li>
+		})
+
+		return (
+ 			<div className={this.state.opened ? 'dropdown list-filtrate open' : 'dropdown list-filtrate'}>
+ 				<div className="dropdown-toggler" onClick={this.handleClick}>
+					<span className="filtrate-label">{this.props.title} <i className="fa fa-angle-down"></i></span>
+					<span className="filtrate-text">{this.state.text} {totalDom}</span>
+				</div>
+ 				<div className="dropdown-main dropdown-dark dropdown-menu">
+					<ul>
+						{lists}
+                    </ul>
+ 				</div>
+ 			</div>
+ 		)
+ 	}
+ }
 
 
 
@@ -458,6 +506,7 @@ export class Theader extends Component {
 			order
 		}, true)
 		this.props.getList({
+			...this.props.filtrate,
 			page: 1,
 			order: order[0] + ',' + order[1]
 		})
