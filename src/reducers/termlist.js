@@ -30,59 +30,59 @@ const termlistInitialState = {
         online: [{
             text: '全部',
             value: 'all',
-            total: 0,
+            total: 200,
             color: 'blue'
         },{
             text: '在线',
             value: 'online',
-            total: 0,
-            color: 'blue'
+            total: 126,
+            color: 'green'
         },{
             text: '离线',
             value: 'unonline',
-            total: 0,
+            total: 74,
             color: 'blue'
         }],
         os: [{
             text: '全部',
             value: 'all',
-            total: 0,
+            total: 200,
             color: 'blue'
         },{
             text: 'window xp',
             value: 'window xp',
-            total: 99,
+            total: 234,
             color: 'blue'
         },{
             text: 'window 7',
             value: 'window 7',
-            total: 99,
+            total: 13,
             color: 'blue'
         },{
             text: 'window 8',
             value: 'window 8',
-            total: 99,
+            total: 2345,
             color: 'blue'
         },{
             text: 'window 10',
             value: 'window 10',
-            total: 99,
+            total: 23,
             color: 'blue'
         },{
             text: 'mac os',
             value: 'mac os',
-            total: 99,
-            color: 'blue'
+            total: 23,
+            color: 'orange'
         },{
             text: 'ios',
             value: 'ios',
-            total: 99,
-            color: 'blue'
+            total: 1272,
+            color: 'yellow'
         },{
             text: 'android',
             value: 'android',
-            total: 99,
-            color: 'blue'
+            total: 12,
+            color: 'yellow'
         }]
     }, //筛选条件下拉选项 {os: [{ text: 'window 10', value: 'window 10', total: 99, color: 'blue' }]}
     //列表配置

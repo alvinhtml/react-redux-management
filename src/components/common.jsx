@@ -310,7 +310,7 @@ export class TermSearcher extends Component {
 
 
 /**
- * 终端筛选
+ * 筛选
  */
 export class Filtrate extends Component {
  	constructor(props) {
@@ -326,7 +326,18 @@ export class Filtrate extends Component {
 
  		//ES6 类中函数必须手动绑定
  		this.handleClick = this.handleClick.bind(this)
+ 		this.mouseupCallback = this.mouseupCallback.bind(this)
+		document.addEventListener('mouseup', this.mouseupCallback)
  	}
+	componentWillUnmount() {
+		document.removeEventListener('mouseup', this.mouseupCallback)
+	}
+
+	mouseupCallback(e) {
+		this.setState({
+			opened: false
+		})
+	}
 
  	handleClick(event) {
  		this.setState({
@@ -341,17 +352,23 @@ export class Filtrate extends Component {
 			total,
 			color
 		})
-		this.props.getList({
+		let where = {
 			page: 1,
-
-		})
+			...this.props.filtrate
+		}
+		if (value === 'all') {
+			delete where[this.props.name]
+		} else {
+			where[this.props.name] = value
+		}
+		this.props.getList(where)
 	}
 
  	render() {
  		const totalDom = this.state.text !== '全部' ? <span className={'badge ' + this.state.color}>{this.state.total}</span> : ''
 
 		const lists = this.props.filtrateData.map((v, i) => {
-			return <li key={i} data-value="online" onClick={() => this.clickEvent(v.value, v.text, v.total, v.color)}><a>{v.text} <span className="badge blue">{v.total}</span></a></li>
+			return <li key={i} data-value="online" onClick={() => this.clickEvent(v.value, v.text, v.total, v.color)}><a>{v.text}<span className={'badge ' + v.color}>{v.total}</span></a></li>
 		})
 
 		return (

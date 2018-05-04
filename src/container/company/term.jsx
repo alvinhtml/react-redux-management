@@ -126,8 +126,8 @@ class TermListUI extends Component {
                             </Droptool>
                             <TermSearcher getList={getList} filtrate={filtrate} updateConfigs={updateConfigs} configs={configs}></TermSearcher>
 							<div className="tools">
-								<Filtrate title="在线状态" getList={getList} filtrateData={filtrateData.online} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
-								<Filtrate title="操作系统" getList={getList} filtrateData={filtrateData.os} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
+								<Filtrate title="在线状态" name='online' getList={getList} filtrateData={filtrateData.online} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
+								<Filtrate title="操作系统" name='os' getList={getList} filtrateData={filtrateData.os} filtrate={filtrate}  updateConfigs={updateConfigs} configs={configs} />
 							</div>
                         </div>
                         <div className="olist-header-r">
@@ -162,6 +162,7 @@ export const TermList = connect(
 
 		return {
 			getList: (where) => {
+				console.log(where);
 				dispatch(ActionGet(GET_TERM_LIST, '/api/term/list' ,where, 'termlist'))
 				//更新store配置
 				dispatch(ActionCreator(UPDATE_LIST_FILTRATE, where, 'termlist'))
